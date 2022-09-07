@@ -17,7 +17,7 @@ This repository contains all the exercises and assessments of the UC Laboratóri
 Notes that I take during theoretical lectures in Markdown <br>
 
 ### Exercises
-
+Varied exercises of easy, medium and difficult level, about the subject taught in the present week. They complement the weekly work developed during the practical classes.
 
 **@ Fábio Araújo de Sá** <br>
 **2022/2023**
