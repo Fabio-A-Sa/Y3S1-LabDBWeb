@@ -4,7 +4,7 @@
 
 ## 1.1 Project Presentation [A1]
 
-
+Introduz o contexto e a motivação para o projecto. Descreve brevemente o sistema web a desenvolver, bem como os objectivos do projecto, uma listagem das principais funcionalidades que suportará e os grupos de acesso. Estes últimos são os utilizadores, administradores, que têm diferentes permissões dentro dos sistemas.
 
 ## 1.2 Actors [A2]
 
