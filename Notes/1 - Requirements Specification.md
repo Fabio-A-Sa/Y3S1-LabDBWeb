@@ -10,7 +10,9 @@ Introduz o contexto e a motivação para o projecto. Descreve brevemente o siste
 
 São baseados nos requisitos funcionais. Cada grupo de acesso ou identidade externa ao serviço tem diferentes permissões e por isso são representados por diferentes atores, podendo haver generalizações. Os atores são sempre externos ao serviço.
 
-<img src="../Images/Actors.png" alt="Actors" title="Actors" align="center" />
+<p align="center">
+    <img src="../Images/Actors.png" alt="Actors" title="Actors" />
+</p>
 <p align="center">Figura 1: Exemplo de atores do sistema</p>
 
 Os atores devem ser sempre descritos de acordo com uma tabela:
@@ -28,5 +30,22 @@ Os atores devem ser sempre descritos de acordo com uma tabela:
 
 ## 1.3 User Stories [A2]
 
+É uma definição de alto nível que contém somente as informações necessárias para que o desenvolvedor estimar o esforço que o requisito deverá trazer à implementação e a prioridade deste no projecto a desenvolver. É uma breve descrição, sob o ponto de vista de cada Actor, do que este poderá fazer no sistema.
+As user stories devem seguir o template:
+
+```gherkin
+As a [user], I want [function], so that [value]
+```
+
+| Identifier |        Name       | Priority |                                                                      Description                                                                     |
+|:----------:|:-----------------:|:--------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|
+| US01       | Sign-in           | high     | As a Visitor, I want to authenticate into the system, so that I can access privileged information                                                    |
+| US02       | Sign-up           | high     | As a Visitor, I want to register myself into the system, so that I can authenticate myself into the system                                           |
+| US03       | OAuth API Sign-up | low      | As a Visitor, I want to register a new account linked to my Google account, so that I do not need to create a whole new account to use the platform  |
+| US04       | OAuth API Sign-in | low      | As a Visitor, I want to sign-in through my Google account, so that I can authenticate myself into the system                                         |
+
+<p align="center">Tabela 2: Visitor User Stories</p>
+
+## 1.4 Suplementary Requirements [A2]
 
 
