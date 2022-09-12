@@ -30,7 +30,7 @@ Os atores devem ser sempre descritos de acordo com uma tabela:
 
 ## 1.3 User Stories [A2]
 
-É uma definição de alto nível que contém somente as informações necessárias para que o desenvolvedor estimar o esforço que o requisito deverá trazer à implementação e a prioridade deste no projecto a desenvolver. É uma breve descrição, sob o ponto de vista de cada Actor, do que este poderá fazer no sistema.
+É uma definição de alto nível que contém somente as informações necessárias para que o desenvolvedor estimar o esforço que o requisito deverá trazer à implementação e a prioridade deste no projecto a desenvolver. É uma breve descrição, sob o ponto de vista de cada Actor, do que este poderá fazer no sistema. <br>
 As user stories devem seguir o template:
 
 ```gherkin
@@ -47,5 +47,17 @@ As a [user], I want [function], so that [value]
 <p align="center">Tabela 2: Visitor User Stories</p>
 
 ## 1.4 Suplementary Requirements [A2]
+
+Secção que contém as regras do sistema, os requisitos técnicnicos e outros requisitos não funcionais do projecto.
+
+### 1.4.1 - Business Rules
+
+
+
+### 1.4.2 - Technical Requirements
+
+
+
+### 1.4.3 - Restrictions
 
 
