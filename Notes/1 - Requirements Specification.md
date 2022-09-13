@@ -52,12 +52,19 @@ Secção que contém as regras do sistema, os requisitos técnicnicos e outros r
 
 ### 1.4.1 - Business Rules
 
+Geramente complementam os requisitos de uso ou interface do utilizador e explica o funcionamento da aplicação sob o ponto de vista prático. Exemplos:
 
+```text
+- The return date must be greater than the loan date for one item that has not yet been returned;
+- The history of an item must be maintained even if the item is deleted in order not to lose the loan record for all items;
+- Only a user from the same location of the creator of the item (Owner) can lend or register its return;
+```
 
 ### 1.4.2 - Technical Requirements
 
-
+Avaliação sob o ponto de vista da disponibilidade, acessibilidade, usabilidade, performence, web application, portabilidade, base de dados, segurança, robustez, estalabilidade e ética. <br>
+Os três principais requisitos técnicos devem ser destacados e justificados. 
 
 ### 1.4.3 - Restrictions
 
-
+Limita o grau de liberdade na busca de uma solução para o projecto. É uma deadline que deve ser tida em mente para avaliar os requisitos a implementar de acordo com o esforço e prioridade.
