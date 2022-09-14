@@ -79,6 +79,17 @@ Requer equipas multidisciplinares, como designers, software developers, UX engin
 
 Representa a relação entre os elementos da informação, como páginas, e podem ser usadas também como navegação e labeling systems. Resultam muitas vezes de um processo de design top-down. 
 
+<p align="center">
+    <img src="../Images/Sitemap.png" alt="sitemap scheme">
+    <p align="center">Figura 2: Sitemap</p>
+</p>
+
+
 ### 2.3.2 - Wireframes
 
 Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. 
+
+<p align="center">
+    <img src="../Images/Wireframe.png" alt="wireframe scheme">
+    <p align="center">Figura 3: Wireframe</p>
+</p>
