@@ -84,7 +84,6 @@ Representa a relação entre os elementos da informação, como páginas, e pode
     <p align="center">Figura 2: Sitemap</p>
 </p>
 
-
 ### 2.3.2 - Wireframes
 
 Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. 
@@ -92,4 +91,13 @@ Perspectiva funcional da página. Representa e categoriza a localização, as p�
 <p align="center">
     <img src="../Images/Wireframe.png" alt="wireframe scheme">
     <p align="center">Figura 3: Wireframe</p>
+</p>
+
+### 2.3.3 - Wireflows
+
+Documenta o fluxo de informação através da interação com o utilizador. Muito útil quando o conteúdo das páginas muda dinamicamente. 
+
+<p align="center">
+    <img src="../Images/Wireflow.png" alt="wireflow scheme">
+    <p align="center">Figura 4: Wireflow</p>
 </p>
