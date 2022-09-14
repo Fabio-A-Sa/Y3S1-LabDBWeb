@@ -71,3 +71,14 @@ Requer equipas multidisciplinares, como designers, software developers, UX engin
 3. **Implement**, soluções para desenhar as especificações;
 4. **Evaluate**, para melhorar o produto ao longo do seu ciclo de vida;
 
+## 2.3 - Information Architecture Deliverables
+
+É o resultado de todo o processo de pesquisa para melhorar a apresentação da informação. 
+
+### 2.3.1 - Sitemaps
+
+Representa a relação entre os elementos da informação, como páginas, e podem ser usadas também como navegação e labeling systems. Resultam muitas vezes de um processo de design top-down. 
+
+### 2.3.2 - Wireframes
+
+Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. 
