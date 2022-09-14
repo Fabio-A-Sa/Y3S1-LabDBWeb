@@ -1,4 +1,4 @@
-# 2 - Information Architecture [A3]
+# 2 - Information Architecture
 
 Estruturação da informação que cada vez é mais e mais dispersa em diversas plataformas com base em patterns, para tornar interações dentro do sistema mais claras para os desenvolvedores e próprios clientes. <br>
 Requer noções de usabilidade, design, ciência da informação, user experience (UX) e é da responsabilidade desta área:
@@ -75,18 +75,18 @@ Requer equipas multidisciplinares, como designers, software developers, UX engin
 
 É o resultado de todo o processo de pesquisa para melhorar a apresentação da informação. 
 
-### 2.3.1 - Sitemaps
+### 2.3.1 - Sitemaps [A3]
 
-Representa a relação entre os elementos da informação, como páginas, e podem ser usadas também como navegação e labeling systems. Resultam muitas vezes de um processo de design top-down. 
+Representa a relação entre os elementos da informação, como páginas, e podem ser usadas também como navegação e labeling systems. Resultam muitas vezes de um processo de design top-down. Cada página deve ter um identificador, UIXX, e agrupadas em static, admin, user and item pages.
 
 <p align="center">
     <img src="../Images/Sitemap.png" alt="sitemap scheme">
     <p align="center">Figura 2: Sitemap</p>
 </p>
 
-### 2.3.2 - Wireframes
+### 2.3.2 - Wireframes [A3]
 
-Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. 
+Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. Para o trabalho, é necessário desenhar no mínimo duas páginas: a página inicial e a página de um produto singular. Não esquecer da legenda de cada parte. 
 
 <p align="center">
     <img src="../Images/Wireframe.png" alt="wireframe scheme">
@@ -95,7 +95,7 @@ Perspectiva funcional da página. Representa e categoriza a localização, as p�
 
 ### 2.3.3 - Wireflows
 
-Documenta o fluxo de informação através da interação com o utilizador. Muito útil quando o conteúdo das páginas muda dinamicamente. 
+Documenta o fluxo de informação através da interação com o utilizador. Muito útil quando o conteúdo das páginas muda dinamicamente. Não irá ser necessário implementar wireflows na entrega A3.
 
 <p align="center">
     <img src="../Images/Wireflow.png" alt="wireflow scheme">
