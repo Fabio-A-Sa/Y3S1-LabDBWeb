@@ -45,7 +45,7 @@ Suporta a navegação com bae numa associação de conceitos que existem no cont
 
 <p align="center">
     <img src="../Images/NavigationSystems.png" alt="scheme">
-    <p align="center">Figura 1: Global, local and context< p>
+    <p align="center">Figura 1: Global, local and context <p>
 </p>
 
 #### D. Suplementary navigation systems
@@ -62,4 +62,12 @@ Boas práticas de pesquisa:
 - Ordenação dos elementos que aparecem, pelo preço ou relevância;
 - Destacar os termos usados na pesquisa;
 
-## 2.2 - 
+## 2.2 - Information Architecture Process
+
+Requer equipas multidisciplinares, como designers, software developers, UX engineering. É organizada em quatro atividades gerais:
+
+1. **Research**, entender os utilizadores, o conteúdo e o contexto;
+2. **Design**, especificação da arquitetura da informação, criando detalhados sitemaps por exemplo;
+3. **Implement**, soluções para desenhar as especificações;
+4. **Evaluate**, para melhorar o produto ao longo do seu ciclo de vida;
+
