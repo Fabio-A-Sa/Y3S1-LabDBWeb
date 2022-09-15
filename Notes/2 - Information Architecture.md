@@ -8,3 +8,18 @@ Requer noções de usabilidade, design, ciência da informação, user experienc
 3. Criar ferramentas para os interessados organizarem a informação;
 4. Conectar vários espaços da informação, como  aplicações, plataformas e canais;
 
+## 2.1 - Elementos da Arquitetura da Informação
+
+### 2.1.1 - Organization Systems
+
+
+
+### 2.1.2 - Labeling Systems
+
+
+
+### 2.1.3 - Navigation Systems
+
+
+
+### 2.1.4 - Searching Systems
