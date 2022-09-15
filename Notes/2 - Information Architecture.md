@@ -43,4 +43,9 @@ Complementa o tópico anterior e permite que o utilizador explore e navegue para
 
 Suporta a navegação com bae numa associação de conceitos que existem no conteúdo apresentado. Por exemplo, "see also" ou links relacionados com ítens de diferentes áreas.
 
+<p align="center">
+    <img src="../Images/NavigationSystems.png" alt="scheme">
+    <p align="center">Figura 1: Global, local and context< p>
+</p>
+
 ### 2.1.4 - Searching Systems
