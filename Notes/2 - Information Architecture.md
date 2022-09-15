@@ -25,7 +25,7 @@ Mais difícil de desenhar e manter pois é através da linguagem natural, depend
 
 ### 2.1.2 - Labeling Systems
 
-
+Forma de representação de conceitos e ideias, que podem ser textuais (links, escolhas navegáveis) ou ícones (estes últimos são mais ambíguos). São desenhados com base na informação disponível no ambiente ou através de logs de pesquisa, a análise das keywords e linguagem usada pelos utilizadores.
 
 ### 2.1.3 - Navigation Systems
 
