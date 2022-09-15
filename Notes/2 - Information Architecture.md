@@ -29,6 +29,18 @@ Forma de representação de conceitos e ideias, que podem ser textuais (links, e
 
 ### 2.1.3 - Navigation Systems
 
-Serve para os utilizadores saberem onde estão e para onde poderão seguir e explorar, dando-lhes contexto e controlo sobre o sistema.
+Serve para os utilizadores saberem onde estão e para onde poderão seguir e explorar, dando-lhes contexto e controlo sobre o sistema. Existem três tipos:
+
+#### A. Global navigation systems
+
+Existem em todas as páginas do sistema e são implementadas como a barra de nagetação e menus.
+
+#### B. Local navigation systems
+
+Complementa o tópico anterior e permite que o utilizador explore e navegue para a subsecção mais próxima.
+
+#### C. Contextual navigation systems
+
+Suporta a navegação com bae numa associação de conceitos que existem no conteúdo apresentado. Por exemplo, "see also" ou links relacionados com ítens de diferentes áreas.
 
 ### 2.1.4 - Searching Systems
