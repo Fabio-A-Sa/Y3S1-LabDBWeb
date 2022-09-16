@@ -54,4 +54,12 @@ Externa à hierarquia básica do sistema e providencia formas complementares de 
 
 ### 2.1.4 - Searching Systems
 
-Avançado mecanismo de navegação que aparenta uma simples interface para mascarar o sistema complexo.
+Avançado mecanismo de navegação que aparenta uma simples interface para mascarar o sistema complexo. Pode aplicar filtros à pesquisa inicial (*faceted search*). Exemplos: procura de restaurantes por pratos disponíveis, no mapa, através da localização. <br>
+Boas práticas de pesquisa:
+
+- Suporte ao autocomplete, filtros e operadores como AND OR;
+- Providenciar contexto (nas pesquisar do google aparece o link e uma preview da página);
+- Ordenação dos elementos que aparecem, pelo preço ou relevância;
+- Destacar os termos usados na pesquisa;
+
+## 2.2 - 
