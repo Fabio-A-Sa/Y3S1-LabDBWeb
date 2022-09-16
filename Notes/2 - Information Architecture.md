@@ -48,4 +48,10 @@ Suporta a navegação com bae numa associação de conceitos que existem no cont
     <p align="center">Figura 1: Global, local and context< p>
 </p>
 
+#### D. Suplementary navigation systems
+
+Externa à hierarquia básica do sistema e providencia formas complementares de chegar ao conteúdo desejado. Por exemplo, site indexes/ sitemaps, FAQs, tutoriais e a própria barra de pesquisas.
+
 ### 2.1.4 - Searching Systems
+
+Avançado mecanismo de navegação que aparenta uma simples interface para mascarar o sistema complexo.
