@@ -29,6 +29,3 @@ Usar o servidor `db.fe.up.pt`, disponível na rede da FEUP ou através da VPN. U
 $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d postgres:11.3
 $ docker exec -it some-postgres bash
 ```
-
-
-
