@@ -27,17 +27,18 @@ Indexes para suportar pesquisas e identificação de características mais espec
 
 ### Indexes
 
-Usados para que as pesquisas/relações mais comuns no sistema sejam mais rápidas. Podem ser dos tipos: B-Tree, Hash, GiST, GIN. Quando pode existir uma ordenação é usada a B-Tree para uma pesquisa em tempo logarítmico, enquanto Hash é usado para quando não pode haver uma ordenação (apenas está implementado o operador igual), com tempo constante. Sem indexes, a pesquisa na base de dados é sempre sequencial.
+Usados para que as pesquisas/relações mais comuns no sistema sejam mais rápidas. Podem ser dos tipos: B-Tree, Hash, GiST, GIN. Quando pode existir uma ordenação é usada a B-Tree para uma pesquisa em tempo logarítmico, enquanto Hash é usado para quando não pode haver uma ordenação (apenas está implementado o operador igual), com tempo constante. Sem indexes, a pesquisa na base de dados é sempre sequencial e em muitos casos demora mais tempo.
 
 ```postgres
 CREATE INDEX idx_numeric ON sample(x) USING BTREE(x);
 CREATE INDEX idx_numeric ON sample(x) USING HASH(x);
 ```
 
-No projecto, há um limite de 3 indexes a implementar. É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados, como na função lower().
+No projecto, há um limite de 3 indexes a implementar. É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados, como na função lower() que vemos a seguir:
 
 ```postgres
-SELECT * FROM test1 WHERE  #TODO
+SELECT * FROM test1 WHERE lower(col1) = 'value';
+CREATE INDEX test1_lower_col1_idx ON test1 (lower(col1));
 ```
 
 #### Clustering
