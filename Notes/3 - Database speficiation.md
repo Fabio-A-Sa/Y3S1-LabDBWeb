@@ -60,7 +60,9 @@ Usar o operador `LIKE` não suporta:
 - Não permite pesquisa de várias palavras;
 - Não tem suporte para indexes;
 
-#TODO
+No sistema a desenvolver, convém ver projectar um documento onde a pesquisa em texto (parcial ou total) deve ser significativa. Na OnlyFEUP usaremos os posts e os comentários associados. 
+
+
 
 ### PostgreSQL
 
