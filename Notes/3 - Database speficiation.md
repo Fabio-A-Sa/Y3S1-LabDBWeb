@@ -62,6 +62,37 @@ Usar o operador `LIKE` não suporta:
 
 No sistema a desenvolver, convém ver projectar um documento onde a pesquisa em texto (parcial ou total) deve ser significativa. Na OnlyFEUP usaremos os posts e os comentários associados. 
 
+##### tsvector
+
+Um vector que faz store a lexemas distintos:
+
+```postgres
+SELECT to_tsvector('english', 'The quick brown fox jumps over the lazy dog')
+'brown':3 'dog':9 'fox':4 'jump':5 'lazi':8 'quick':2
+```
+
+##### tsquery
+
+Uma estrutura otimizada para procurar em tsvectors
+
+```postgres
+SELECT plainto_tsquery('portuguese','o velho barco');
+'velh' & 'barc'
+```
+
+##### Weights
+
+Dá para adicionar pesos às pesquisas. Por exemplo, um match num post será mais importante que um match num comentário. Os valores podem variar de 'A' a 'D' e declaram-se da seguinte forma:
+
+```postgres
+SELECT
+setweight(to_tsvector('english', 'The quick brown fox jumps over the lazy dog'), 'A') ||
+setweight(to_tsvector('english', 'An English language pangram. A sentence that contains
+all of the letters of the alphabet.'), 'B')
+```
+
+##### Queries
+
 
 
 ### PostgreSQL
