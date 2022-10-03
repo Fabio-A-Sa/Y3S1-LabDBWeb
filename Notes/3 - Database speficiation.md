@@ -41,9 +41,11 @@ SELECT * FROM test1 WHERE lower(col1) = 'value';
 CREATE INDEX test1_lower_col1_idx ON test1 (lower(col1));
 ```
 
+Curiosamente o PostgreSQL cria automaticamente um unique index quando uma restrição "unique" é usada ou quando se declara uma chave primária numa tabela.
+
 #### Clustering
 
-Usado para bases de dados grandes, onde os dados estão no disco e quando existem indexes para agrupar os mesmos.
+Usado para bases de dados grandes, onde os dados estão no disco e quando existem indexes para agrupar os mesmos. É uma one-time operation, logo as alterações efetuadas na tabela não serão clustered a menos que rode periodicamente.
 
 #### Cardinality
 
