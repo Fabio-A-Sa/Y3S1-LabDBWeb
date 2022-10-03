@@ -13,6 +13,14 @@ UML de diagrama de classes que contém os atributos, associações, multiplicida
 Deve incluir atributos, tipos/domínios, chaves primárias e estrangeiras, e restrições: UNIQUE, DEFAULT, NOT NULL, CHECK. As chaves primárias são sublinhadas e as chaves estrangeiras apontam para a tabela de referência. Em PostgreSQL, a convenção é ser tudo em letras minúsculas e nomes de atributos/classes com underscore. <br>
 As dependências devem estar na BCNF, sem redundância e sem anomalias.
 
+### Mapeamento de generalizações
+
+Principalmente quando as generalizações são completas e disjuntas, há três hipóteses para o mapeamento:
+
+- **Superclasse**, onde a classe mais geral contém todos os atributos, alguns até podem ser nulos, e uma enumeração para diferenciar o tipo do objecto;
+- **ER**, onde existe a caracterização de um objecto geral e cada uma das subdivisões. As classes filhas, que contém outros atributos, apontam para a classe que lhes deu origem com uma chave estrangeira;
+- **Object Oriented**, onde apenas as classes filhas são caracterizadas e vários dos atributos são comuns às unidades;
+
 ## Indexes, triggers, transactions and database population [A6]
 
 Indexes para suportar pesquisas e identificação de características mais especificas, triggers para questões de integridade e transações.
