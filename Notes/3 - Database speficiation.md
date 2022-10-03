@@ -93,6 +93,47 @@ all of the letters of the alphabet.'), 'B')
 
 ##### Queries
 
+PostgreSQL permite fazer ranking de funções de pesquisa, de modo a permitir procurar:
+
+- Termos mais comuns que aparecem no documento;
+- Termos mais próximos entre si num mesmo documento;
+- A importância dos termos dependendo do peso que se dá a cada parte do documento;
+
+```postgres
+SELECT title FROM posts
+WHERE search @@ plainto_tsquery('english', 'jumping dog')
+ORDER BY ts_rank(search, plainto_tsquery('english', 'jumping dog')) DESC
+```
+
+Por questões de otimização, a base de dados do documento deverá conter uma coluna onde os FTS serão manipulados, contendo os tsvectors para cada linha. A cada nova inserção ou update, o tsvector deverá ser recalculado segundo o trigger:
+
+```postgres
+CREATE FUNCTION post_search_update() RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.search = to_tsvector('english', NEW.title);
+    END IF;
+    IF TG_OP = 'UPDATE' THEN
+        IF NEW.title <> OLD.title THEN
+            NEW.search = to_tsvector('english', NEW.title);
+        END IF;
+    END IF;
+    RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+```
+
+Por questões de otimização, também dá para criar indexes com as colunas pré-calculadas dos tsvectors. Designando a coluna como search, temos que:
+
+```postgres
+CREATE INDEX search_idx ON posts USING GIN (search);
+CREATE INDEX search_idx ON posts USING GIST (search);
+```
+
+A função GIN é usada para dados que mudam pouco, enquanto que GIST é para dados que são frequentemente updated. Em cada situação são mais rápidos.
+
+#### Triggers
+
 
 
 ### PostgreSQL
