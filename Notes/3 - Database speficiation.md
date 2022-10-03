@@ -132,6 +132,35 @@ CREATE INDEX search_idx ON posts USING GIST (search);
 
 A função GIN é usada para dados que mudam pouco, enquanto que GIST é para dados que são frequentemente updated. Em cada situação são mais rápidos.
 
+#### User-Defined Functions
+
+Funções pré-definidas dentro da base de dados que extendem a funcionalidade da mesma.
+
+1. Vantagens:
+    - Reduz o número de ligações entre a aplicação e o servidor da base de dados, já que os cálculos são efetuados dentro da BD;
+    - Aumenta a performence, já que as funções são pré-compiladas;
+    - Podem ser reusadas em várias aplicações
+
+2. Desvantagens:
+    - O desenvolvimento de software é mais lento, já que poucos têm competências a esse nível;
+    - Mais difícil de manipular versões e mais difícil é fazer debug;
+    - Menos portável, porque cada database management system tem a sua forma de fazer user-defined functions;
+
+Um exemplo prático de funções:
+
+```postgres
+CREATE OR REPLACE FUNCTION totalRecords ()
+RETURNS INTEGER AS $total$
+DECLARE
+ total INTEGER;
+BEGIN
+ SELECT COUNT(*) INTO total FROM company;
+ RETURN total;
+END;
+$total$ LANGUAGE plpgsql;
+SELECT totalRecords();
+```
+
 #### Triggers
 
 
