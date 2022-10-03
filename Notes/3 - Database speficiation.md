@@ -17,6 +17,40 @@ As dependências devem estar na BCNF, sem redundância e sem anomalias.
 
 Indexes para suportar pesquisas e identificação de características mais especificas, triggers para questões de integridade e transações.
 
+### Indexes
+
+Usados para que as pesquisas/relações mais comuns no sistema sejam mais rápidas. Podem ser dos tipos: B-Tree, Hash, GiST, GIN. Quando pode existir uma ordenação é usada a B-Tree para uma pesquisa em tempo logarítmico, enquanto Hash é usado para quando não pode haver uma ordenação (apenas está implementado o operador igual), com tempo constante. Sem indexes, a pesquisa na base de dados é sempre sequencial.
+
+```postgres
+CREATE INDEX idx_numeric ON sample(x) USING BTREE(x);
+CREATE INDEX idx_numeric ON sample(x) USING HASH(x);
+```
+
+No projecto, há um limite de 3 indexes a implementar. É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados, como na função lower().
+
+```postgres
+SELECT * FROM test1 WHERE  #TODO
+```
+
+#### Clustering
+
+Usado para bases de dados grandes, onde os dados estão no disco e quando existem indexes para agrupar os mesmos.
+
+#### Cardinality
+
+Relação com os valores duplicados em colunas. As chaves primárias tem grande cardinalidade, os nomes (primeiro, último) têm média cardinalidade, enquanto os atributos booleanos têm baixa (só permite dois estados).
+
+#### (Full) Text Search
+
+Usar o operador `LIKE` não suporta:
+
+- Singulares e plurais ao mesmo tempo;
+- Dados não ordenados, apenas um conjunto de dadso;
+- Não permite pesquisa de várias palavras;
+- Não tem suporte para indexes;
+
+#TODO
+
 ### PostgreSQL
 
 Usar o servidor `db.fe.up.pt`, disponível na rede da FEUP ou através da VPN. Usar PostgreSQL na versão 11.3.
@@ -29,3 +63,4 @@ Usar o servidor `db.fe.up.pt`, disponível na rede da FEUP ou através da VPN. U
 $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d postgres:11.3
 $ docker exec -it some-postgres bash
 ```
+
