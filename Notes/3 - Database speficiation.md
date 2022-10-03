@@ -163,7 +163,18 @@ SELECT totalRecords();
 
 #### Triggers
 
+Para manter a integridade da base de dados e fazer verificações/updates enquanto ocorre uma inserção, delete ou update numa coluna ou tabela. Exemplo usando a função anterior:
 
+```postgres
+CREATE TRIGGER loan_item
+    BEFORE INSERT OR UPDATE ON loan
+    FOR EACH ROW
+    EXECUTE PROCEDURE loan_item();
+```
+
+#### Transactions
+
+#TODO next class
 
 ### PostgreSQL
 
@@ -177,4 +188,3 @@ Usar o servidor `db.fe.up.pt`, disponível na rede da FEUP ou através da VPN. U
 $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d postgres:11.3
 $ docker exec -it some-postgres bash
 ```
-
