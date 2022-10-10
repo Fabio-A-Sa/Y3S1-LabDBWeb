@@ -174,7 +174,62 @@ CREATE TRIGGER loan_item
 
 #### Transactions
 
-#TODO next class
+Para o projecto, é necessário fazer pelo menos uma transação relacionada à eliminação dos dados, que devem ser mantidos mas sem os dados pessoais do utilizador. Deve ser indicada uma justificação, o nível de isolamento e o código SQL para gerar a transação. Para as generalizações também é necessário haver transações, permite inserir dois tuplos numa operação atómica. Exemplo:
+
+> Notification (id, date)
+> NewFriend (id -> Notification, ...)
+> NewLike (id -> Notification, ...)
+
+As transações são necessárias para:
+
+- garantir uma leitura e escrita paralela (em operações nos bancos, por exemplo);
+- prevenir que uma falha no sistema fique registada na base de dados (falta de inserts, deletes);
+- garantir todas as propriedades ACID;
+
+###### ACID
+
+1. Atomicity - trata comandos como uma operação única;
+2. Consistency - manipulação de bases de dados de forma consistente, excepto erros relacionados com a lógica da aplicação;
+3. Isolation - garante que várias operações em simultâneo são tratadas como se fossem isoladas ou singulares;
+4. Durability - a operação é preservada na base de dados;
+
+### Problemas de concorrência
+
+#### 1 - Dirty Reads
+
+Quando uma transação lê dados que outra transação está a manipular e ainda não gravou (COMMIT;). São feitas leituras de dados não gravados.
+
+#### 2 - Non-repeatable reads
+
+Quando faz duas ou mais leituras do mesmo dado, pois no meio das leituras houve uma atualização do dado por parte de outra transação concorrente.
+
+#### 3 - Phantom reads
+
+Quando há novas linhas da tabela em manipulação. No caso houve novos inserts por uma transação concorrente.
+
+#### 4 - Serialization anomaly
+
+O resultado obtido de manipulação concorrente de transações depende da ordem de implementação.
+
+### Transaction Isolation
+
+Os vários níveis de isolamento permitem lidar com problemas de concorrência e não dar lock à base de dados desnecessariamente, o que podia provocar uma menor capacidade de operações concorrentes.
+
+#### 1 - Read uncommitted
+
+Permite a leitura de dados ainda não guardados, ou seja, permite **dirty reads**
+
+#### 2 - Read committed
+
+Por omissão, é este nível de isolamento que está no PostgreSQL. Garante a leitura de dados já guardados.
+
+#### 3 - Repeatable read
+
+Garante que se fizer duas ou mais leituras, os resultados serão os mesmos. Só permite leituras de dados entre transações que não alteram os dados.
+
+#### 4 - Serializable
+
+Nunca tem acesso a dados não guardados ou modificados após a transação começar a ocorrer. 
 
 ### PostgreSQL
 
