@@ -30,6 +30,8 @@ A World Wide Web foi inventada no CERN em 1989, tem uma arquitetura client-serve
 
 ## Web Applications Architectures
 
+Normalmente a arquitetura está repartida em 3 blocos principais: Presentation (HTML, CSS, Javascript), Business Logic (Javascript, PHP) e Data Management (JavaScript, PHP, PostgreSQL). Cada bloco pode estar do lado do servidor ou do lado do cliente.
+
 ### Static Web Pages
 
 As páginas são construídas no momento do design, enviadas diretamente a partir do servidor. Não há código em execução.
@@ -40,8 +42,27 @@ As páginas são construídas em runtime, quando o cliente faz um request. Manip
 
 ### Multi-Page Web Applications
 
-Em cada request ao servidor há mudança de páginas (reload).
+Em cada request ao servidor há mudança de páginas (reload). 
+
+#### Vantagens
+
+- Permite um estilo REST;
+- É independente do cliente e do browser;
+- Boa parte da lógica é mantida no servidor;
+
+#### Desvantagens
+
+- Menor performence e menor responsividade;
+- O código fica fragmentado;
+- Não há forma de dar updates a uma página aberta;
 
 ### Single Page Web Applications
 
 Apenas há uma página, que faz AJAX requests do servidor. O load inicial pode ser mais demorado devido à quantidade de código javascript necessária na parte do cliente.
+
+#### Vantagens
+
+-
+
+#### Desvantagens
+
