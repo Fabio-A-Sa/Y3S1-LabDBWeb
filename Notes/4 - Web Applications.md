@@ -62,7 +62,12 @@ Apenas há uma página, que faz AJAX requests do servidor. O load inicial pode s
 
 #### Vantagens
 
--
+- Melhor experiência por parte do utilizador;
+- Reduz o consumo de largura de banda;
+- A interface e código do lado do cliente pode ser reutilizado;
 
 #### Desvantagens
 
+- Necessita obrigatoriamente de JavaScript;
+- Aumenta a dependência do browser e não permite browser history;
+- Não permite REST;
