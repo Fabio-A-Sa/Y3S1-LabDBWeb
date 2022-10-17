@@ -38,7 +38,10 @@ As páginas são construídas no momento do design, enviadas diretamente a parti
 
 ### Dynamic Web Pages
 
-As páginas são construídas em runtime, quando o cliente faz um request. Manipuladas com PHP, JavaScript e AJAX. O código está dividido entre o servidor e o browser (cliente).
+As páginas são construídas em runtime, quando o cliente faz um request. Manipuladas com PHP, JavaScript e AJAX. O código está dividido entre o servidor e o browser (cliente). Podem ser:
+
+- `Server-side rendering` (SSR), necessita de várias chamadas ao servidor para interação com o utilizador;
+- `Client-side rendering` (CSR), utilização de javascript para todas as tarefas, não é propriamente uma hypertext application;
 
 ### Multi-Page Web Applications
 
@@ -71,3 +74,8 @@ Apenas há uma página, que faz AJAX requests do servidor. O load inicial pode s
 - Necessita obrigatoriamente de JavaScript;
 - Aumenta a dependência do browser e não permite browser history;
 - Não permite REST;
+
+## Server-side Web Development
+
+Em LBAW as web resources podem ser do tipo View, resultantes de requests ao servidor retornando HTML (GET /view.php?id=2), e Action, com a utilização do servidor para computar algumas tarefas (POST /edit.php ou Ajax com Javascript).
+
