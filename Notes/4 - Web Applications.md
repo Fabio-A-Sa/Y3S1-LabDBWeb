@@ -79,3 +79,55 @@ Apenas há uma página, que faz AJAX requests do servidor. O load inicial pode s
 
 Em LBAW as web resources podem ser do tipo View, resultantes de requests ao servidor retornando HTML (GET /view.php?id=2), e Action, com a utilização do servidor para computar algumas tarefas (POST /edit.php ou Ajax com Javascript).
 
+# Web application specification
+
+A ideia da especificação é servir de base para o desenvolvimento do mochup. Cada página terá as suas UI (user interfaces) e para a montar é necessário recorrer a APIs. 
+
+## OpenAPI
+
+Uma forma simples de apresentar a API de um servidor:
+
+- UIs;
+- Redirects com POST e GET;
+- JSON or HTML returns from webserver;
+
+```api
+openapi: 3.0.0
+info:
+ title: Sample API
+ description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+ version: 0.1.9
+servers:
+ - url: http://api.example.com/v1
+ description: Optional server description, e.g. Main (production) server
+paths:
+/users:
+ get:
+ summary: Returns a list of users.
+ description: Optional extended description in CommonMark or HTML.
+ responses:
+'200': # status code
+ description: A JSON array of user names
+ content:
+application/json:
+ schema:
+ type: array
+ items:
+ type: string
+```
+
+No documento `.yaml` deve existir uma parte dedicada aos metadados, à documentação externa (no nosso caso, um link de retorno à wiki), aos servidores ligados à API, a definição de tags para melhor representar os dados redundantes, paths da API. <br>
+Exemplo da página de login:
+
+```api
+/login:
+ get:
+ operationId: R101
+ summary: 'R101: Login Form'
+ description: 'Provide login form. Access: PUB'
+ tags:
+ - 'M01: Authentication and Individual Profile'
+ responses:
+'200':
+ description: 'Ok. Show log-in UI'
+```
