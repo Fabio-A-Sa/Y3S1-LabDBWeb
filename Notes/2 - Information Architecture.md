@@ -41,7 +41,7 @@ Complementa o tópico anterior e permite que o utilizador explore e navegue para
 
 #### C. Contextual navigation systems
 
-Suporta a navegação com bae numa associação de conceitos que existem no conteúdo apresentado. Por exemplo, "see also" ou links relacionados com ítens de diferentes áreas.
+Suporta a navegação com base numa associação de conceitos que existem no conteúdo apresentado. Por exemplo, "see also" ou links relacionados com ítens de diferentes áreas.
 
 <p align="center">
     <img src="../Images/NavigationSystems.png" alt="scheme">
