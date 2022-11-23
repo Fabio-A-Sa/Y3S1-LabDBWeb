@@ -6,7 +6,7 @@ Requer noções de usabilidade, design, ciência da informação, user experienc
 1. Conectar partes da informação entre os utilizadores interessados e o sistema usado;
 2. Identificar conceitos necessários para melhor navegação e acessos;
 3. Criar ferramentas para os interessados organizarem a informação;
-4. Conectar vários espaços da informação, como  aplicações, plataformas e canais;
+4. Conectar vários espaços da informação, como aplicações, plataformas e canais;
 
 ## 2.1 - Information Architecture Elements
 
@@ -33,7 +33,7 @@ Serve para os utilizadores saberem onde estão e para onde poderão seguir e exp
 
 #### A. Global navigation systems
 
-Existem em todas as páginas do sistema e são implementadas como a barra de nagetação e menus.
+Existem em todas as páginas do sistema e são implementadas como a barra de navetação e menus.
 
 #### B. Local navigation systems
 
