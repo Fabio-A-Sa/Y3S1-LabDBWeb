@@ -13,10 +13,10 @@
 
 ## Project Components
 
-* [ER: Requirements Specification](/lbaw/lbaw2223/lbaw2255/-/wikis/er)
-* [EBD: Database Specification](/lbaw/lbaw2223/lbaw2255/-/wikis/ebd)
-* [EAP: Architecture Specification and Prototypes](/lbaw/lbaw2223/lbaw2255/-/wikis/eap)
-* [PA: Product and Presentation](/lbaw/lbaw2223/lbaw2255/-/wikis/pa)
+* ER: Requirements Specification
+* EBD: Database Specification
+* EAP: Architecture Specification and Prototypes
+* PA: Product and Presentation
 
 ## Artefacts Checklist
 
