@@ -1,0 +1,8 @@
+{
+    "yaml.schemas": {
+        "swaggerviewer:openapi": [
+            "file:///home/sneinhz/Documents/UNI/LBAW/lbaw2255/docs/a7_openapi.yaml",
+            "file:///home/sneinhz/Documents/uni/lbaw/lbaw2255/docs/a7_openapi.yaml"
+        ]
+    }
+}

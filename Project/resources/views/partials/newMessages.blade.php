@@ -1,0 +1,1 @@
+@each('partials.message', $messages, 'message')
