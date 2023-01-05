@@ -4,10 +4,10 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 
 ## Project Components
 
-* [ER: Requirements Specification](https://git.fe.up.pt/lbaw/lbaw2223/lbaw2255/-/wikis/er)
-* [EBD: Database Specification](https://git.fe.up.pt/lbaw/lbaw2223/lbaw2255/-/wikis/ebd)
-* [EAP: Architecture Specification and Prototypes](https://git.fe.up.pt/lbaw/lbaw2223/lbaw2255/-/wikis/eap)
-* [PA: Product and Presentation](https://git.fe.up.pt/lbaw/lbaw2223/lbaw2255/-/wikis/pa)
+* [ER: Requirements Specification](/Wiki/er.md)
+* [EBD: Database Specification](/Wiki/edb.md)
+* [EAP: Architecture Specification and Prototypes](/Wiki/eap.md)
+* [PA: Product and Presentation](/Wiki/pa.md)
 
 ## Artefacts Checklist
 

@@ -8,7 +8,7 @@ This repository contains all the exercises and assessments of the UC Laboratóri
        title = "FEUP logo"
        src = "Images//FEUP_Logo.png" 
        alt = "FEUP Logo" 
-       />
+  />
 </p>
 
 ## Here are several documents, namely:
@@ -16,8 +16,10 @@ This repository contains all the exercises and assessments of the UC Laboratóri
 ### Notes
 Notes that I take during theoretical lectures in Markdown <br>
 
-### Exercises
-Varied exercises of easy, medium and difficult level, about the subject taught in the present week. They complement the weekly work developed during the practical classes.
+### Project: OnlyFEUP Social Network (Grade: __/20)
+
+The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP. <br>
+All documentation is available in [Wiki](/Project/Wiki/) folder and in the [Final Report](/Project/Report.pdf).
 
 **@ Fábio Araújo de Sá** <br>
 **2022/2023**
