@@ -2,6 +2,21 @@
 
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
 
+![Home page](../Images/Homepage.png)
+<p align="center">Home Page</p>
+
+![Profil epage](../Images/Profilepage.png)
+<p align="center">Profile Page</p>
+
+![Group page](../Images/Grouppage.png)
+<p align="center">Group Page</p>
+
+![Chat page](../Images/Chatpage.png)
+<p align="center">Chat Page</p>
+
+![Notification page](../Images/Notificationpage.png)
+<p align="center">Notification Page</p>
+
 ## Project Components
 
 * [ER: Requirements Specification](/Wiki/er.md)
