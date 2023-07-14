@@ -2,14 +2,19 @@
 
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
 
-![Home page](../Images/Homepage.png)
-<p align="center" width="200">Home Page</p>
+<p align = "center" >
+  <img 
+       src = "../Images/Homepage.png"   
+       width = "200"
+  />
+  Home Page
+</p>
 
 ![Profil epage](../Images/Profilepage.png)
-<p align="center" width="200">Profile Page</p>
+<p align="center">Profile Page</p>
 
 ![Group page](../Images/Grouppage.png)
-<p align="center" width="200">Group Page</p>
+<p align="center">Group Page</p>
 
 ![Chat page](../Images/Chatpage.png)
 <p align="center">Chat Page</p>
@@ -19,14 +24,15 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 
 ## Project Components
 
-* [ER: Requirements Specification](/Wiki/er.md)
-* [EBD: Database Specification](/Wiki/edb.md)
-* [EAP: Architecture Specification and Prototypes](/Wiki/eap.md)
-* [PA: Product and Presentation](/Wiki/pa.md)
+* [ER: Requirements Specification](/wiki/er.md)
+* [EBD: Database Specification](/wiki/edb.md)
+* [EAP: Architecture Specification and Prototypes](/wiki/eap.md)
+* [PA: Product and Presentation](/wiki/pa.md)
 
 ## Artefacts Checklist
 
 * The artefacts checklist is available at: [OnlyFEUP Checklist](./assets/OnlyFEUP_Checklist.pdf)
+* 
 
 ## Product
 
