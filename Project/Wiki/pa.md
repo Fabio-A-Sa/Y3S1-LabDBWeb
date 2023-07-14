@@ -1747,236 +1747,236 @@ URL to the product: https://lbaw2255.lbaw.fe.up.pt
 
 ## Artifact A9 - Editor: Fábio Sá
 
-> **November 30:** \
-> Delete post with ajax request, https version, fixed post query in feed.\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**November 30:** \
+Delete post with ajax request, https version, fixed post query in feed.\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 1:**\
-> Delete account, work on static pages\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 1:**\
+Delete account, work on static pages\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 2:**\
-> Delete account modification to use transactions\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 2:**\
+Delete account modification to use transactions\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 3:**\
-> Started working on unfollow and following with request (for private accounts), work on notification and new features for groups and groups’ page, work on password recovery\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 3:**\
+Started working on unfollow and following with request (for private accounts), work on notification and new features for groups and groups’ page, work on password recovery\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 4:**\
-> Likes and unliking (remove likes), sidebar update, added edit group page\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 4:**\
+Likes and unliking (remove likes), sidebar update, added edit group page\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 5:**\
-> Bug fixes in notification, follows and unfollows and deleting a user\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 5:**\
+Bug fixes in notification, follows and unfollows and deleting a user\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 6:**\
-> Notification with ajax request and real time notifications\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 6:**\
+Notification with ajax request and real time notifications\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 7:**\
-> Edit group action, buttons to join group (including request in private groups), admin features for >groups\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 7:**\
+Edit group action, buttons to join group (including request in private groups), admin features for >groups\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 9:**\
-> Like’s restrictions, modification in queries for various information.\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 9:**\
+Like’s restrictions, modification in queries for various information.\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 10:**\
-> Group notifications, optimizations on search.\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 10:**\
+Group notifications, optimizations on search.\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 11:**\
-> Comments and subcomments\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 11:**\
+Comments and subcomments\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 12:**\
-> Added feature to remove member from group, likes and unliking for comments\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 12:**\
+Added feature to remove member from group, likes and unliking for comments\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 13:**\
-> Edit comment; counter for comments, subcomments and replies \
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 13:**\
+Edit comment; counter for comments, subcomments and replies \
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 14:**\
-> Groups’ invites, deleting a group, bootstrap setup, started work on group ownership transfer, css changes >and adaptation with bootstrap.\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 14:**\
+Groups’ invites, deleting a group, bootstrap setup, started work on group ownership transfer, css changes >and adaptation with bootstrap.\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 15:**\
-> Posting in groups, finished group ownership transfer, counter for notifications, bootstrap changes\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 15:**\
+Posting in groups, finished group ownership transfer, counter for notifications, bootstrap changes\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 16:**\
-> Line breaks in textfields, relative timestamps, fixed create post to not accept empty posts\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 16:**\
+Line breaks in textfields, relative timestamps, fixed create post to not accept empty posts\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 17:**\
-> Notifications’ settings, chat section created, css changes, added more media formats\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 17:**\
+Notifications’ settings, chat section created, css changes, added more media formats\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 18:**\
-> Major visual redesign of onlyFEUP (posts, comments, buttons, profile page)\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 18:**\
+Major visual redesign of onlyFEUP (posts, comments, buttons, profile page)\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 19:**\
-> Continuation of visual design changes (favicon, sidebar adaptive size, login and register pages, scroll bars, search page)\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 19:**\
+Continuation of visual design changes (favicon, sidebar adaptive size, login and register pages, scroll bars, search page)\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 20:**\
-> Design changes (edit group page, profile edit page, work on tagging users\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 20:**\
+Design changes (edit group page, profile edit page, work on tagging users\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 21:**\
-> Comments are now forms, counter now work correctly, bug fixes\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 21:**\
+Comments are now forms, counter now work correctly, bug fixes\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 22:**\
-> Addition of chat system\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 22:**\
+Addition of chat system\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 23:**\
-> Messages in chat now in real time (not reloading needed), added confirmation for important actions, chat design changes, searching comments now fixed\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 23:**\
+Messages in chat now in real time (not reloading needed), added confirmation for important actions, chat design changes, searching comments now fixed\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 24:**\
-> Support for images, videos and audio in chat messages\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 24:**\
+Support for images, videos and audio in chat messages\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 27:**\
-> Static pages, design changes\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 27:**\
+Static pages, design changes\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 29:**\
-> Added a features page, fixes in general\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 29:**\
+Added a features page, fixes in general\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **December 30:**\
-> Html and css validation (and changes if necessary), update in open api documentation\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**December 30:**\
+Html and css validation (and changes if necessary), update in open api documentation\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
-> **January 1:**\
-> Fixes in general, database now in contextual to FEUP\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**January 1:**\
+Fixes in general, database now in contextual to FEUP\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto
 
 ## Artifact A10 - Editor: Marcos Ferreira
 
-> **January 2:**\
-> Product Presentation text, Video presentation, update wiki\
-> **by:** \
-> André Costa \
-> Fábio Sá \
-> Lourenço Gonçalves \
-> Marcos Ferreira Pinto
+**January 2:**\
+Product Presentation text, Video presentation, update wiki\
+**by:** \
+André Costa \
+Fábio Sá \
+Lourenço Gonçalves \
+Marcos Ferreira Pinto

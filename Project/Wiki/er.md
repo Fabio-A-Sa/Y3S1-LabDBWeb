@@ -1,119 +1,119 @@
 # ER: Requirements Specification Component
 
-> * **Project vision:** \
->   The main objectives of OnlyFeup project is to facilitate students and teachers to share and discuss some ideas and resources about some subjects by posting or comment on someone’s post, bringing a closeness between them by creating connections (friend requests) and ease the creation of groups among co-workers or friends (just to chat).
+* **Project vision:** \
+  The main objectives of OnlyFeup project is to facilitate students and teachers to share and discuss some ideas and resources about some subjects by posting or comment on someone’s post, bringing a closeness between them by creating connections (friend requests) and ease the creation of groups among co-workers or friends (just to chat).
 
 ## A1: OnlyFEUP
 
-> * **Goals, business context and environment.**
->
-> > The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
-> >
-> > A team of administrators is defined, which will be responsible for managing the system, ensuring it runs smoothly, removing illegal content and material in which they are not the author or have permission to share.
-> >
-> > This application allows users to integrate into groups and follow students/teachers whom they find their work interesting, they can also create groups if none was found. Users will be able to more easily share resources with people who are actually interested (their followers).
-> >
-> > Users are separated into groups with different permissions. These groups include the above-mentioned administrators, with access and modification privileges, student users and teacher (FEUP staff) users.
-> >
-> > The platform will have an adaptive design, allowing users to have a pleasant browsing experience. The product will also provide easy navigation and an excellent overall user experience.
->
-> * **Project Stakeholders:**
->
-> > * FEUP students
-> > * FEUP professors
->
-> * **Motivation.**
->
-> > To facilitate the lives of people related to feup by showing relevant information by allowing them to follow and block content, instead of the actual model of e-mail, which are sent to everyone (even people completely unrelated to the matter). Follow that to allow users to more easily connect with/find students, teachers, groups they are part in, etc.
+* **Goals, business context and environment.**
 
-> ### Main features
->
-> * **User:**
->
-> > * **View public timeline**
-> > * **View public profiles**
-> > * **Login/Logout**
-> > * **Registration**
-> > * **Recover password**
-> > * Delete account
->
-> * **Authenticated User:**
->
-> > * **View profile**
-> > * **Edit profile**
-> > * **Suport profile picture**
-> > * **View personal notifications**
-> > * **View personalized timeline**
-> > * **Exact match search**
-> > * **Search for public Users**
-> > * **Search filters**
-> > * **Full-text search**
-> > * **Send Friend Requests**
-> > * **View profiles followed**
-> > * Search for posts, comments, groups and users
-> > * **Follow someone**
-> > * Manage received follow requests
-> > * Manage followers
-> > * **Create post**
-> > * **Comment on posts**
-> > * **Like posts**
-> > * Reply to comments
-> > * **Create groups**
-> > * **View users' feed**
-> > * **Join public group**
-> > * **Manage notifications**
-> > * Tag friends in posts
-> > * **Request to join public groups**
->
-> * **Post Author:**
->
-> > * **Edit post**
-> > * **Delete post**
-> > * Manage post visibility
->
-> * **Comment Author**
->
-> > * Edit comment
-> > * Delete comment
->
-> * **Group Member**
->
-> > * View group members
-> > * **Post on group**
-> > * **Leave group**
->
-> * **Group Owner**
->
-> > * **Edit group information**
-> > * **Remove member**
-> > * **Invite to group**
-> > * Remove post from group
-> > * Change group privacy
-> > * Manage group invitations
-> > * **Manage join requests**
->
-> * **Notifications:**
->
-> > * Likes on own post
-> > * Comments on own post
-> > * Follow request
->
-> * **Help:**
-> > * **Placeholders in form inputs**
-> > * **Contextual error messages**
-> > * Contextual help
-> > * **About us/Contacts**
-> > * Main features
-> > * **Help**
->
+The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
+
+A team of administrators is defined, which will be responsible for managing the system, ensuring it runs smoothly, removing illegal content and material in which they are not the author or have permission to share.
+
+This application allows users to integrate into groups and follow students/teachers whom they find their work interesting, they can also create groups if none was found. Users will be able to more easily share resources with people who are actually interested (their followers).
+
+Users are separated into groups with different permissions. These groups include the above-mentioned administrators, with access and modification privileges, student users and teacher (FEUP staff) users.
+
+The platform will have an adaptive design, allowing users to have a pleasant browsing experience. The product will also provide easy navigation and an excellent overall user experience.
+
+* **Project Stakeholders:**
+
+* FEUP students
+* FEUP professors
+
+* **Motivation.**
+
+To facilitate the lives of people related to feup by showing relevant information by allowing them to follow and block content, instead of the actual model of e-mail, which are sent to everyone (even people completely unrelated to the matter). Follow that to allow users to more easily connect with/find students, teachers, groups they are part in, etc.
+
+### Main features
+
+* **User:**
+
+* **View public timeline**
+* **View public profiles**
+* **Login/Logout**
+* **Registration**
+* **Recover password**
+* Delete account
+
+* **Authenticated User:**
+
+* **View profile**
+* **Edit profile**
+* **Suport profile picture**
+* **View personal notifications**
+* **View personalized timeline**
+* **Exact match search**
+* **Search for public Users**
+* **Search filters**
+* **Full-text search**
+* **Send Friend Requests**
+* **View profiles followed**
+* Search for posts, comments, groups and users
+* **Follow someone**
+* Manage received follow requests
+* Manage followers
+* **Create post**
+* **Comment on posts**
+* **Like posts**
+* Reply to comments
+* **Create groups**
+* **View users' feed**
+* **Join public group**
+* **Manage notifications**
+* Tag friends in posts
+* **Request to join public groups**
+
+* **Post Author:**
+
+* **Edit post**
+* **Delete post**
+* Manage post visibility
+
+* **Comment Author**
+
+* Edit comment
+* Delete comment
+
+* **Group Member**
+
+* View group members
+* **Post on group**
+* **Leave group**
+
+* **Group Owner**
+
+* **Edit group information**
+* **Remove member**
+* **Invite to group**
+* Remove post from group
+* Change group privacy
+* Manage group invitations
+* **Manage join requests**
+
+* **Notifications:**
+
+* Likes on own post
+* Comments on own post
+* Follow request
+
+* **Help:**
+* **Placeholders in form inputs**
+* **Contextual error messages**
+* Contextual help
+* **About us/Contacts**
+* Main features
+* **Help**
+
 
 ## A2: Actors and User stories
 
-> Actors and user stories contain specifications about the people that are going to use OnlyFeup in any way and how they are going to use it. It serves as a simple and fast documentation to the projectś requirements.
+Actors and user stories contain specifications about the people that are going to use OnlyFeup in any way and how they are going to use it. It serves as a simple and fast documentation to the projectś requirements.
 
 ### 2.1 Actors
 
-> For the OnlyFEUP system, the actors are represented in Figure 1 and described in Table 1.
+For the OnlyFEUP system, the actors are represented in Figure 1 and described in Table 1.
 
 ![Actors](uploads/6108891305efc925cb2941c733041454/Actors.png)
 
@@ -133,7 +133,7 @@ Table 1: OnlyFEUP actors description
 
 ### 2.2 User Stories
 
-> For the OnlyFEUP system, consider the user stories that are presented in the following sections.
+For the OnlyFEUP system, consider the user stories that are presented in the following sections.
 
 #### 2.2.1 User
 
@@ -1258,7 +1258,7 @@ Table 12: OnlyFEUP restrictions
 
 ### 1. Sitemap
 
-> The image below represents the pages that are going to exist in onlyFEUP and how they can be accessed or used. It is a simple design of the process of using the website.
+The image below represents the pages that are going to exist in onlyFEUP and how they can be accessed or used. It is a simple design of the process of using the website.
 
 ![Sitemap](uploads/05bb5947e7d35a571130398c5421da7b/Sitemap.png)
 
@@ -1266,7 +1266,7 @@ Figure 2: OnlyFEUP SiteMap
 
 ### 2. Wireframes
 
-> The wireframes below show the template and localization of the important interactive elements. The home page is the most significant page in our system and because of it it is represented below, the next pages that required some clarification and thinking about its usability are the profile page and the groups page. As such they also have wireframes.
+The wireframes below show the template and localization of the important interactive elements. The home page is the most significant page in our system and because of it it is represented below, the next pages that required some clarification and thinking about its usability are the profile page and the groups page. As such they also have wireframes.
 
 #### UI01: Home Page
 
@@ -1319,95 +1319,95 @@ Figure 5: OnlyFEUP Groups Page
 
 #### Editor: Fábio Sá
 
-> **September 22:** \
->   Context of project, stakeholders, motivation \
-> **by:** \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 22:** \
+  Context of project, stakeholders, motivation \
+**by:** \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **September 25:** \
->   Main features, groups, relation between groups, goals and objectives \
-> **by:** \
->   André Costa \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 25:** \
+  Main features, groups, relation between groups, goals and objectives \
+**by:** \
+  André Costa \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
 ### Artifacts: A2
 
 #### Editor: Marcos Ferreira
 
-> **September 25:** \
->   Identifying actors and their descriptions, started user stories; business rules 1,2,3 \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 25:** \
+  Identifying actors and their descriptions, started user stories; business rules 1,2,3 \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **September 26:** \
->   Started formating tables for user stories \
-> **by:** \
->   Fábio Sá \
->   Marcos Ferreira Pinto 
+**September 26:** \
+  Started formating tables for user stories \
+**by:** \
+  Fábio Sá \
+  Marcos Ferreira Pinto 
 
-> **September 27:** \
->   Finished user stories, business rules, technical requirements, restrictions. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 27:** \
+  Finished user stories, business rules, technical requirements, restrictions. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **October 02:** \
->   Text reformatting and some corrections\
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**October 02:** \
+  Text reformatting and some corrections\
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **October 04:** \
->   Corrections to user stories, business rules and technical requirements \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**October 04:** \
+  Corrections to user stories, business rules and technical requirements \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
 ### Artifacts: A3
 
 #### Editor: Lourenço Gonçalves
 
-> **September 27:** \
->   Started and finished sitemap. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 27:** \
+  Started and finished sitemap. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **September 29:** \
->   Corrections to sitemap. Started working on wireframes \
-> **by:** \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**September 29:** \
+  Corrections to sitemap. Started working on wireframes \
+**by:** \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **October 02:** \
->   Finished wireframes. \
-> **by:** \
->   André Costa \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**October 02:** \
+  Finished wireframes. \
+**by:** \
+  André Costa \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
-> **October 04:** \
->   Sitemap labels. Final corrections to sitemap. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto 
+**October 04:** \
+  Sitemap labels. Final corrections to sitemap. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto 
 
 ---
 

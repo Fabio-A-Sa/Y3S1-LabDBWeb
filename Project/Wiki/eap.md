@@ -2608,106 +2608,106 @@ The code is available at https://git.fe.up.pt/lbaw/lbaw2223/lbaw2255 ---
 
 #### Editor: Lourenço Gonçalves
 
-> **November 3:** \
->   Resources overview and permissions. Started working on OpenAPI resource documentation. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 3:** \
+  Resources overview and permissions. Started working on OpenAPI resource documentation. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 10:** \
->   A7 finished. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 10:** \
+  A7 finished. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 21:** \
->   Corrections of A7. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 21:** \
+  Corrections of A7. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
 ### Artifacts: A8
 
 #### Editor: André Costa
 
-> **November 14:** \
->   Login and Logout features implemented. Showing public feed. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 14:** \
+  Login and Logout features implemented. Showing public feed. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 15:** \
->   Added "remember me" to login form. Register done. Create and delete post done. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 15:** \
+  Added "remember me" to login form. Register done. Create and delete post done. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 16:** \
->   Edit post done. User profile page started. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 16:** \
+  Edit post done. User profile page started. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 17:** \
->   Default picture added. Remove table media. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 17:** \
+  Default picture added. Remove table media. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 18:** \
->   Profile now show number of followers, followed users and posts. Posts show number of likes and comments. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 18:** \
+  Profile now show number of followers, followed users and posts. Posts show number of likes and comments. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 19:** \
->   Upload and delete images in posts. Image routes. Edit user done. Started working on admin features. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 19:** \
+  Upload and delete images in posts. Image routes. Edit user done. Started working on admin features. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 20:** \
->   Admin search finished. Admin can block user and delete posts. User search done. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 20:** \
+  Admin search finished. Admin can block user and delete posts. User search done. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **November 21:** \
->   Bug fixes. Some CSS corrections. Deployed image. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**November 21:** \
+  Bug fixes. Some CSS corrections. Deployed image. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
 ### Changes to database
 
-> - 2 Columns added to users table: 'description' and 'remember_token'.
-> - Changed passwords encryption method to bcrypt.
-> - Media table and its references deleted.
-> - Removed triggers related to media.
-> - 2 new triggers: 'delete_post_action' and 'delete_comment_action'.
-> - New table for blocked users: 'blocked'.
+- 2 Columns added to users table: 'description' and 'remember_token'.
+- Changed passwords encryption method to bcrypt.
+- Media table and its references deleted.
+- Removed triggers related to media.
+- 2 new triggers: 'delete_post_action' and 'delete_comment_action'.
+- New table for blocked users: 'blocked'.
 
 ---
 

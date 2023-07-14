@@ -2,17 +2,17 @@
 
 ## A4: Conceptual Data Model
 
-> <span dir="">This section contains the description of the entities and relationships that exist to the onlyFEUP project and its database specification.</span>
+<span dir="">This section contains the description of the entities and relationships that exist to the onlyFEUP project and its database specification.</span>
 
 ### 4.1 Class diagram
 
-> <span dir="">The UML diagram in Figure 6 presents the main organizational entities, the relationships between them, attributes and their domains, and the multiplicity of relationships for the OnlyFEUP platform.</span>
+<span dir="">The UML diagram in Figure 6 presents the main organizational entities, the relationships between them, attributes and their domains, and the multiplicity of relationships for the OnlyFEUP platform.</span>
 
 ![UML](uploads/36042a28b76307a6c641a11ebe9b20dd/UML.png) Figure 6: OnlyFEUP conceptual data model in UML
 
 ### 4.2 Additional Business Rules
 
-> <span dir="">Additional business rules or restrictions that cannot be conveyed in the UML class diagram of OnlyFEUP’s system.</span>
+<span dir="">Additional business rules or restrictions that cannot be conveyed in the UML class diagram of OnlyFEUP’s system.</span>
 
 <table>
 <tr>
@@ -101,7 +101,7 @@ Table 13: Additional Business Rules
 
 ## A5: Relational Schema, validation and schema refinement
 
-> <span dir="">This section contains the relational schema obtained from the conceptual data model by analyzing it. It shows each relational schema, attributes, domains, primary keys, foreign keys and other integrity rules necessary such as unique, default, not null and check.</span>
+<span dir="">This section contains the relational schema obtained from the conceptual data model by analyzing it. It shows each relational schema, attributes, domains, primary keys, foreign keys and other integrity rules necessary such as unique, default, not null and check.</span>
 
 ### 5.1 Relational Schema
 
@@ -253,16 +253,16 @@ message(id **PK**, emitter_id->users, receiver_id->users, content **NN**, date *
 
 Table 14: OnlyFEUP Relational Schema
 
-> Legend:
->
-> - UK = UNIQUE;
-> - NN = NOT NULL;
-> - DF = DEFAULT;
-> - CK = CHECK;
+Legend:
+
+- UK = UNIQUE;
+- NN = NOT NULL;
+- DF = DEFAULT;
+- CK = CHECK;
 
 ### 5.2 Domains
 
-> Specification of additional domains.
+Specification of additional domains.
 
 <table>
 <tr>
@@ -316,7 +316,7 @@ Table 14: OnlyFEUP Relational Schema
 
 ### 5.3 Schema validation
 
-> All functional dependencies are identified and the normalization of all relation schemas is accomplished.
+All functional dependencies are identified and the normalization of all relation schemas is accomplished.
 
 <table>
 <tr>
@@ -1095,17 +1095,17 @@ Table 33: configuration schema validation
 
 Table 34: message schema validation
 
-> Because all relations are in the Boyce–Codd Normal Form (BCNF), the relational schema is also in the BCNF and, therefore, the schema does not need to be further normalized.
+Because all relations are in the Boyce–Codd Normal Form (BCNF), the relational schema is also in the BCNF and, therefore, the schema does not need to be further normalized.
 
 ## A6: Indexes, triggers, transactions and database population
 
-> <span dir="">The A6 artifact contains the postgres sql code. In other words, It contains the physical schema of the database and its population, the support of data integrity rules with triggers, the identification and characterisation of the indexes and the definition of the database user-defined functions.</span>
->
-> <span dir="">It also shows the transactions needed to ensure correctness of the data after accesses and/or changes to the database itself. Furthermore the isolation level is explained as required.</span>
+<span dir="">The A6 artifact contains the postgres sql code. In other words, It contains the physical schema of the database and its population, the support of data integrity rules with triggers, the identification and characterisation of the indexes and the definition of the database user-defined functions.</span>
+
+<span dir="">It also shows the transactions needed to ensure correctness of the data after accesses and/or changes to the database itself. Furthermore the isolation level is explained as required.</span>
 
 ### 1. Database Workload
 
-> <span dir="">In order to develop a database with good design, it is essential to comprehend the growth of a table and how many times it will be accessed. The table below shows said predictions:</span>
+<span dir="">In order to develop a database with good design, it is essential to comprehend the growth of a table and how many times it will be accessed. The table below shows said predictions:</span>
 
 <table>
 <tr>
@@ -1236,13 +1236,13 @@ Table 35: OnlyFEUP workload
 
 ## 2. Proposed Indexes
 
-> <span dir="">We used Indexes to increase the database performance by letting It to find and retrieve specific rows in more rapidly ways. An index defined on a column that is part of a join condition can also significantly speed up queries with joins. Moreover, indexes can also benefit UPDATE and DELETE commands with search conditions.</span>
+<span dir="">We used Indexes to increase the database performance by letting It to find and retrieve specific rows in more rapidly ways. An index defined on a column that is part of a join condition can also significantly speed up queries with joins. Moreover, indexes can also benefit UPDATE and DELETE commands with search conditions.</span>
 
 ### 2.1. Performance indexes
 
-> <span dir="">Some queries would normally take a long time to execute. With performance indexes, we can improve the performance of SELECT queries at the expense of increased execution time for INSERT, UPDATE and DELETE operations. Despite this, some tables can benefit from the increased speed in searches. The following tables show the performance indexes used:</span>
->
-> <span dir="">Note that the first and second indexes relate to the same queries, the difference being that they relate to different columns in notification, as such they can be considered the same.</span>
+<span dir="">Some queries would normally take a long time to execute. With performance indexes, we can improve the performance of SELECT queries at the expense of increased execution time for INSERT, UPDATE and DELETE operations. Despite this, some tables can benefit from the increased speed in searches. The following tables show the performance indexes used:</span>
+
+<span dir="">Note that the first and second indexes relate to the same queries, the difference being that they relate to different columns in notification, as such they can be considered the same.</span>
 
 <table>
 <tr>
@@ -1621,7 +1621,7 @@ Table 39: Comment FTS index
 
 ### 2.2. Full-text Search Indices
 
-> <span dir="">As required by the project’s specifications indexes for full-text search must be developed. Hence, to improve text search time, we created Full-Text Search (FTS) indexes on the tables and attributes we thought would be queried the most. Those indexes can be found in the following tables:</span>
+<span dir="">As required by the project’s specifications indexes for full-text search must be developed. Hence, to improve text search time, we created Full-Text Search (FTS) indexes on the tables and attributes we thought would be queried the most. Those indexes can be found in the following tables:</span>
 
 <table>
 <tr>
@@ -2562,7 +2562,7 @@ Table 43: Comment FTS index
 
 ## 3. Triggers
 
-> To enforce integrity rules that cannot be achieved in a simpler way, the necessary triggers are identified and described by presenting the event, the condition, and the activation code. Triggers are also used to keep full-text indexes updated.
+To enforce integrity rules that cannot be achieved in a simpler way, the necessary triggers are identified and described by presenting the event, the condition, and the activation code. Triggers are also used to keep full-text indexes updated.
 
 <table>
 <tr>
@@ -3614,7 +3614,7 @@ Table 57: User configurations trigger
 
 ## 4. Transactions
 
-> <span dir="">The transactions below are used to assure the integrity of data when more than one operation is performed and necessary.</span> <span dir="">All transactions below are written in PHP language:</span>
+<span dir="">The transactions below are used to assure the integrity of data when more than one operation is performed and necessary.</span> <span dir="">All transactions below are written in PHP language:</span>
 
 <table>
   <tr>
@@ -5918,117 +5918,117 @@ INSERT INTO message (emitter_id, receiver_id, content, date) VALUES
 
 #### Editor: André Costa
 
-> **October 6:** \
->   Started class diagram\
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 6:** \
+  Started class diagram\
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 7:** \
->   Continued class diagram. Started additional business rules \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 7:** \
+  Continued class diagram. Started additional business rules \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 13:** \
-> Finished the class diagram and business rules \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 13:** \
+Finished the class diagram and business rules \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
 ### Artifacts: A5
 
 #### Editor: Fábio Sá
 
-> **October 7:** \
->   Started relational schema \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 7:** \
+  Started relational schema \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 15:** \
->   Finished relational schema. Schema validation and domains. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 15:** \
+  Finished relational schema. Schema validation and domains. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 18:** \
->   Started SQL schema. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 18:** \
+  Started SQL schema. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
 ### Artifacts: A6
 
 #### Editor: Marcos William
 
-> **October 18:** \
->   Continue SQL schema. Indexes. Started database population.\
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 18:** \
+  Continue SQL schema. Indexes. Started database population.\
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 19:** \
->   More population. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 19:** \
+  More population. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 20:** \
->   More population. Started performance indexes and FTS indexes. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 20:** \
+  More population. Started performance indexes and FTS indexes. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 24:** \
->   Even more population. Continued triggers. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 24:** \
+  Even more population. Continued triggers. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 27:** \
->   Finished population (except transactions). Finished triggers. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 27:** \
+  Finished population (except transactions). Finished triggers. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 29:** \
->   Finished all indexes and worked on transactions. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 29:** \
+  Finished all indexes and worked on transactions. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
-> **October 30:** \
->   Finished transactions and report. \
-> **by:** \
->   André Costa \
->   Fábio Sá \
->   Lourenço Gonçalves \
->   Marcos Ferreira Pinto
+**October 30:** \
+  Finished transactions and report. \
+**by:** \
+  André Costa \
+  Fábio Sá \
+  Lourenço Gonçalves \
+  Marcos Ferreira Pinto
 
 ---
 
