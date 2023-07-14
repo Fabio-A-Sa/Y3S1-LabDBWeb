@@ -12,18 +12,21 @@ The platform will have an adaptive design, allowing users to have a pleasant bro
 
 ## Project Components
 
-* ER: Requirements Specification
-* EBD: Database Specification
-* EAP: Architecture Specification and Prototypes
-* PA: Product and Presentation
+* [ER: Requirements Specification](./er.md)
+* [EBD: Database Specification](./edb.md)
+* [EAP: Architecture Specification and Prototypes](./eap.md)
+* [PA: Product and Presentation](./pa.md)
 
-## Artefacts Checklist
+## Checklists
 
-* The artefacts checklist is available at: [Google spreadsheets](https://docs.google.com/spreadsheets/d/14yszoHqUxl4diFyuA2qboFUxkXF26WCMqOoagh-Nhik/edit#gid=537406521)
-
+*  [OnlyFEUP Artifacts Checklist](../docs/OnlyFEUP_Checklist.pdf)
+*  [OnlyFEUP Accessibility Checklist](../docs/Accessibility%20Checklist.pdf)
+*  [OnlyFEUP Usability Checklist](../docs/Usability%20Checklist.pdf)
+*  [OnlyFEUP CSS Validation](../docs/CSS%20Validation.pdf)
+*  [OnlyFEUP HTML Validation](../docs/HTML%20Validation.pdf)
 ## Product
 
-The final version is available in https://lbaw2255.lbaw.fe.up.pt/
+The final version was available in https://lbaw2255.lbaw.fe.up.pt/
 
 ```code
 docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA="lbaw2255" -e DB_USERNAME="lbaw2255" -e DB_PASSWORD="reWisDQE" git.fe.up.pt:5050/lbaw/lbaw2223/lbaw2255
@@ -43,4 +46,4 @@ docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA
 
 ---
 
-GROUP lbaw 2255, 25/09/2022
+GROUP lbaw 2255, 25/09/2022 - 02/01/2023

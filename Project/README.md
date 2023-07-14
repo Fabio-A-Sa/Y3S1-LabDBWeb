@@ -2,13 +2,13 @@
 
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
 
-<p align = "center" >
+<p align="center" >
   <img 
        src = "../Images/Homepage.png"   
-       width = "200"
+       width = "500"
   />
-  Home Page
 </p>
+<p align="center">Home Page</p>
 
 ![Profil epage](../Images/Profilepage.png)
 <p align="center">Profile Page</p>
@@ -29,10 +29,13 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 * [EAP: Architecture Specification and Prototypes](/wiki/eap.md)
 * [PA: Product and Presentation](/wiki/pa.md)
 
-## Artefacts Checklist
+## Checklists
 
-* The artefacts checklist is available at: [OnlyFEUP Checklist](./assets/OnlyFEUP_Checklist.pdf)
-* 
+*  [OnlyFEUP Artifacts Checklist](./docs/OnlyFEUP_Checklist.pdf)
+*  [OnlyFEUP Accessibility Checklist](./docs/Accessibility%20Checklist.pdf)
+*  [OnlyFEUP Usability Checklist](./docs/Usability%20Checklist.pdf)
+*  [OnlyFEUP CSS Validation](./docs/CSS%20Validation.pdf)
+*  [OnlyFEUP HTML Validation](./docs/HTML%20Validation.pdf)
 
 ## Product
 
@@ -56,4 +59,4 @@ docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA
 
 ---
 
-GROUP lbaw 2255, 25/09/2021 - 02/01/2023
+GROUP lbaw 2255, 25/09/2022 - 02/01/2023
