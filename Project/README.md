@@ -3,13 +3,13 @@
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
 
 ![Home page](../Images/Homepage.png)
-<p align="center">Home Page</p>
+<p align="center" width="200">Home Page</p>
 
 ![Profil epage](../Images/Profilepage.png)
-<p align="center">Profile Page</p>
+<p align="center" width="200">Profile Page</p>
 
 ![Group page](../Images/Grouppage.png)
-<p align="center">Group Page</p>
+<p align="center" width="200">Group Page</p>
 
 ![Chat page](../Images/Chatpage.png)
 <p align="center">Chat Page</p>
@@ -26,11 +26,11 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 
 ## Artefacts Checklist
 
-* The artefacts checklist is available at: [Google spreadsheets](https://docs.google.com/spreadsheets/d/14yszoHqUxl4diFyuA2qboFUxkXF26WCMqOoagh-Nhik/edit#gid=537406521)
+* The artefacts checklist is available at: [OnlyFEUP Checklist](./assets/OnlyFEUP_Checklist.pdf)
 
 ## Product
 
-The final version is available in https://lbaw2255.lbaw.fe.up.pt/
+The final version was available in https://lbaw2255.lbaw.fe.up.pt/
 
 ```code
 docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA="lbaw2255" -e DB_USERNAME="lbaw2255" -e DB_PASSWORD="reWisDQE" git.fe.up.pt:5050/lbaw/lbaw2223/lbaw2255
@@ -38,7 +38,7 @@ docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA
 
 ### Credentials
 
-- eduardanascimento@gmail.com / eduardalbaw2255 (Administrator)
+- eduardanascimento@gmail.com / eduardalbaw2255 (Administrator Account)
 - laravel@hotmail.com / password (Normal Account)
 
 ## Team
