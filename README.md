@@ -19,7 +19,20 @@ Notes that I take during theoretical lectures in Markdown <br>
 ### Project: OnlyFEUP Social Network (Grade: 18.6/20)
 
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP. <br>
-All documentation is available in [Wiki](/Project/Wiki/) folder and in the [Final Report](/Project/Report.pdf).
+Last year OnlyFEUP was also available online in the following link: `https://lbaw2255.lbaw.fe.up.pt`
+
+All OnlyFEUP documentation is available in [Project](./Project/) folder:
+
+- [Wiki](./Project/wiki/), in markdown
+- [Video Demo](./Project/docs/lbaw2255.mp4)
+- [Final Report](./Project/Report.pdf) in PDF format with more than 200 pages
+
+#### Members
+
+* André Correia da Costa (up201905916@fe.up.pt)
+* Fábio Araújo de Sá (up202007658@fe.up.pt)
+* Lourenço Alexandre Correia Gonçalves (up202004816@fe.up.pt)
+* Marcos William Ferreira Pinto (up201800177@fe.up.pt)
 
 **@ Fábio Araújo de Sá** <br>
 **2022/2023**

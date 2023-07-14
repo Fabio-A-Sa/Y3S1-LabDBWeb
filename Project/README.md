@@ -2,15 +2,10 @@
 
 The main goal of the OnlyFEUP project is the development of a web-based social network with the purpose of creating connections between students and staff, sharing resources about courses and subjects. This is a tool that can be used by anyone from FEUP. After signing up and verifying the user is related to the university (students/teachers), they can start using it for a better experience at FEUP.
 
-<p align="center" >
-  <img 
-       src = "../Images/Homepage.png"   
-       width = "500"
-  />
-</p>
+![Home page](../Images/Homepage.png)
 <p align="center">Home Page</p>
 
-![Profil epage](../Images/Profilepage.png)
+![Profil page](../Images/Profilepage.png)
 <p align="center">Profile Page</p>
 
 ![Group page](../Images/Grouppage.png)
@@ -39,7 +34,7 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 
 ## Product
 
-The final version was available in https://lbaw2255.lbaw.fe.up.pt/
+The final version was available in `https://lbaw2255.lbaw.fe.up.pt/` and there is also a [video presentation](./docs/lbaw2255.mp4) and a [full documentation](./Report.pdf).
 
 ```code
 docker run -it -p 8000:80 --name=lbaw2255 -e DB_DATABASE="lbaw2255" -e DB_SCHEMA="lbaw2255" -e DB_USERNAME="lbaw2255" -e DB_PASSWORD="reWisDQE" git.fe.up.pt:5050/lbaw/lbaw2223/lbaw2255
