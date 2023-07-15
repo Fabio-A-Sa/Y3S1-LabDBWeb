@@ -258,7 +258,13 @@ CREATE TRIGGER loan_item
     EXECUTE PROCEDURE loan_item();
 ```
 
-Exemplo completo implementado na OnlyFEUP
+Exemplo completo implementado na OnlyFEUP para `pesquisas de utilizadores`:
+
+- a pesquisa por nome tem mais impacto do que pesquisa por username;
+- sempre que há um update ou insert na tabela, então há o cálculo ou recálculo dos vectores;
+- os ts_vectors são acompanhados por um index do tipo GIN pois:
+    - têm relação com atributos de texto (nome e username do utilizador)
+    - espera-se que estes atributos tenham uma frequência baixa de updates
 
 ```sql
 -- Add column to user to store computed ts_vectors.
@@ -292,7 +298,7 @@ CREATE TRIGGER user_search_update
  FOR EACH ROW
  EXECUTE PROCEDURE user_search_update();
 
--- Create a GIN index for ts_vectors, because text updates have low frequency
+-- Create a GIN index for ts_vectors
 CREATE INDEX search_user ON users USING GIN (tsvectors);
 ```
 
@@ -310,7 +316,7 @@ As transações são necessárias para:
 - prevenir que uma falha no sistema fique registada na base de dados (falta de inserts, deletes);
 - garantir todas as propriedades ACID;
 
-###### ACID
+##### ACID
 
 1. Atomicity - trata comandos como uma operação única;
 2. Consistency - manipulação de bases de dados de forma consistente, excepto erros relacionados com a lógica da aplicação;
