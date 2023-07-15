@@ -106,7 +106,6 @@ To facilitate the lives of people related to feup by showing relevant informatio
 * Main features
 * **Help**
 
-
 ## A2: Actors and User stories
 
 Actors and user stories contain specifications about the people that are going to use OnlyFeup in any way and how they are going to use it. It serves as a simple and fast documentation to the projectś requirements.
@@ -115,7 +114,7 @@ Actors and user stories contain specifications about the people that are going t
 
 For the OnlyFEUP system, the actors are represented in Figure 1 and described in Table 1.
 
-![Actors](uploads/6108891305efc925cb2941c733041454/Actors.png)
+![Actors](../../Images/OnlyFEUPActors.png)
 
 Figure 1: OnlyFEUP actors
 | Identifier | Description |
@@ -1260,7 +1259,7 @@ Table 12: OnlyFEUP restrictions
 
 The image below represents the pages that are going to exist in onlyFEUP and how they can be accessed or used. It is a simple design of the process of using the website.
 
-![Sitemap](uploads/05bb5947e7d35a571130398c5421da7b/Sitemap.png)
+![Sitemap](../../Images/OnlyFEUPSitemap.png)
 
 Figure 2: OnlyFEUP SiteMap
 
@@ -1270,7 +1269,7 @@ The wireframes below show the template and localization of the important interac
 
 #### UI01: Home Page
 
-![HomePage](uploads/5a999baae8e4d40323ba6cc62d193c79/HomePage.png)
+![HomePage](../../Images/OnlyFEUPHomePage.png)
 
 Figure 3: OnlyFEUP HomePage
 
@@ -1284,7 +1283,7 @@ Figure 3: OnlyFEUP HomePage
 
 #### UI10: Profile Page
 
-![ProfilePage](uploads/74b805b5c53bd3538533ec5768954ee8/ProfilePage.png)
+![ProfilePage](../../Images/OnlyFEUPProfilePage.png)
 
 Figure 4: OnlyFEUP ProfilePage
 
@@ -1298,7 +1297,7 @@ Figure 4: OnlyFEUP ProfilePage
 
 #### UI20: Groups Page
 
-![GroupsPage](uploads/77ce073ccd32ef8fdfd6698e00f54944/GroupsPage.png)
+![GroupsPage](../../Images/OnlyFEUPGroupsPage.png)
 
 Figure 5: OnlyFEUP Groups Page
 
