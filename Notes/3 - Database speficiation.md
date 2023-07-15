@@ -318,10 +318,10 @@ As transações são necessárias para:
 
 ##### ACID
 
-1. Atomicity - trata comandos como uma operação única;
-2. Consistency - manipulação de bases de dados de forma consistente, excepto erros relacionados com a lógica da aplicação;
-3. Isolation - garante que várias operações em simultâneo são tratadas como se fossem isoladas ou singulares;
-4. Durability - a operação é preservada na base de dados;
+1. `Atomicity` - trata comandos como uma operação única;
+2. `Consistency` - manipulação de bases de dados de forma consistente, excepto erros relacionados com a lógica da aplicação;
+3. `Isolation` - garante que várias operações em simultâneo são tratadas como se fossem isoladas ou singulares;
+4. `Durability` - a operação é preservada na base de dados;
 
 ### Problemas de concorrência
 
