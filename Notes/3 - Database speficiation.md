@@ -1,6 +1,8 @@
-# Database specification
+# Database specification [EBD]
 
 ## Conceptual data model [A4]
+
+### Class Diagram
 
 UML de diagrama de classes que contém os atributos, associações, multiplicidades e restrições da base de dados do sistema. Para isso:
 1. Identificar identidades (pessoas, locais, eventos, conceitos, coisas);
@@ -8,10 +10,47 @@ UML de diagrama de classes que contém os atributos, associações, multiplicida
 3. Identificar os atributos;
 4. Aplicação das convenções de nomes de acordo com o data modeling;
 
+![OnlyFEUP Diagram](../Images/OnlyFEUPUML.png)
+<p align="center">Retirado de OnlyFEUP A4</p>
+
+O diagrama UML da **OnlyFEUP** é bastante complexo e conta com cerca de 14 classes, generalizações e generalizações de generalizações. As principais ideias foram:
+
+- Blocked e Admin são generalizações de User, mas como há Users que nem estão bloqueados nem são administradores a generalização é **incompleta**. Como também é possível um administrador ser bloqueado, a generalização é **overlapping**;
+- Requests, Follows e Messages são efetuados de utilizadores para utilizadores;
+- Cada User pode ter vários Posts e cada Post pode ter vários Comments;
+- Os Comments podem ter Comments e assim sucessivamente, formando uma cadeia de profundidade teoricamente infinita, pelo que é importante a existência do atributo `previous`, que aponta para o comentário anterior. Caso esse atributo seja NULL significa que o comentário é o primeiro da "thread" e só está ligado ao respectivo Post. Através de *queries* sucessivas é possível, dado qualquer comentário, reestabelecer a "Thread" até ao Post inicial. A profundidade de cada comentário pode influenciar o tamanho da letra, como por exemplo com a fórmula "\<h\<depth\>>" e a identação do respectivo bloco. É um comportamento a ser visto mais tarde.
+- Existem 16 tipos de notificações, distribuídas em quatro grupos diferentes e programadas numa árvore de generalizações de 3 níveis. Existem triggers de fluxo ascendente e descendente que percorrem a árvore para garantir a integridade dos dados. É um comportamento a ser visto mais tarde.
+
+### Additional Business Rules
+
+Restrições do sistema que não podem ser expressadas através do diagrama UML anterior:
+
+| Identifier | Description                                                                                                                                     |
+|------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+|    BR07    | A user can only like a post once or like posts from groups to which they belong or like comment in posts from public users or users they follow |
+|    BR08    | A user can only like a comment once                                                                                                             |
+|    BR13    | A group owner is also a member of your group                                                                                                    |
+|    BR20    | When new user appears, he initially gets all kinds of notification                                                                              |
+
+<p align="center">Retirado de OnlyFEUP A4</p>
+
 ## Relational schema, validation and schema refinement [A5]
 
-Deve incluir atributos, tipos/domínios, chaves primárias e estrangeiras, e restrições: UNIQUE, DEFAULT, NOT NULL, CHECK. As chaves primárias são sublinhadas e as chaves estrangeiras apontam para a tabela de referência. Em PostgreSQL, a convenção é ser tudo em letras minúsculas e nomes de atributos/classes com underscore. <br>
+Deve incluir atributos, tipos/domínios, chaves primárias e estrangeiras, e restrições: UNIQUE (UK), DEFAULT (DF), NOT NULL (NN), CHECK (CK). As chaves primárias são sublinhadas e as chaves estrangeiras apontam para a tabela de referência. Em PostgreSQL, a convenção é ser tudo em letras minúsculas e nomes de atributos/classes com underscore. <br>
+
+![Relational schema](../Images/Relational.png)
+<p align="center">Retirado de OnlyFEUP A5</p>
+
 As dependências devem estar na BCNF, sem redundância e sem anomalias.
+
+![BCNF Normalization](../Images/BCNF.png)
+<p align="center">Retirado de OnlyFEUP A5</p>
+
+**Nota**
+
+Por cortesia da sintaxe do PostgreSQL alguns nomes de tabelas e atributos estão no plural para não colidir com as palavras reservadas da linguagem. São exemplos:
+- users
+- groups
 
 ### Mapeamento de generalizações
 
@@ -20,6 +59,49 @@ Principalmente quando as generalizações são completas e disjuntas, há três 
 - **Superclasse**, onde a classe mais geral contém todos os atributos, alguns até podem ser nulos, e uma enumeração para diferenciar o tipo do objecto;
 - **ER**, onde existe a caracterização de um objecto geral e cada uma das subdivisões. As classes filhas, que contém outros atributos, apontam para a classe que lhes deu origem com uma chave estrangeira;
 - **Object Oriented**, onde apenas as classes filhas são caracterizadas e vários dos atributos são comuns às unidades;
+
+#### Exemplo
+
+Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação. Se fosse usado o mapeamento de Superclasse no caso da generalização (User, Admin, Blocked) e dado que existem muitos mais Users, vários dos seus atributos ficariam NULL devido a Admin e Blocked de qualquer forma. Se fosse usado o mapeamento Object Oriented existiriam muitos atributos comuns. Com ER não há informação redundante.
+
+Exemplo entre User, Admin e Blocked
+
+```sql
+CREATE TABLE users (
+   id SERIAL PRIMARY KEY,
+   username VARCHAR(256) UNIQUE NOT NULL,
+   -- ...
+);
+
+CREATE TABLE admin (
+   id INTEGER PRIMARY KEY REFERENCES users (id) ON UPDATE CASCADE
+);
+
+CREATE TABLE blocked (
+   id INTEGER REFERENCES users (id) ON UPDATE CASCADE,
+   PRIMARY kEY (id)
+);
+```
+
+Exemplo entre Notificações
+
+```sql
+CREATE TABLE notification (
+   id SERIAL PRIMARY KEY,
+   date TIMESTAMP NOT NULL CHECK (date <= now()),
+   notified_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   emitter_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   viewed BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TYPE comment_notification_types AS ENUM ('liked_comment', 'comment_post', 'reply_comment', 'comment_tagging');
+
+CREATE TABLE comment_notification (
+   id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
+   comment_id INTEGER NOT NULL REFERENCES comment (id) ON UPDATE CASCADE,
+   notification_type comment_notification_types NOT NULL
+);
+```
 
 ## Indexes, triggers, transactions and database population [A6]
 
