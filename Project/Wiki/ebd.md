@@ -8,7 +8,8 @@
 
 <span dir="">The UML diagram in Figure 6 presents the main organizational entities, the relationships between them, attributes and their domains, and the multiplicity of relationships for the OnlyFEUP platform.</span>
 
-![UML](uploads/36042a28b76307a6c641a11ebe9b20dd/UML.png) Figure 6: OnlyFEUP conceptual data model in UML
+![UML](../../Images/OnlyFEUPUML.png) 
+Figure 6: OnlyFEUP conceptual data model in UML
 
 ### 4.2 Additional Business Rules
 

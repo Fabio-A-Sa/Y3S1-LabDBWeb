@@ -70,20 +70,27 @@ Exemplo entre User, Admin e Blocked
 CREATE TABLE users (
    id SERIAL PRIMARY KEY,
    username VARCHAR(256) UNIQUE NOT NULL,
-   -- ...
+   password VARCHAR(256) NOT NULL,
+   email VARCHAR(256) UNIQUE NOT NULL,
+   name VARCHAR(256) NOT NULL,
+   description VARCHAR(512),
+   is_public BOOLEAN NOT NULL DEFAULT TRUE,
+   remember_token VARCHAR(256) DEFAULT NULL
 );
 
 CREATE TABLE admin (
+   -- Primeira forma de referenciar o ID
    id INTEGER PRIMARY KEY REFERENCES users (id) ON UPDATE CASCADE
 );
 
 CREATE TABLE blocked (
+   -- Segunda forma de referenciar o ID
    id INTEGER REFERENCES users (id) ON UPDATE CASCADE,
    PRIMARY kEY (id)
 );
 ```
 
-Exemplo entre Notificações
+Exemplo entre Notificações. Para simplificar é só mostrada a parte da subárvore referente às notificações de comentários:
 
 ```sql
 CREATE TABLE notification (
@@ -94,7 +101,8 @@ CREATE TABLE notification (
    viewed BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TYPE comment_notification_types AS ENUM ('liked_comment', 'comment_post', 'reply_comment', 'comment_tagging');
+CREATE TYPE comment_notification_types AS 
+ENUM ('liked_comment', 'comment_post', 'reply_comment', 'comment_tagging');
 
 CREATE TABLE comment_notification (
    id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
