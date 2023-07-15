@@ -19,10 +19,10 @@ The main goal of the OnlyFEUP project is the development of a web-based social n
 
 ## Project Components
 
-* [ER: Requirements Specification](/wiki/er.md)
-* [EBD: Database Specification](/wiki/edb.md)
-* [EAP: Architecture Specification and Prototypes](/wiki/eap.md)
-* [PA: Product and Presentation](/wiki/pa.md)
+* [ER: Requirements Specification](/Wiki/er.md)
+* [EBD: Database Specification](/Wiki/edb.md)
+* [EAP: Architecture Specification and Prototypes](/Wiki/eap.md)
+* [PA: Product and Presentation](/Wiki/pa.md)
 
 ## Checklists
 

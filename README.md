@@ -23,7 +23,7 @@ Last year OnlyFEUP was also available online in the following link: `https://lba
 
 All OnlyFEUP documentation is available in [Project](./Project/) folder:
 
-- [Wiki](./Project/wiki/), in markdown
+- [Wiki](./Project/Wiki/), in markdown
 - [Video Demo](./Project/docs/lbaw2255.mp4)
 - [Final Report](./Project/Report.pdf) in PDF format with more than 200 pages
 
