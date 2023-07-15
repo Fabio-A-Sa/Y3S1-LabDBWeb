@@ -1,4 +1,4 @@
-# 1 - Requirements Specification
+# 1 - Requirements Specification [ER]
 
 É a documentação do sistema a desenvolver. Nesta etapa há análise dos requisitos e das necessidades dos clientes, da tecnologia a implementar e das suas dependências. Para identificar todos os parâmetros, é necessário recorrer aos seguintes tópicos:
 
