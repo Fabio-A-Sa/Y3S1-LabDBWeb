@@ -1,4 +1,4 @@
-# 2 - Information Architecture
+# 2 - Information Architecture [A3]
 
 Estruturação da informação que cada vez é mais e mais dispersa em diversas plataformas com base em patterns, para tornar interações dentro do sistema mais claras para os desenvolvedores e próprios clientes. <br>
 Requer noções de usabilidade, design, ciência da informação, user experience (UX) e é da responsabilidade desta área:
@@ -84,6 +84,13 @@ Representa a relação entre os elementos da informação, como páginas, e pode
     <p align="center">Figura 2: Sitemap</p>
 </p>
 
+### 2.3.1.1 - Exemplo
+
+<p align="center">
+    <img src="../Images/OnlyFEUPSitemap.png" alt="onlyfeup sitemap" title="sitemap example" />
+</p>
+<p align="center">Retirado de OnlyFEUP A3</p>
+
 ### 2.3.2 - Wireframes [A3]
 
 Perspectiva funcional da página. Representa e categoriza a localização, as páginas com base na hierarquia e importância, e descreve o template a usar nas páginas sem ligar muito ao design em si. Para o trabalho, é necessário desenhar no mínimo duas páginas: a página inicial e a página de um produto singular. Não esquecer da legenda de cada parte. 
@@ -92,6 +99,13 @@ Perspectiva funcional da página. Representa e categoriza a localização, as p�
     <img src="../Images/Wireframe.png" alt="wireframe scheme">
     <p align="center">Figura 3: Wireframe</p>
 </p>
+
+### 2.3.2.1 - Exemplo
+
+<p align="center">
+    <img src="../Images/OnlyFEUPGroupsPage.png" alt="wireframe scheme" title="onlyfeup wireframe example" />
+</p>
+<p align="center">Retirado de OnlyFEUP A3</p>
 
 ### 2.3.3 - Wireflows
 
