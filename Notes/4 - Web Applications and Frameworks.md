@@ -1,4 +1,4 @@
-# Web Applications
+# Web Applications and Frameworks
 
 ## Internet vs. Web
 
@@ -79,7 +79,23 @@ Apenas há uma página, que faz AJAX requests do servidor. O load inicial pode s
 
 Em LBAW as web resources podem ser do tipo View, resultantes de requests ao servidor retornando HTML (GET /view.php?id=2), e Action, com a utilização do servidor para computar algumas tarefas (POST /edit.php ou Ajax com Javascript).
 
-# Web application specification
+# Web Frameworks
+
+Por exemplo ReactJS, Vue.js, Ruby on Rails, Django e Laravel.
+
+### Vantagens
+
+- Velocidade de implementação;
+- Testar soluções mais facilmente;
+- Existe documentação;
+- Manutenção e atualização da estrutura;
+
+### Desvantagens
+
+- Reduzida independência, dependência de entidades externas;
+- Menos performence;
+
+# Web application specification [A7]
 
 A ideia da especificação é servir de base para o desenvolvimento do mochup. Cada página terá as suas UI (user interfaces) e para a montar é necessário recorrer a APIs. 
 
@@ -131,3 +147,5 @@ Exemplo da página de login:
 '200':
  description: 'Ok. Show log-in UI'
 ```
+
+O exemplo completo da OnlyFEUP está disponível [aqui](../Project/docs/a9_openapi.yaml). No gitlab a visualização do documento é mais simpática. Note-se que além do tópico A7 também contém código referente ao A9, que nada mais é que o update final da documentação.
