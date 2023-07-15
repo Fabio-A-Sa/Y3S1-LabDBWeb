@@ -306,9 +306,9 @@ CREATE INDEX search_user ON users USING GIN (tsvectors);
 
 Para o projecto, é necessário fazer pelo menos uma transação relacionada à eliminação dos dados, que devem ser mantidos mas sem os dados pessoais do utilizador. Deve ser indicada uma justificação, o nível de isolamento e o código SQL para gerar a transação. Para as generalizações também é necessário haver transações, permite inserir dois tuplos numa operação atómica. Exemplo:
 
-> Notification (id, date)
-> NewFriend (id -> Notification, ...)
-> NewLike (id -> Notification, ...)
+> Notification (id, date) <br>
+> NewFriend (id -> Notification, ...) <br>
+> NewLike (id -> Notification, ...) <br>
 
 As transações são necessárias para:
 
