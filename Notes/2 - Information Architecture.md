@@ -1,4 +1,4 @@
-# 2 - Information Architecture [A3]
+# 2 - Information Architecture [ER]
 
 Estruturação da informação que cada vez é mais e mais dispersa em diversas plataformas com base em patterns, para tornar interações dentro do sistema mais claras para os desenvolvedores e próprios clientes. <br>
 Requer noções de usabilidade, design, ciência da informação, user experience (UX) e é da responsabilidade desta área:
@@ -14,7 +14,7 @@ Requer noções de usabilidade, design, ciência da informação, user experienc
 
 A caracterização e organização da informação impacta o seu significado, embora seja complicado devido à ambiguidade. É importante para que seja mais fácil trabalhar com a informação e assim caracterizar os elementos em comum para agrupar itens. <br>
 Podem ser de dois tipos:
-
+i
 #### A. Exact Organization Schemes
 
 A informação está dividida em secções exatas e mutualmente exclusivas. Por exemplo ordem alfabética, por datas e por zonas geográficas.
