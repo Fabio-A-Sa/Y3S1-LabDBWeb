@@ -113,22 +113,33 @@ CREATE TABLE comment_notification (
 
 ## Indexes, triggers, transactions and database population [A6]
 
-Indexes para suportar pesquisas e identificação de características mais especificas, triggers para questões de integridade e transações.
-
 ### Indexes
 
-Usados para que as pesquisas/relações mais comuns no sistema sejam mais rápidas. Podem ser dos tipos: B-Tree, Hash, GiST, GIN. Quando pode existir uma ordenação é usada a B-Tree para uma pesquisa em tempo logarítmico, enquanto Hash é usado para quando não pode haver uma ordenação (apenas está implementado o operador igual), com tempo constante. Sem indexes, a pesquisa na base de dados é sempre sequencial e em muitos casos demora mais tempo.
+Usados nalguns atributos para que as pesquisas/relações mais comuns no sistema sejam mais rápidas. Podem ser dos tipos: 
 
-```postgres
-CREATE INDEX idx_numeric ON sample(x) USING BTREE(x);
-CREATE INDEX idx_numeric ON sample(x) USING HASH(x);
+- `B-Tree`, quando pode existir uma ordenação do atributo em questão;
+- `Hash`, quando não pode existir uma ordenação do atributo. 
+- `GiST` (Generalized Search Tree), usado para atributos de texto dinâmicos;
+- `GIN` (Generalized Inverted Index), usado para atributos de texto estáticos ou que sofram updates com pouca frequência;
+
+É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados. <br> 
+No caso da OnlyFEUP, como é uma rede social, criou-se indexes para:
+
+- Dado um Post ou Comentário saber com eficiência o seu respectivo Owner, usando HASH:
+
+```sql
+CREATE INDEX owner_id_post ON post USING hash (owner_id);
+CREATE INDEX owner_id_comment ON comment USING hash (owner_id);
 ```
 
-No projecto, há um limite de 3 indexes a implementar. É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados, como na função lower() que vemos a seguir:
+- Dada uma notificação saber com eficiência os dois utilizadores em contacto: tanto o utilizador notificado como o utilizador que notificou. São ordenados através de BTrees e organizados em clusters, pois a tabela de Notificações numa rede social tende a ser grande:
 
-```postgres
-SELECT * FROM test1 WHERE lower(col1) = 'value';
-CREATE INDEX test1_lower_col1_idx ON test1 (lower(col1));
+```sql
+CREATE INDEX notified_user_notification ON notification USING btree (notified_user);
+CLUSTER notification USING notified_user_notification;
+
+CREATE INDEX emitter_user_notification ON notification USING btree (emitter_user);
+CLUSTER notification USING emitter_user_notification;
 ```
 
 Curiosamente o PostgreSQL cria automaticamente um unique index quando uma restrição "unique" é usada ou quando se declara uma chave primária numa tabela.
@@ -139,14 +150,14 @@ Usado para bases de dados grandes, onde os dados estão no disco e quando existe
 
 #### Cardinality
 
-Relação com os valores duplicados em colunas. As chaves primárias tem grande cardinalidade, os nomes (primeiro, último) têm média cardinalidade, enquanto os atributos booleanos têm baixa (só permite dois estados).
+Relação direta com os valores duplicados em colunas. As chaves primárias tem grande cardinalidade, os nomes (primeiro, último) têm média cardinalidade, enquanto os atributos booleanos têm baixa (só permite dois estados).
 
 #### (Full) Text Search
 
 Usar o operador `LIKE` não suporta:
 
 - Singulares e plurais ao mesmo tempo;
-- Dados não ordenados, apenas um conjunto de dadso;
+- Dados não ordenados, apenas um conjunto de dados;
 - Não permite pesquisa de várias palavras;
 - Não tem suporte para indexes;
 
@@ -156,25 +167,25 @@ No sistema a desenvolver, convém ver projectar um documento onde a pesquisa em 
 
 Um vector que faz store a lexemas distintos:
 
-```postgres
+```sql
 SELECT to_tsvector('english', 'The quick brown fox jumps over the lazy dog')
-'brown':3 'dog':9 'fox':4 'jump':5 'lazi':8 'quick':2
+> 'brown':3 'dog':9 'fox':4 'jump':5 'lazi':8 'quick':2
 ```
 
 ##### tsquery
 
 Uma estrutura otimizada para procurar em tsvectors
 
-```postgres
+```sql
 SELECT plainto_tsquery('portuguese','o velho barco');
-'velh' & 'barc'
+> 'velh' & 'barc'
 ```
 
 ##### Weights
 
 Dá para adicionar pesos às pesquisas. Por exemplo, um match num post será mais importante que um match num comentário. Os valores podem variar de 'A' a 'D' e declaram-se da seguinte forma:
 
-```postgres
+```sql
 SELECT
 setweight(to_tsvector('english', 'The quick brown fox jumps over the lazy dog'), 'A') ||
 setweight(to_tsvector('english', 'An English language pangram. A sentence that contains
@@ -189,15 +200,15 @@ PostgreSQL permite fazer ranking de funções de pesquisa, de modo a permitir pr
 - Termos mais próximos entre si num mesmo documento;
 - A importância dos termos dependendo do peso que se dá a cada parte do documento;
 
-```postgres
+```sql
 SELECT title FROM posts
 WHERE search @@ plainto_tsquery('english', 'jumping dog')
 ORDER BY ts_rank(search, plainto_tsquery('english', 'jumping dog')) DESC
 ```
 
-Por questões de otimização, a base de dados do documento deverá conter uma coluna onde os FTS serão manipulados, contendo os tsvectors para cada linha. A cada nova inserção ou update, o tsvector deverá ser recalculado segundo o trigger:
+Por questões de otimização, a base de dados do documento deverá conter uma coluna onde os FTS serão manipulados, contendo os tsvectors para cada linha. A cada nova inserção ou update, o tsvector deverá ser recalculado segundo um trigger.
 
-```postgres
+```sql
 CREATE FUNCTION post_search_update() RETURNS TRIGGER AS $$
 BEGIN
     IF TG_OP = 'INSERT' THEN
@@ -215,7 +226,7 @@ $$ LANGUAGE 'plpgsql';
 
 Por questões de otimização, também dá para criar indexes com as colunas pré-calculadas dos tsvectors. Designando a coluna como search, temos que:
 
-```postgres
+```sql
 CREATE INDEX search_idx ON posts USING GIN (search);
 CREATE INDEX search_idx ON posts USING GIST (search);
 ```
@@ -236,30 +247,53 @@ Funções pré-definidas dentro da base de dados que extendem a funcionalidade d
     - Mais difícil de manipular versões e mais difícil é fazer debug;
     - Menos portável, porque cada database management system tem a sua forma de fazer user-defined functions;
 
-Um exemplo prático de funções:
-
-```postgres
-CREATE OR REPLACE FUNCTION totalRecords ()
-RETURNS INTEGER AS $total$
-DECLARE
- total INTEGER;
-BEGIN
- SELECT COUNT(*) INTO total FROM company;
- RETURN total;
-END;
-$total$ LANGUAGE plpgsql;
-SELECT totalRecords();
-```
-
 #### Triggers
 
 Para manter a integridade da base de dados e fazer verificações/updates enquanto ocorre uma inserção, delete ou update numa coluna ou tabela. Exemplo usando a função anterior:
 
-```postgres
+```sql
 CREATE TRIGGER loan_item
     BEFORE INSERT OR UPDATE ON loan
     FOR EACH ROW
     EXECUTE PROCEDURE loan_item();
+```
+
+Exemplo completo implementado na OnlyFEUP
+
+```sql
+-- Add column to user to store computed ts_vectors.
+ALTER TABLE users
+ADD COLUMN tsvectors TSVECTOR;
+
+-- Create a function to automatically update ts_vectors.
+CREATE FUNCTION user_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('simple', NEW.name), 'A') ||
+         setweight(to_tsvector('simple', NEW.username), 'B')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.username <> OLD.username) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('simple', NEW.name), 'A') ||
+             setweight(to_tsvector('simple', NEW.username), 'B')
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+-- Create a trigger before insert or update on user
+CREATE TRIGGER user_search_update
+ BEFORE INSERT OR UPDATE ON users
+ FOR EACH ROW
+ EXECUTE PROCEDURE user_search_update();
+
+-- Create a GIN index for ts_vectors, because text updates have low frequency
+CREATE INDEX search_user ON users USING GIN (tsvectors);
 ```
 
 #### Transactions
@@ -320,16 +354,3 @@ Garante que se fizer duas ou mais leituras, os resultados serão os mesmos. Só 
 #### 4 - Serializable
 
 Nunca tem acesso a dados não guardados ou modificados após a transação começar a ocorrer. 
-
-### PostgreSQL
-
-Usar o servidor `db.fe.up.pt`, disponível na rede da FEUP ou através da VPN. Usar PostgreSQL na versão 11.3.
-
-### Docker
-
-Útil para ter virtualizações de sistemas e imagens de programas, de modo a fazer a gestão de versões.
-
-```bash
-$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d postgres:11.3
-$ docker exec -it some-postgres bash
-```
