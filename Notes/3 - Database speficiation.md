@@ -1,5 +1,37 @@
 # Database specification [EBD]
 
+- [Conceptual data model](#conceptual-data-model-a4)
+    - [Class Diagram](#class-diagram)
+    - [Additional Business Rules](#additional-business-rules)
+- [Relational schema, validation and schema refinement](#relational-schema-validation-and-schema-refinement-a5)
+    - [Mapeamento de generalizações](#mapeamento-de-generalizações)
+    - [Indexes](#indexes)
+    - [Clustering](#clustering)
+    - [Cardinality](#cardinality)
+    - [Full Text Search](#full-text-search)
+        - [tsvector](#tsvector)
+        - [tsquery](#tsquery)
+        - [weights](#weights)
+    - [User-Defined Functions](#user-defined-functions)
+    - [Triggers](#triggers)
+- [Transactions](#transactions)
+    - [ACID](#acid)
+    - [Problemas de concorrência](#problemas-de-concorrência)
+        - [Dirty Reads](#1---dirty-reads)
+        - [Non-repeatable reads](#2---non-repeatable-reads)
+        - [Phantom reads](#3---phantom-reads)
+        - [Serialization anomaly](#4---serialization-anomaly)
+    - [Transaction Isolation](#transaction-isolation)
+        - [Read uncommitted](#1---read-uncommitted)
+        - [Read committed](#2---read-committed)
+        - [Repeatable read](#3---repeatable-read)
+        - [Serializable](#4---serializable)
+- [Exemplos](#exemplos)
+    - [Posts, Comentários, Replies](#posts-comentários-replies)
+    - [Notificações](#notificações)
+        - [Transações](#transações)
+        - [Triggers](#triggers)
+
 ## Conceptual data model [A4]
 
 ### Class Diagram
@@ -62,9 +94,7 @@ Principalmente quando as generalizações são completas e disjuntas, há três 
 
 #### Exemplo
 
-Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação. Se fosse usado o mapeamento de Superclasse no caso da generalização (User, Admin, Blocked) e dado que existem muitos mais Users, vários dos seus atributos ficariam NULL devido a Admin e Blocked de qualquer forma. Se fosse usado o mapeamento Object Oriented existiriam muitos atributos comuns. Com ER não há informação redundante.
-
-Exemplo entre User, Admin e Blocked
+Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação. Se fosse usado o mapeamento de Superclasse no caso da generalização (User, Admin, Blocked) e dado que existem muitos mais Users, vários dos seus atributos ficariam NULL devido a Admin e Blocked de qualquer forma. Se fosse usado o mapeamento Object Oriented existiriam muitos atributos comuns. Com ER não há informação redundante. Exemplo entre User, Admin e Blocked
 
 ```sql
 CREATE TABLE users (
@@ -87,27 +117,6 @@ CREATE TABLE blocked (
    -- Segunda forma de referenciar o ID
    id INTEGER REFERENCES users (id) ON UPDATE CASCADE,
    PRIMARY kEY (id)
-);
-```
-
-Exemplo entre Notificações. Para simplificar é só mostrada a parte da subárvore referente às notificações de comentários:
-
-```sql
-CREATE TABLE notification (
-   id SERIAL PRIMARY KEY,
-   date TIMESTAMP NOT NULL CHECK (date <= now()),
-   notified_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
-   emitter_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
-   viewed BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TYPE comment_notification_types AS 
-ENUM ('liked_comment', 'comment_post', 'reply_comment', 'comment_tagging');
-
-CREATE TABLE comment_notification (
-   id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
-   comment_id INTEGER NOT NULL REFERENCES comment (id) ON UPDATE CASCADE,
-   notification_type comment_notification_types NOT NULL
 );
 ```
 
@@ -360,3 +369,136 @@ Garante que se fizer duas ou mais leituras, os resultados serão os mesmos. Só 
 #### 4 - Serializable
 
 Nunca tem acesso a dados não guardados ou modificados após a transação começar a ocorrer. 
+
+## Exemplos
+
+### Posts, Comentários, Replies
+
+
+
+### Notificações
+
+Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação.
+
+![OnlyFEUP Notifications](../Images/Notifications.png)
+
+Para simplificar é só mostrada a parte da subárvore referente às notificações de comentários. Como as classes notification e comment_notification contém todas as informações necessárias, as folhas da árvore de notificações puderam ser implementadas apenas criando uma enumeração em PostgreSQL:
+
+```sql
+CREATE TABLE notification (
+   id SERIAL PRIMARY KEY,
+   date TIMESTAMP NOT NULL CHECK (date <= now()),
+   notified_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   emitter_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   viewed BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TYPE comment_notification_types AS 
+ENUM ('liked_comment', 'comment_post', 'reply_comment', 'comment_tagging');
+
+CREATE TABLE comment_notification (
+   id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
+   comment_id INTEGER NOT NULL REFERENCES comment (id) ON UPDATE CASCADE,
+   notification_type comment_notification_types NOT NULL
+);
+```
+
+#### Triggers
+
+Há um conjunto de triggers que garantem que após eliminar uma subnotificação (seja ela do tipo user, post, comment ou group) a correspondente entrada na tabela principal é também eliminada. A propagação da eliminação na árvore de generalizações é de baixo para cima, pelo que o tipo dos triggers é sempre **AFTER DELETE ON**:
+
+```sql
+CREATE FUNCTION delete_mainnotification_action() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+   DELETE FROM notification WHERE OLD.id = notification.id;
+   RETURN OLD;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_main_post_notification_action
+   AFTER DELETE ON post_notification
+   FOR EACH ROW
+   EXECUTE PROCEDURE delete_mainnotification_action();
+
+CREATE TRIGGER delete_main_comment_notification_action
+   AFTER DELETE ON comment_notification
+   FOR EACH ROW
+   EXECUTE PROCEDURE delete_mainnotification_action();
+
+CREATE TRIGGER delete_main_group_notification_action
+   AFTER DELETE ON group_notification
+   FOR EACH ROW
+   EXECUTE PROCEDURE delete_mainnotification_action();
+
+CREATE TRIGGER delete_main_user_notification_action
+   AFTER DELETE ON user_notification
+   FOR EACH ROW
+   EXECUTE PROCEDURE delete_mainnotification_action();
+```
+
+#### Transações
+
+As transações foram programadas essencialmente para a criação de notificações em qualquer interação entre utilizadores. Ao contrário da eliminação anterior, o sentido das inserções é descendente na árvore de generalizações. Passos principais:
+
+- A: Iniciar a transação
+
+```php
+DB::beginTransaction();
+```
+
+- B: Inserção de dados na tabela notification
+
+```php
+Notification::insert([
+    'emitter_user' => Auth::user()->id, # O emissor é o utilizador que está com login
+    'notified_user' => $post->owner_id, # Vai notificar o utilizador que fez o Post
+    'date' => date('Y-m-d H:i'),        # A data é now()
+    'viewed' => false,                  # A notificação foi criada agora, logo ainda não foi vista
+]);
+```
+
+- C: Pesquisa do novo ID criado na tabela notification
+
+```php
+$newNotification = Notification::select('notification.id')          # seleciona o id da notificação
+                 ->where('emitter_user', Auth::user()->id)          # que tem como emissor o utilizador que está com login
+                 ->where('notified_user', $post->owner_id)->get()   # e como receptor o utilizador que é dono do post
+                 ->last(); # quer a última notificação que entrou, pois podem existir mais interações entre estes dois utilizadores
+```
+
+- D: Inserção de dados na tabela comment_notification com base no ID descoberto
+
+```php
+CommentNotification::insert([
+    'id' => $newNotification->id,           # o ID aponta para o mesmo ID da tabela notification
+    'comment_id' => $comment->id,
+    'notification_type' => 'comment_post'   # seleciona o tipo. neste caso foi comment_post.
+]);
+```
+
+- E: Terminar a transação
+
+```php
+DB::commit();
+```
+
+O passo C é necessário porque o PostgreSQL cria IDs com base em Autoincrement que é independente do número de eliminações. O comportamento de IDs pode ser representado da seguinte forma:
+
+```note
+DB.show()
+> [1, 2, 3, 4, 5]
+DB.delete(2)
+> [1, 3, 4, 5]
+DB.insert()
+> [1, 3, 4, 5, 6]
+DB.delete(6)
+> [1, 3, 4, 5]
+DB.insert()
+> [1, 3, 4, 5, 7]
+```
+
+Como o último ID a ser gerado é impossível de prever e pode não ser proporcional ao número de linhas da tabela a solução adotada foi pesquisar a última inserção com base nos utilizadores em questão. Assim não há erros.
+
+Há muitos mais detalhes a ter em conta neste processo. Este exemplo foi extraído [daqui](../Project/app/Http/Controllers/CommentController.php), da função `create()` que vai da linha 28 à 96.
