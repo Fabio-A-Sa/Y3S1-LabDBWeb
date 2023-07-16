@@ -1,5 +1,17 @@
 # Web Applications and Frameworks
 
+- [Internet vs. Web](#internet-vs-web)
+- [Web Applications](#web-applications)
+- [Web Applications Architectures](#web-applications-architectures)
+    - [Static Web Pages](#static-web-pages)
+    - [Dynamic Web Pages](#dynamic-web-pages)
+    - [Multi-Page Web Applications](#multi-page-web-applications)
+    - [Single Page Web Applications](#single-page-web-applications)
+- [Server-side Web Development](#server-side-web-development)
+- [Web Frameworks](#web-frameworks)
+- [Web application specification](#web-application-specification-a7)
+- [OpenAPI](#openapi)
+
 ## Internet vs. Web
 
 Enquanto que a Internet são redes conectadas entre si, para ligar dispositivos, a Web (world wide web) é um sistema de distribuição da informação que usa a Internet. <br>
@@ -149,3 +161,9 @@ Exemplo da página de login:
 ```
 
 O exemplo completo da OnlyFEUP está disponível [aqui](../Project/docs/a9_openapi.yaml). No gitlab a visualização do documento é mais simpática. Note-se que além do tópico A7 também contém código referente ao A9, que nada mais é que o update final da documentação.
+
+---
+
+@ Fábio Sá <br>
+@ Novembro de 2022 <br>
+@ Revisão em Julho de 2023
