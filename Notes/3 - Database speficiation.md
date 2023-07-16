@@ -50,8 +50,8 @@ O diagrama UML da **OnlyFEUP** é bastante complexo e conta com cerca de 14 clas
 - Blocked e Admin são generalizações de User, mas como há Users que nem estão bloqueados nem são administradores a generalização é **incompleta**. Como também é possível um administrador ser bloqueado, a generalização é **overlapping**;
 - Requests, Follows e Messages são efetuados de utilizadores para utilizadores;
 - Cada User pode ter vários Posts e cada Post pode ter vários Comments;
-- Os Comments podem ter Comments e assim sucessivamente, formando uma cadeia de profundidade teoricamente infinita, pelo que é importante a existência do atributo `previous`, que aponta para o comentário anterior. Caso esse atributo seja NULL significa que o comentário é o primeiro da "thread" e só está ligado ao respectivo Post. Através de *queries* sucessivas é possível, dado qualquer comentário, reestabelecer a "Thread" até ao Post inicial. A profundidade de cada comentário pode influenciar o tamanho da letra, como por exemplo com a fórmula "\<h\<depth\>>" e a identação do respectivo bloco. É um comportamento a ser visto mais tarde.
-- Existem 16 tipos de notificações, distribuídas em quatro grupos diferentes e programadas numa árvore de generalizações de 3 níveis. Existem triggers de fluxo ascendente e descendente que percorrem a árvore para garantir a integridade dos dados. É um comportamento a ser visto mais tarde.
+- Os Comments podem ter Comments e assim sucessivamente, formando uma cadeia de profundidade teoricamente infinita, pelo que é importante a existência do atributo `previous`, que aponta para o comentário anterior. Caso esse atributo seja NULL significa que o comentário é o primeiro da "thread" e só está ligado ao respectivo Post. Através de *queries* sucessivas é possível, dado qualquer comentário, reestabelecer a "Thread" até ao Post inicial. A profundidade de cada comentário pode influenciar o tamanho da letra, como por exemplo com a fórmula "\<h\<depth\>>" e a indentação do respectivo bloco. É um comportamento a ser visto [aqui](#posts-comentários-replies)
+- Existem 16 tipos de notificações, distribuídas em quatro grupos diferentes e programadas numa árvore de generalizações de 3 níveis. Existem triggers de fluxo ascendente e descendente que percorrem a árvore para garantir a integridade dos dados. É um comportamento a ser visto [aqui](#notificações).
 
 ### Additional Business Rules
 
@@ -374,7 +374,98 @@ Nunca tem acesso a dados não guardados ou modificados após a transação come�
 
 ### Posts, Comentários, Replies
 
+Na OnlyFEUP é permitido criar Posts, comentar Posts e comentar comentários (replies). Esse comportamento pode levar a longas "threads" de informação. 
 
+![OnlyFEUP Threads](../Images/Threads.png) 
+
+Um reply é nada mais do que um comentário que aponta para um comentário mais antigo. Usa-se por isso o atributo *previous*, que pode ser nulo quando o comentário só tem como antecessor o seu correspondente post.
+
+```sql
+CREATE TABLE post (
+   id SERIAL PRIMARY KEY,
+   owner_id INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   group_id INTEGER REFERENCES groups (id) ON UPDATE CASCADE,
+   is_public BOOLEAN NOT NULL DEFAULT TRUE,
+   content VARCHAR(256),
+   date TIMESTAMP NOT NULL CHECK (date <= now())
+);
+
+CREATE TABLE comment (
+   id SERIAL PRIMARY KEY,
+   owner_id INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   post_id INTEGER NOT NULL REFERENCES post (id) ON UPDATE CASCADE,
+   previous INTEGER DEFAULT NULL REFERENCES comment (id) ON UPDATE CASCADE,
+   content VARCHAR(256) NOT NULL,
+   date TIMESTAMP NOT NULL CHECK (date <= now())
+);
+```
+
+Em termos de PHP, dado um comentário é simples consultar os seus descendentes diretos com a função getNext():
+
+```php
+public function getNext() {
+    return Comment::where('previous', $this->id)->get();
+}
+```
+
+De forma semelhante, através de uma função recursiva é possível determinar o número de replies de um comentário ou post:
+
+```php
+public function countReplies() {
+    $total = 0;
+    foreach ($this->getNext() as $next) {
+        $total = $total + 1 + $next->countReplies();
+    }
+    return $total;
+}
+```
+
+A parte mais complicada foi gerar o código HTML não sabendo à partida a profundidade de cada thread. Utilizamos `Blades Recursivos`:
+
+partial.post:
+
+```html
+<article class="main-post" id="post{{$post->id}}">
+    <header class="post-info">...</header>
+    <main class="post-content">...</main>
+    <footer class="post-comments" hidden>
+        @include('partials.commentSection', ['comments' => $post->comments(), 'previous' => "countPostComments".$post->id])
+    </footer>
+</article>
+```
+
+partial.comment:
+
+```html
+<article class="comment" id="comment{{$comment->id}}">
+    <header class="comment-info">...</header>
+    <main class="comment-content">...</main>
+    <footer class="comment-subcomments" hidden>
+        @include('partials.subcomment', 
+            ['comments' => $comment->getNext(), 'deep' => 1, 'previous' => 'replies'.$comment->id, 
+             'comment_id' => $comment->id, 'post_id' => $comment->post_id])
+    </footer>
+</article>
+```
+
+partial.subcomment:
+
+```html
+@foreach($comments as $comment)
+    <article class="subcomment subcomment{{$comment_id}}" id="comment{{$comment->id}}">
+        <header class="subcomment-info">...</header>
+        <main class="subcomment-content">...</main>
+    </article>
+    <!-- Se houver replies/descendentes, volta a chamar partial.subcomment com $deep++ e $comments => $comment->getNext() -->
+    @if($comment->countReplies() > 0)
+        @include('partials.subcomment', 
+            ['comments' => $comment->getNext(), 'deep' => $deep + 1, 'previous' => 'replies'.$comment->id, '
+              comment_id' => $comment->id])
+    @endif
+@endforeach 
+```
+
+Da forma que está implementado o CSS a profundidade máxima visível na página é 2 mas garante-se a visualização de todo o conteúdo, por mais que a thread contenha mais níveis de indentação.
 
 ### Notificações
 
@@ -502,3 +593,9 @@ DB.insert()
 Como o último ID a ser gerado é impossível de prever e pode não ser proporcional ao número de linhas da tabela a solução adotada foi pesquisar a última inserção com base nos utilizadores em questão. Assim não há erros.
 
 Há muitos mais detalhes a ter em conta neste processo. Este exemplo foi extraído [daqui](../Project/app/Http/Controllers/CommentController.php), da função `create()` que vai da linha 28 à 96.
+
+---
+
+@ Fábio Sá <br>
+@ Outubro de 2022 <br>
+@ Revisão em Julho de 2023
