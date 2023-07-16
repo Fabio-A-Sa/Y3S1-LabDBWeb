@@ -374,7 +374,7 @@ Nunca tem acesso a dados não guardados ou modificados após a transação come�
 
 ### Posts, Comentários, Replies
 
-Na OnlyFEUP é permitido criar Posts, comentar Posts e comentar comentários (replies). Esse comportamento pode levar a longas "threads" de informação. 
+Na OnlyFEUP é permitido criar Posts, comentar Posts, comentar comentários (replies) e assim sucessivamente. Esse comportamento pode levar a longas "threads" de informação. 
 
 ![OnlyFEUP Threads](../Images/Threads.png) 
 
@@ -429,7 +429,7 @@ partial.post:
     <header class="post-info">...</header>
     <main class="post-content">...</main>
     <footer class="post-comments" hidden>
-        @include('partials.comment', ['comments' => $post->comments(), 'previous' => "countPostComments".$post->id])
+        @include('partials.comment', ['comments' => $post->comments()])
     </footer>
 </article>
 ```
@@ -442,9 +442,7 @@ partial.comment:
         <header class="comment-info">...</header>
         <main class="comment-content">...</main>
         <footer class="comment-subcomments" hidden>
-            @include('partials.subcomment', 
-                ['comments' => $comment->getNext(), 'deep' => 1, 'previous' => 'replies'.$comment->id, 
-                'comment_id' => $comment->id, 'post_id' => $comment->post_id])
+            @include('partials.subcomment', ['comments' => $comment->getNext(), 'deep' => 1])
         </footer>
     </article>
 @endforeach 
@@ -458,16 +456,45 @@ partial.subcomment:
         <header class="subcomment-info">...</header>
         <main class="subcomment-content">...</main>
     </article>
-    <!-- Se houver replies/descendentes, volta a chamar partial.subcomment com $deep++ e $comments => $comment->getNext() -->
+    <!-- Volta a chamar partial.subcomment para os descendentes -->
     @if($comment->countReplies() > 0)
-        @include('partials.subcomment', 
-            ['comments' => $comment->getNext(), 'deep' => $deep + 1, 'previous' => 'replies'.$comment->id, '
-              comment_id' => $comment->id])
+        @include('partials.subcomment', ['comments' => $comment->getNext(), 'deep' => $deep + 1])
     @endif
 @endforeach 
 ```
 
-Da forma que está implementado o CSS a profundidade máxima visível na página é 2 mas garante-se a visualização de todo o conteúdo, por mais que a thread contenha mais níveis de indentação.
+Da forma que está implementado o CSS a profundidade máxima visível na página é 2 mas garante-se a visualização de todo o conteúdo, por mais que a thread contenha mais níveis de indentação. <br>
+O código Blade mostrado foi simplificado. O original pode ser consultado [aqui](../Project/resources/views/partials/).
+
+Quanto à eliminação de threads usou-se um trigger do tipo **BEFORE DELETE ON comment**, que garante que todos os descendentes (descendentes dos descendentes e assim sucessivamente de forma recursiva) são eliminados antes do comentário principal:
+
+```sql
+CREATE FUNCTION delete_comment_action() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+   DELETE FROM comment_likes WHERE OLD.id = comment_likes.comment_id;
+   DELETE FROM comment_notification WHERE OLD.id = comment_notification.comment_id;
+   DELETE FROM comment WHERE OLD.id = comment.previous; -- Recursive Trigger Call
+   RETURN OLD;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_comment_action
+   BEFORE DELETE ON comment
+   FOR EACH ROW
+   EXECUTE PROCEDURE delete_comment_action();
+```
+
+Ao delegar esta função à base de dados o servidor fica com a tarefa facilitada:
+
+```php
+public function delete (Request $request) {
+    $comment = Comment::find($request->id);
+    $this->authorize('delete', $comment);
+    $comment->delete(); // executa a user-defined function (UDF) anterior
+}
+```
 
 ### Notificações
 
