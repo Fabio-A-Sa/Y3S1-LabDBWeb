@@ -2,6 +2,14 @@
 
 É a documentação do sistema a desenvolver. Nesta etapa há análise dos requisitos e das necessidades dos clientes, da tecnologia a implementar e das suas dependências. Para identificar todos os parâmetros, é necessário recorrer aos seguintes tópicos:
 
+- [Project Presentation](#11-project-presentation-a1)
+- [Actors](#12-actors-a2)
+- [User Stories](#13-user-stories-a2)
+- [Suplementary Requirements](#14-suplementary-requirements-a2)
+    - [Business Rules](#141---business-rules)
+    - [Technical Requirements](#142---technical-requirements)
+    - [Restrictions](#143---restrictions)
+
 ## 1.1 Project Presentation [A1]
 
 Introduz o contexto e a motivação para o projecto. Descreve brevemente o sistema web a desenvolver, bem como os objectivos do projecto, uma listagem das principais funcionalidades que suportará e os grupos de acesso. Estes últimos são os utilizadores, administradores, que têm diferentes permissões dentro dos sistemas.
@@ -122,3 +130,9 @@ Limita o grau de liberdade na busca de uma solução para o projecto. É uma dea
 - The database should use PostgreSQL
 ```
 <p align="center">Retirado de OnlyFEUP A2</p>
+
+---
+
+@ Fábio Sá <br>
+@ Outubro de 2022
+@ Revisão em Julho de 2023
