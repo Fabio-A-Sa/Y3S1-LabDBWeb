@@ -429,7 +429,7 @@ partial.post:
     <header class="post-info">...</header>
     <main class="post-content">...</main>
     <footer class="post-comments" hidden>
-        @include('partials.commentSection', ['comments' => $post->comments(), 'previous' => "countPostComments".$post->id])
+        @include('partials.comment', ['comments' => $post->comments(), 'previous' => "countPostComments".$post->id])
     </footer>
 </article>
 ```
@@ -437,15 +437,17 @@ partial.post:
 partial.comment:
 
 ```html
-<article class="comment" id="comment{{$comment->id}}">
-    <header class="comment-info">...</header>
-    <main class="comment-content">...</main>
-    <footer class="comment-subcomments" hidden>
-        @include('partials.subcomment', 
-            ['comments' => $comment->getNext(), 'deep' => 1, 'previous' => 'replies'.$comment->id, 
-             'comment_id' => $comment->id, 'post_id' => $comment->post_id])
-    </footer>
-</article>
+@foreach($comments as $comment)
+    <article class="comment" id="comment{{$comment->id}}">
+        <header class="comment-info">...</header>
+        <main class="comment-content">...</main>
+        <footer class="comment-subcomments" hidden>
+            @include('partials.subcomment', 
+                ['comments' => $comment->getNext(), 'deep' => 1, 'previous' => 'replies'.$comment->id, 
+                'comment_id' => $comment->id, 'post_id' => $comment->post_id])
+        </footer>
+    </article>
+@endforeach 
 ```
 
 partial.subcomment:
