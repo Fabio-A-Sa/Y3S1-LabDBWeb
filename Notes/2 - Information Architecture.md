@@ -8,6 +8,25 @@ Requer noções de usabilidade, design, ciência da informação, user experienc
 3. Criar ferramentas para os interessados organizarem a informação;
 4. Conectar vários espaços da informação, como aplicações, plataformas e canais;
 
+## Tópicos
+
+- [Information Architecture Elements](#21---information-architecture-elements)
+    - [Organization Systems](#211---organization-systems)
+        - [Exact Organization Schemes](#a-exact-organization-schemes)
+        - [Ambiguous Organization Schemes](#b-ambiguous-organization-schemes)
+    - [Labeling Systems](#212---labeling-systems)
+    - [Navigation Systems](#213---navigation-systems)
+        - [Global navigation systems](#a-global-navigation-systems)
+        - [Local navigation systems](#b-local-navigation-systems)
+        - [Contextual navigation systems](#c-contextual-navigation-systems)
+        - [Suplementary navigation systems](#d-suplementary-navigation-systems)
+    - [Searching Systems](#214---searching-systems)
+- [Information Architecture Process](#22---information-architecture-process)
+- [Information Architecture Deliveries](#23---information-architecture-deliverables)
+    - [Sitemaps](#231---sitemaps-a3)
+    - [Wireframes](#232---wireframes-a3)
+    - [Wireflows](#233---wireflows)
+
 ## 2.1 - Information Architecture Elements
 
 ### 2.1.1 - Organization Systems
@@ -115,3 +134,9 @@ Documenta o fluxo de informação através da interação com o utilizador. Muit
     <img src="../Images/Wireflow.png" alt="wireflow scheme">
     <p align="center">Figura 4: Wireflow</p>
 </p>
+
+---
+
+@ Fábio Sá <br>
+@ Outubro de 2022 <br>
+@ Revisão em Julho de 2023
