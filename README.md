@@ -14,7 +14,17 @@ This repository contains all the exercises and assessments of the UC Laboratóri
 ## Here are several documents, namely:
 
 ### Notes
-Notes that I take during theoretical lectures in Markdown <br>
+
+Notes I took during lectures on Markdown in the 22/23 edition of LBAW. As a LBAW monitor in the year 23/24 I intend to update them according to what comes up and add concrete examples taken from the OnlyFEUP Project. These notes do not and do not intend to replace official documentation or attendance at theoretical classes. <br>
+The most up-to-date notes can be found here:
+
+- [Requirements Specification](./Notes/1%20-%20Requirements%20Specification.md)
+- [Information Architecture](./Notes/2%20-%20Information%20Architecture.md)
+- [Database Specification](./Notes/3%20-%20Database%20speficiation.md)
+- [Web Applications and Framework](./Notes/4%20-%20Web%20Applications%20and%20Frameworks.md)
+- [Laravel]() - Soon
+- [Frontend]() - Soon
+- [Accessibility and Usability]() - Soon
 
 ### Project: OnlyFEUP Social Network (Grade: 18.6/20)
 
