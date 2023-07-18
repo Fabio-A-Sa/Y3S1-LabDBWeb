@@ -43,7 +43,63 @@ Depois do ficheiro base criado recomenda-se:
 
 ### Relações
 
-//TODO
+As relações entre entidades da Base de Dados também têm de estar nos modelos. Para isso criam-se os métodos adequados. Os seguintes exemplos são retirados da OnlyFEUP:
+
+1. Um Post pertence a um único User. Para retornar esse User:
+
+```php
+public function owner() {
+    return $this->belongsTo('App\Models\User');
+}
+```
+
+2. Um Post tem vários Comentários. Para retorná-los:
+
+```php
+public function comments() {
+    return $this->hasMany('App\Models\Comment')
+                ->where('previous', null)->get();
+}
+```
+
+Note-se que no caso acima são apenas retornados os comentários que não têm antecessor, ou seja, apenas os comentários diretamente ligados ao post e que não pertencem a nenhuma thread. O detalhe de implementação das threads foi abordado [aqui](./3%20-%20Database%20speficiation.md#posts-comentários-replies).
+
+3. Um Post tem vários Likes. Para retornar o número de likes:
+
+```php
+public function likes() {
+    return count($this->hasMany('App\Models\PostLike')->get());
+}
+```
+
+4. Um Post pode pertencer a um Grupo. O método seguinte retorna o grupo em questão ou NULL se o atributo `group_id` for nulo:
+
+```php
+public function group(){
+    return $this->belongsTo('App\Models\Group');
+}
+```
+
+5. Um User pode ser Admin ou estar Bloqueado. As funções booleanas seguintes retornam esses estados:
+
+```php
+public function isAdmin() {
+    return count($this->hasOne('App\Models\Admin', 'id')->get());
+}
+
+public function isBlocked() {
+    return count($this->hasOne('App\Models\Blocked', 'id')->get());
+}
+```
+
+6. Um User tem Followers, que também são Users:
+
+```php
+public function getFollowers() {
+    return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')
+                ->orderBy('name', 'asc');
+}
+```
 
 ## View
 
@@ -66,6 +122,10 @@ Exemplo do conteúdo em `app/Http/Controllers/PostController.php`:
 ```
 
 ### Routes
+
+
+### Queries
+
 
 
 ### Validation
