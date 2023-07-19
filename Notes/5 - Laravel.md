@@ -8,6 +8,7 @@
 - [View]()
     - Blade
 - [Policies]()
+    - [Exemplos]()
 - [Inspire :)](#inspire)
 
 ## Model
@@ -62,7 +63,7 @@ public function comments() {
 }
 ```
 
-Note-se que no caso acima são apenas retornados os comentários que não têm antecessor, ou seja, apenas os comentários diretamente ligados ao post e que não pertencem a nenhuma thread. O detalhe de implementação das threads foi abordado [aqui](./3%20-%20Database%20speficiation.md#posts-comentários-replies).
+Note-se que no caso acima são apenas retornados os comentários que não têm antecessor, ou seja, apenas os comentários diretamente ligados ao post e que não pertencem a nenhuma thread. O detalhe de implementação das threads foi abordado [aqui](./3%20-%20Database%20speficiation.md).
 
 3. Um Post tem vários Likes. Para retornar o número de likes:
 
@@ -115,11 +116,27 @@ Os controladores recebem os HTTP requests do servidor e são armazenados no dire
 $ php artisan make:controller <MODEL_NAME>Controller
 ```
 
-Exemplo do conteúdo em `app/Http/Controllers/PostController.php`:
+Exemplo do conteúdo de `app/Http/Controllers/PostController.php`:
 
 ```php
+class PostController extends Controller
+{
+    public function show(Request $request)
+    { 
+        // A
 
+        // B
+
+        // C
+    }
+
+    // ...
+}
 ```
+
+Cada método
+
+
 
 ### Routes
 
@@ -136,7 +153,7 @@ Exemplo do conteúdo em `app/Http/Controllers/PostController.php`:
 
 // TODO
 
-## Inspire
+## Inspire :)
 
 Para o projecto de LBAW é necessário muita inspiração. Mas nisso o Artisan também pode ajudar:
 
