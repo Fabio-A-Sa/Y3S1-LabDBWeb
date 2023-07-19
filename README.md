@@ -11,7 +11,7 @@ This repository contains all the exercises and assessments of the UC Laboratóri
   />
 </p>
 
-## Here are several documents, namely:
+## Contents, also available in a <a href="https://fabio-a-sa.github.io/Y3S1-LabDBWeb/">website version</a>
 
 ### Notes
 
