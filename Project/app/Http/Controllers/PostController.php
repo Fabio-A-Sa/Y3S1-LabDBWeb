@@ -47,7 +47,6 @@ class PostController extends Controller
       $post->content = " ";
       $post->date = date('Y-m-d H:i');
       $post->is_public = null !== $request->input('public');
-
       $post->save();
 
       $post->content = nl2br(TagController::parseContent($request->content, 'post', $post->id));
