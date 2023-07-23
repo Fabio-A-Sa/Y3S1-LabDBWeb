@@ -143,7 +143,7 @@ Onde:
 - **PATH** é parte do URL do site que ativa o request, por exemplo "/post/create" mapeava "www.lbaw2255.fe.up.pt/post/create" na OnlyFEUP;
 - **METHOD** o método implementado na classe do controlador que irá tratar do request;
 
-Para visualização de páginas, como as páginas estáticas ou o perfil do utilizador, o controlador correspondente recebe um pedido "GET" e retorna uma página HTML. Nas ações relacionadas com a manipulação da base de dados normalmente usamos pedidos "POST" ou "DELETE". 
+Para visualização de páginas, como as páginas estáticas ou o perfil do utilizador, o controlador correspondente recebe um pedido "GET" e retorna uma página HTML. Nas ações relacionadas com a manipulação da base de dados normalmente usamos pedidos "POST", "PUT" ou "DELETE". 
 
 #### Nota
 
@@ -161,7 +161,7 @@ Os controladores recebem os HTTP requests do servidor e são armazenados no dire
 $ php artisan make:controller <MODEL_NAME>Controller
 ```
 
-Exemplo do conteúdo de `app/Http/Controllers/PostController.php` com a rota criada no exemplo anterior:
+A rota criada no exemplo anterior:
 
 ```php
 Route::controller(PostController::class)->group(function () {
@@ -169,7 +169,7 @@ Route::controller(PostController::class)->group(function () {
 });
 ```
 
-A implementação do método create() pode ser a seguinte:
+Tem o método create() implementado da seguinte forma no ficheiro `app/Http/Controllers/PostController.php`:
 
 ```php
 class PostController extends Controller
@@ -183,7 +183,6 @@ class PostController extends Controller
         $post = new Post();
         $post->owner_id = Auth::user()->id;
         $post->group_id = $request->group_id;
-        $post->is_public = $request->public;
         $post->content = $request->content;
         $post->date = date('Y-m-d H:i');
         $post->is_public = null !== $request->public;
@@ -199,14 +198,14 @@ class PostController extends Controller
 
 Cada método pode ter três partes:
 - A: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
-- B: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request;
+- B: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
 - C: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML. Ver [View](#view);
 
 Repare-se que o objecto Request contém todos os parâmetros do POST request. O método save() disponível no novo objecto guarda implicitamente os novos valores na base de dados.
 
 ### Policies
 
-Uma forma acessível de verificar as permissões das ações. Por norma um Model tem um Controller e também uma Policy. Também dá para gerar o ficheiro correspondente usando o Artisan:
+Uma forma acessível de verificar as permissões das ações. Por norma cada Model tem um Controller e uma Policy. Também dá para gerar o ficheiro correspondente usando o Artisan:
 
 ```
 php artisan make:policy <MODEL>Policy --model=<MODEL>
@@ -218,7 +217,7 @@ Se não for indicado o modelo da policy (--model=<MODEL>) é necessário associ�
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-      'App\Models\Post' => 'App\Policies\PostPolicy',
+      Post::class => PostPolicy::class,
       //...
     ];
 }
@@ -232,31 +231,89 @@ class PostPolicy
     use HandlesAuthorization;
     
     public function delete(User $user, Post $post) {
-    return  ($user->id == Auth::user()->id) && // I
-            ($user->id == $post->owner_id ||   // II
-             $user->isAdmin() ||               // III
-             $post->group()->owner_id == Auth::user()->id); // IV
+        return  ($user->id == Auth::user()->id) &&                  // I
+                ($user->id == $post->owner_id ||                    // II
+                $user->isAdmin() ||                                // III
+                $post->group()->owner_id == Auth::user()->id);     // IV
+    }
 }
 ```
 
-Cada método pode ter vários argumentos. Esta policy de exemplo pode ser invocada com esta no controller de Post:
+Cada método pode ter vários argumentos. A Policy de exemplo pode ser invocada com esta chamada no controller de Post:
 
 ```php
-public function delete(Request $request) {
-      $post = Post::find($request->id);     // encontra o post a ser eliminado
-      $this->authorize('delete', $post);    // chama o método "delete" de PostPolicy
-// ...
+class PostController extends Controller
+{
+    public function delete(Request $request) {
+        $post = Post::find($request->id);     // encontra o post a ser eliminado
+        $this->authorize('delete', $post);    // chama o método "delete" de PostPolicy 
+                                              // com o $post como argumento
+
+        // ...
+    }
+    // ...
+}
 ```
 
-Repare-se que o utilizador (User $user) é um argumento que por default existe nas Policies. Depois pode . Neste caso. 
-
-No caso acima é apenas permitido eliminar um Post se:
+Repare-se que o utilizador (User $user) é um argumento que por default existe nas Policies. Depois podem existir outros objectos passados nos argumentos. Neste caso precisavamos do Post a eliminar pois só podemos eliminá-lo se:
 - I: o utilizador que realiza a ação é o que está com login AND
 - II: o utilizador que elimina o post é o dono do post OR
 - III: o utilizador que elimina o post é um administrador OR
 - IV: o utilizador que elimina o post é o dono do grupo onde o post está inserido
 
-Sempre que não é permitido, o servidor retorna para a página anterior ou um 404 ou um 403 forbidden. Ver isto melhro
+Se a Policy retornar True, então o controlador avançará para a ação de eliminação do Post pois o utilizador registado tem permissões para isso. Caso contrário o controlador irá lançar uma excepção (normalmente 403 - Forbidden). Há pelo menos duas formas de lidar com a situação:
+
+1. Retornando uma View de erro. Por *default* é o que o Laravel faz: aponta para a View `resources/views/errors/<N>.blade.php`, onde N é o código de status da resposta HTTP, mesmo que não esteja explícito no código do controlador:
+
+```php
+public function delete(Request $request) {
+    $post = Post::find($request->id);
+    $this->authorize('delete', $post);
+    $post->delete();
+    return view('pages.home');
+}
+```
+
+Dá para personalizar essas páginas de acordo com as necessidades da aplicação como um Laravel Blade comum. Também dá para criá-las automaticamente usando o comando:
+
+```bash
+$ php artisan view:make errors.<N>
+```
+
+2. Voltando à página anterior à ação, mas agora com uma mensagem de erro:
+
+```php
+public function delete(Request $request) {
+
+    try {
+        $post = Post::find($request->id);
+        $this->authorize('delete', $post);
+        return redirect()->back()->with('success', 'Post successfully deleted');
+    } catch (Exception $exception) {
+        return redirect()->back()->with('error', 'Cannot delete this post');
+    }
+}
+```
+
+A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador. Pode poder ser mostrada caso exista da seguinte forma:
+
+```html
+@if (Session::has('success'))
+    <div class="alert alert-success alert-dismissible" id="alert" role="alert">
+        <h4><strong>Success!</strong>{{ session('success') }}</h4>
+    </div>
+@endif
+
+@if (Session::has('error'))
+    <div class="alert alert-danger alert-dismissible" id="alert" role="alert">
+        <h4><strong>Error!</strong>{{ session('error') }}</h4>
+    </div>
+@endif
+```
+
+Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feedback aos utilizadores:
+
+![Feedback](../Images/Feedback.png)
 
 ### Validation
 
