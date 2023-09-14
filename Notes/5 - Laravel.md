@@ -208,7 +208,7 @@ Repare-se que o objecto Request contém todos os parâmetros do POST request. O 
 Uma forma acessível de verificar as permissões das ações. Por norma cada Model tem um Controller e uma Policy. Também dá para gerar o ficheiro correspondente usando o Artisan:
 
 ```
-php artisan make:policy <MODEL>Policy --model=<MODEL>
+php artisan make:policy <MODEL_NAME>Policy --model=<MODEL_NAME>
 ```
 
 Se não for indicado o modelo da policy (--model=<MODEL>) é necessário associá-los manualmente. Para isso, dentro do ficheiro `app/Providers/AuthServiceProvider.php`:
@@ -231,8 +231,8 @@ class PostPolicy
     use HandlesAuthorization;
     
     public function delete(User $user, Post $post) {
-        return  ($user->id == Auth::user()->id) &&                  // I
-                ($user->id == $post->owner_id ||                    // II
+        return  ($user->id == Auth::user()->id) &&                 // I
+                ($user->id == $post->owner_id ||                   // II
                 $user->isAdmin() ||                                // III
                 $post->group()->owner_id == Auth::user()->id);     // IV
     }
@@ -248,7 +248,6 @@ class PostController extends Controller
         $post = Post::find($request->id);     // encontra o post a ser eliminado
         $this->authorize('delete', $post);    // chama o método "delete" de PostPolicy 
                                               // com o $post como argumento
-
         // ...
     }
     // ...
@@ -288,6 +287,7 @@ public function delete(Request $request) {
     try {
         $post = Post::find($request->id);
         $this->authorize('delete', $post);
+        $post->delete();
         return redirect()->back()->with('success', 'Post successfully deleted');
     } catch (Exception $exception) {
         return redirect()->back()->with('error', 'Cannot delete this post');
@@ -295,7 +295,7 @@ public function delete(Request $request) {
 }
 ```
 
-A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador. Pode poder ser mostrada caso exista da seguinte forma:
+A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador. Pode ser mostrada caso exista da seguinte forma:
 
 ```html
 @if (Session::has('success'))
@@ -317,7 +317,11 @@ Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feed
 
 ### Validation
 
-// TODO
+Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo, 
+
+Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. Por esse motivo os dados são guardados entre redirects() para poupar tempo.
+
+
 
 ### Queries
 
@@ -327,7 +331,7 @@ Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feed
 
 // TODO
 
-## Inspire :)
+## Inspire
 
 Para o projecto de LBAW é necessário muita inspiração. Mas nisso o Artisan também pode ajudar:
 
