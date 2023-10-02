@@ -88,9 +88,65 @@ Por cortesia da sintaxe do PostgreSQL alguns nomes de tabelas e atributos estão
 
 Principalmente quando as generalizações são completas e disjuntas, há três hipóteses para o mapeamento:
 
-- **Superclasse**, onde a classe mais geral contém todos os atributos, alguns até podem ser nulos, e uma enumeração para diferenciar o tipo do objecto;
-- **ER**, onde existe a caracterização de um objecto geral e cada uma das subdivisões. As classes filhas, que contém outros atributos, apontam para a classe que lhes deu origem com uma chave estrangeira;
-- **Object Oriented**, onde apenas as classes filhas são caracterizadas e vários dos atributos são comuns às unidades;
+#### 3.1 - Superclasse
+
+Usada quando a quantidade de atributos da classe principal é muito superior à quantidade que define as classes derivadas. Há só instanciação da classe principal. Normalmente é usada quando há TYPES em SQL:
+
+```sql
+CREATE TYPE group_notification_types AS ENUM ('requested_join', 'joined_group', 'accepted_join')
+
+CREATE TABLE group_notification (
+   id INTEGER PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
+   group_id INTEGER NOT NULL REFERENCES groups (id) ON UPDATE CASCADE,
+   notification_type group_notification_types NOT NULL
+);
+```
+
+#### 3.2 - ER
+
+É a mais comum das generalizações. Quando a classe principal e derivadas têm vários atributos comuns mas também vários outros que as diferenciam. Juntar tudo na classe principal (Superclasse) iria fazer com que vários dos atributos fossem nulos e os dados ficariam muito esparsos. Alocar os atributos à classe generalizada (Object Oriented) iria provocar uma grande redundância nos dados.
+
+```sql
+CREATE TABLE notification (
+   id SERIAL PRIMARY KEY,
+   date TIMESTAMP NOT NULL CHECK (date <= now()),
+   notified_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   emitter_user INTEGER NOT NULL REFERENCES users (id) ON UPDATE CASCADE,
+   viewed BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE comment_notification (
+   id SERIAL PRIMARY KEY REFERENCES notification (id) ON UPDATE CASCADE,
+   comment_id INTEGER NOT NULL REFERENCES comment (id) ON UPDATE CASCADE,
+   notification_type comment_notification_types NOT NULL
+);
+```
+
+#### 3.3 - Object Oriented
+
+Quando a quantidade de atributos da classe mãe é muito reduzido comparando com as derivadas, pelo que só vale a pena instanciar as derivadas (evita o custo do JOIN para ir buscar apenas um atributo). Isto normalmente acontece em casos onde as classes derivadas têm atributos muito diversos e não comuns.
+
+```sql
+-- Classe geral: Animal (id, name)
+
+CREATE TABLE Dog (
+   id SERIAL PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   breed VARCHAR(255),
+   is_neutered BOOLEAN,
+   date_of_birth DATE,
+   date_of_adoption DATE
+);
+
+CREATE TABLE Bird (
+   id SERIAL PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   beak_color VARCHAR(255),
+   wing_span DECIMAL,
+   migration_status BOOLEAN,
+   is_nocturnal BOOLEAN
+);
+```
 
 #### Exemplo
 
@@ -627,4 +683,4 @@ Há muitos mais detalhes a ter em conta neste processo. Este exemplo foi extraí
 
 @ Fábio Sá <br>
 @ Outubro de 2022 <br>
-@ Revisão em Julho de 2023
+@ Revisão em Outubro de 2023
