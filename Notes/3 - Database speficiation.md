@@ -554,7 +554,7 @@ public function delete (Request $request) {
 
 ### Notificações
 
-Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação.
+Na OnlyFEUP usou-se dois tipos de generalizações por serem adequadas às necessidades da aplicação. Por um lado temos a generalização ER entre Notification e CommentNotification. Por outro lado, temos a generalização Superclasse entre CommentNotification e LikedComment, por exemplo.
 
 ![OnlyFEUP Notifications](../Images/Notifications.png)
 
