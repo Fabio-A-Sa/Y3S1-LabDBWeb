@@ -157,54 +157,108 @@ $ tree .
     <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
   </head>
   <body>
-    @section('content') <!-- Definir o conteúdo principal da  -->
-    @show <!-- Importante, para renderizar o content -->
+    @section('content') <!-- Definir a zona do conteúdo principal da página que usará o layout -->
+    @show               <!-- Importante para renderizar o conteúdo -->
   </body>
 </html>
-
-
 ```
 
 `pages/home.blade.php`:
 
 ```php
+@extends('layouts.app')                                 <!-- Estende o layout principal -->
 
+@section('content')                                     <!-- Define o que é o `content` da página -->
+    @include('partials.header')                         <!-- Renderiza o header -->
+    <main>                                              <!-- A secção principal tem os profiles -->
+        <section class="profiles"> 
+        @for ($i = 1; $i <= 4; $i++)
+            @include('partials.profile', ['id' => $i])  <!-- Renderiza cada profile -->
+        @endfor
+        </section>
+    </main>
+    @include('partials.footer')                         <!-- Renderiza o footer -->
+@endsection
 ```
 
-`layouts/app.blade.php`:
+`pages/profile.blade.php`:
 
 ```php
+@extends('layouts.app')                                 <!-- Estende o layout principal -->
 
+@section('content')                                     <!-- Define o que é o `content` da página -->
+    @include('partials.header')                         <!-- Renderiza o header -->
+    <main>
+        @include('partials.feedback')                   <!-- Renderiza o feedback -->
+        <div class="content">                           <!-- A secção principal tem as características do profile -->
+            <h3>Profile {{ $id }}</h3>
+            <img src="{{ FileController::get('profile', $id) }}">
+            @include('partials.form', ['id' => $id])   <!-- Renderiza o form, injecta o ID do profile -->
+        </div>
+    </main>
+    @include('partials.footer')                         <!-- Renderiza o footer -->
+@endsection
 ```
 
-`layouts/app.blade.php`:
+`partials/header.blade.php`:
 
 ```php
-
+<header>
+    <h1>LBAW Tutorial 02 - File Storage</h1>
+</header>
 ```
 
-`layouts/app.blade.php`:
+`partials/footer.blade.php`:
 
 ```php
-
+<footer>
+    <p>LBAW @ 2023</p>
+</footer>
 ```
 
-`layouts/app.blade.php`:
+`partials/profile.blade.php`:
 
 ```php
-
+<a href="profiles/{{ $id }}"> <!-- Usa o ID injectado para criar o link dinamicamente... -->
+    <article class="profile">
+        <h3>Profile {{ $id }}</h3> <!-- ... e o próprio título -->
+        <img src="{{ FileController::get('profile', $id) }}">
+    </article>
+</a>
 ```
 
-`layouts/app.blade.php`:
+`partials/feedback.blade.php`:
 
 ```php
-
+<!-- Só escreve alguma coisa se ocorreu um erro ou um sucesso na ação anterior -->
+@if(session('error'))
+    <h3 class="error">{{ session('error') }}</h3>
+@elseif(session('success'))
+    <h3 class="success">{{ session('success') }}</h3>
+@endif 
 ```
 
-`layouts/app.blade.php`:
+`partials/form.blade.php`:
 
 ```php
+<form method="POST" action="/file/upload" enctype="multipart/form-data">
 
+    <!-- Nunca esquecer de enviar também o token CSRF em qualquer formulário -->
+    @csrf 
+    <input name="file" type="file" required>
+
+    <!-- Usa o ID injectado para injectar valores importantes para o controller -->
+    <input name="id" type="number" value="{{ $id }}" hidden>
+    <input name="type" type="text" value="profile" hidden>
+    <button type="submit">Submit</button>
+</form>
+```
+
+As vistas retornadas por controllers são na maioria das vezes páginas completas:
+
+```php
+return view('pages.profile', ['id' => $id]);    // route: /profile/{id}
+return view('pages.home')                       // route: /home
 ```
 
 ## Controller
