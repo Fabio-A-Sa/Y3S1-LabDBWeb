@@ -10,7 +10,9 @@ De acordo com [SAPO UX Usabilidade](https://ux.sapo.pt/checklists/usabilidade/) 
 
 ## Validation
 
-
+Os códigos HTML e CSS gerados pela aplicação WEB também têm de ser válidos:
+- [Validador de HTML](https://validator.w3.org/#validate_by_input) 
+- [Validador de CSS](https://jigsaw.w3.org/css-validator/#validate_by_input)
 
 ---
 
