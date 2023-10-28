@@ -109,7 +109,103 @@ public function getFollowers() {
 
 ## View
 
-//TODO
+O Laravel tem o mecanismo de templating `Blade`, que permite de criação de páginas e sucessivos componentes de visualização que podem ser reutilizados. Esses templates/views estão presentes no diretório `resources/views` e por norma podem ser de três tipos:
+
+- `Layout`: garante a coesão em todo o projecto. Normalmente instancia todos os imports de CSS e JS, assim como os metadados das páginas;
+- `Page`: estende as propriedades do layout e é constituída por uma gama de partials;
+- `Partial`: um formulário, o header, o footer, tudo isto podem ser considerados partials;
+
+Exemplos de estrutura:
+
+![Part 1](../Images/views_I.png)
+![Part 2](../Images/views_II.png)
+
+No exemplo apresentado, uma forma de estruturar os templates pode ser esta:
+
+```bash
+$ tree .
+.
+|____layouts
+  |____app.blade.php
+|____pages
+  |____home.blade.php
+  |____profile.blade.php
+|____partials
+  |____header.blade.php
+  |____footer.blade.php
+  |____feedback.blade.php
+  |____form.blade.php
+  |____profile.blade.php
+```
+
+`layouts/app.blade.php`:
+
+```php
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+  <head>
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+  </head>
+  <body>
+    @section('content') <!-- Definir o conteúdo principal da  -->
+    @show <!-- Importante, para renderizar o content -->
+  </body>
+</html>
+
+
+```
+
+`pages/home.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
+
+`layouts/app.blade.php`:
+
+```php
+
+```
 
 ## Controller
 
@@ -144,6 +240,7 @@ Route::<TYPE>(<PATH>, <METHOD>);
 ```
 
 Onde:
+
 - **TYPE** pode ser do tipo get(), post(), delete(), put();
 - **PATH** é parte do URL do site que ativa o request, por exemplo "/post/create" mapeava "www.lbaw2255.fe.up.pt/post/create" na OnlyFEUP;
 - **METHOD** o método implementado na classe do controlador que irá tratar do request;
@@ -202,9 +299,10 @@ class PostController extends Controller
 ```
 
 Cada método pode ter três partes:
-- A: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
-- B: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
-- C: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML. Ver [View](#view);
+
+- `A`: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
+- `B`: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
+- `C`: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML. Ver [View](#view);
 
 Repare-se que o objecto Request contém todos os parâmetros do POST request. O método save() disponível no novo objecto guarda implicitamente os novos valores na base de dados.
 
