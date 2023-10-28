@@ -11,7 +11,6 @@
     - [Queries](#queries)
 - [View](#view)
 - [Integrations](#integrations)
-- [Exemplos](#exemplos)
 - [Inspire :)](#inspire)
 
 ## Model
@@ -478,7 +477,36 @@ Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feed
 
 ### Validation
 
-Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo, 
+Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo na OnlyFEUP o conteúdo de UserController para a edição de perfil era este:
+
+```php
+public function edit(Request $request) {
+
+    // Verifica se pode
+    $this->authorize('edit', User::class);
+    $user = Auth::user();
+
+    // Validação dos dados da request
+    $request->validate([
+        'name' => 'max:255',
+        'username' => 'unique:users,username,'.$user->id.'|max:255',
+        'email' => 'email|unique:users,email,'.$user->id.'|max:255',
+        'description' => 'max:255'
+    ]);
+
+    // Guarda tudo na base de dados
+    $user->name = $request->input('name');
+    $user->username = $request->input('username');
+    $user->email = $request->input('email');
+    $user->description = $request->input('description');
+    $user->save();
+
+    // Retorna a mesma página, agora com os dados atualizados
+    return redirect('user/'.$user->id);
+}
+```
+
+O Laravel já tem um validador automático. Caso algum e o 
 
 Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. Por esse motivo os dados são guardados entre redirects() para poupar tempo.
 
@@ -486,13 +514,9 @@ Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria si
 
 ### Queries
 
-// TODO
+O Eloquent de Laravel já possui muitas funções que ajudam a fazer as pesquisas. Alguns exemplos:
 
 ## Integrations
-
-// TODO
-
-## Exemplos
 
 // TODO
 
@@ -508,4 +532,4 @@ $ php artisan inspire
 
 @ Fábio Sá <br>
 @ Novembro de 2022 <br>
-@ Revisão em Julho de 2023
+@ Revisão em Outubro de 2023
