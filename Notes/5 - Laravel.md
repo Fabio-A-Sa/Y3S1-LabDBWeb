@@ -261,6 +261,8 @@ return view('pages.profile', ['id' => $id]);    // route: /profile/{id}
 return view('pages.home')                       // route: /home
 ```
 
+Como visto nos templates anteriores, tudo que é incluído entre {{ }} é interpretado como PHP. Isto evita ataques do tipo `XSS` pois todas as strings que advêm do servidor são renderizadas como texto.
+
 ## Controller
 
 ### Routes
@@ -307,11 +309,12 @@ Por vezes os browsers não detectam logo a criação ou alteração das rotas. S
 
 ```bash
 $ php artisan route:clear
+$ php artisan route:cache
 ```
 
 ### Controller Methods
 
-Os controladores recebem os HTTP requests do servidor e são armazenados no diretório `app/Http/Controllers/`. Para cada Modelo criado existe um Controller. Para criá-los também podemos usar o Artisan:
+Os controladores recebem os HTTP requests do servidor e são armazenados no diretório `app/Http/Controllers`. Para cada Modelo criado existe um Controller. Para criá-los também podemos usar o Artisan:
 
 ```bash
 $ php artisan make:controller <MODEL_NAME>Controller
@@ -345,7 +348,7 @@ class PostController extends Controller
         $post->save();
 
         // C
-        return view('partials.post', ['post' => $post]);
+        return view('pages.post', ['post' => $post]);
     }
 
     // ...
@@ -356,7 +359,7 @@ Cada método pode ter três partes:
 
 - `A`: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
 - `B`: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
-- `C`: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML. Ver [View](#view);
+- `C`: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML, neste caso à página de um Post. Ver [View](#view);
 
 Repare-se que o objecto Request contém todos os parâmetros do POST request. O método save() disponível no novo objecto guarda implicitamente os novos valores na base de dados.
 
@@ -380,7 +383,7 @@ class AuthServiceProvider extends ServiceProvider
 }
 ```
 
-Os ficheiros das policies serão armazenados em `app/Policies/PostPolicy.php`. Exemplo do conteúdo:
+Os ficheiros das policies serão armazenados em `app/Policies`. Exemplo do conteúdo de `app/Policies/PostPolicy.php`:
 
 ```php
 class PostPolicy
@@ -412,10 +415,11 @@ class PostController extends Controller
 ```
 
 Repare-se que o utilizador (User $user) é um argumento que por default existe nas Policies. Depois podem existir outros objectos passados nos argumentos. Neste caso precisavamos do Post a eliminar pois só podemos eliminá-lo se:
-- I: o utilizador que realiza a ação é o que está com login AND
-- II: o utilizador que elimina o post é o dono do post OR
-- III: o utilizador que elimina o post é um administrador OR
-- IV: o utilizador que elimina o post é o dono do grupo onde o post está inserido
+
+- `I`: o utilizador que realiza a ação é o que está com login AND
+- `II`: o utilizador que elimina o post é o dono do post OR
+- `III`: o utilizador que elimina o post é um administrador OR
+- `IV`: o utilizador que elimina o post é o dono do grupo onde o post está inserido
 
 Se a Policy retornar True, então o controlador avançará para a ação de eliminação do Post pois o utilizador registado tem permissões para isso. Caso contrário o controlador irá lançar uma excepção (normalmente 403 - Forbidden). Há pelo menos duas formas de lidar com a situação:
 
@@ -452,7 +456,7 @@ public function delete(Request $request) {
 }
 ```
 
-A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador. Pode ser mostrada caso exista da seguinte forma:
+A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador e é volátil pois só sobrevive durante uma chamada ao servidor. Ou seja, se for mostrada e dermos reload à página as variáveis desaparecerão. Pode ser mostrada caso exista da seguinte forma:
 
 ```html
 @if (Session::has('success'))
