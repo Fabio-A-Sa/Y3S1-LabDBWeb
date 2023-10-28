@@ -22,7 +22,7 @@ The most up-to-date notes can be found here:
 - [Web Applications and Framework](./Notes/4%20-%20Web%20Applications%20and%20Frameworks.md)
 - [Laravel](./Notes/5%20-%20Laravel.md)
 - [Frontend](./Notes/6%20-%20Frontend.md)
-- [Accessibility and Usability](./Notes/7%20-%20Accessibility%20and%20Usability.md)
+- [Accessibility, Usability, Validation](./Notes/7%20-%20Accessibility%2C%20Usability%2C%20Validation.md)
 
 ## Project: OnlyFEUP Social Network (Grade: 18.6/20)
 
