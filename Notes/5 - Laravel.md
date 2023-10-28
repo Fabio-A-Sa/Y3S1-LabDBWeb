@@ -10,6 +10,7 @@
     - [Validation](#validation)
     - [Queries](#queries)
 - [View](#view)
+- [Integrations](#integrations)
 - [Exemplos](#exemplos)
 - [Inspire :)](#inspire)
 
@@ -324,6 +325,10 @@ Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria si
 
 
 ### Queries
+
+// TODO
+
+## Integrations
 
 // TODO
 
