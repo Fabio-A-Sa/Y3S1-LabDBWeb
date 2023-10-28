@@ -36,14 +36,18 @@ class Post extends Model
         'owner_id', 'group_id', 'content', 'date', 'is_public'  // C
     ];
 
+    protected $primaryKey = ['attribute1', 'attribute2']; // D
+
     // Methods ...
 }
 ```
 
 Depois do ficheiro base criado recomenda-se:
+
 - `A`: desativar os timestamps. É uma funcionalidade de Laravel não explorada no contexto de LBAW;
 - `B`: garantir que o nome da tabela correspondente da base de dados é bem selecionado. Há casos onde o nome da tabela e o nome do modelo não podem ser iguais, por exemplo groups-Group, por "group" ser uma palavra reservada em SQL;
 - `C`: garantir que todos os atributos da tabela são conhecidos. O ID pode ser ignorado;
+- `D`: se a *primary key* da tabela for diferente de `id`, então convém indicar o atributo ou atributos pertencentes à chave. Se for singular basta uma string, se for composta é um array de strings;
 
 ### Relações
 
@@ -53,7 +57,7 @@ As relações entre entidades da Base de Dados também têm de estar nos modelos
 
 ```php
 public function owner() {
-    return $this->belongsTo('App\Models\User');
+    return $this->belongsTo(User::class);
 }
 ```
 
@@ -61,7 +65,7 @@ public function owner() {
 
 ```php
 public function comments() {
-    return $this->hasMany('App\Models\Comment')
+    return $this->hasMany(Comment::class)
                 ->where('previous', null)->get();
 }
 ```
@@ -70,7 +74,7 @@ public function comments() {
 
 ```php
 public function likes() {
-    return count($this->hasMany('App\Models\PostLike')->get());
+    return count($this->hasMany(PostLike::class)->get());
 }
 ```
 
@@ -78,7 +82,7 @@ public function likes() {
 
 ```php
 public function group(){
-    return $this->belongsTo('App\Models\Group');
+    return $this->belongsTo(Group::class);
 }
 ```
 
@@ -86,11 +90,11 @@ public function group(){
 
 ```php
 public function isAdmin() {
-    return count($this->hasOne('App\Models\Admin', 'id')->get());
+    return count($this->hasOne(Admin::class, 'id')->get());
 }
 
 public function isBlocked() {
-    return count($this->hasOne('App\Models\Blocked', 'id')->get());
+    return count($this->hasOne(Blocked::class, 'id')->get());
 }
 ```
 
