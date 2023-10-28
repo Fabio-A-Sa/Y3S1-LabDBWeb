@@ -116,9 +116,9 @@ A ideia da especificação é servir de base para o desenvolvimento do mochup. C
 Uma forma simples de apresentar a API de um servidor:
 
 - UIs;
-- Redirects com POST e GET;
-- Ações com 
-- JSON or HTML returns from webserver;
+- Redirects;
+- Ações como POST, GET, DELETE, PUT;
+- Retornos JSON ou HTML;
 
 ```api
 openapi: 3.0.0
