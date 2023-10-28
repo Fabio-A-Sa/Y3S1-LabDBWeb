@@ -150,7 +150,7 @@ CREATE TABLE Bird (
 
 #### Exemplo
 
-Na OnlyFEUP usou-se o mapeamento ER nas generalizações por ser adequado às necessidades da aplicação. Se fosse usado o mapeamento de Superclasse no caso da generalização (User, Admin, Blocked) e dado que existem muitos mais Users, vários dos seus atributos ficariam NULL devido a Admin e Blocked de qualquer forma. Se fosse usado o mapeamento Object Oriented existiriam muitos atributos comuns. Com ER não há informação redundante. Exemplo entre User, Admin e Blocked
+Na OnlyFEUP usou-se o mapeamento ER nas generalizações entre User, Admin e Blocked por ser adequado às necessidades da aplicação. Se fosse usado o mapeamento de Superclasse no caso da generalização (User, Admin, Blocked) e dado que existem muitos mais Users, vários dos seus atributos ficariam NULL devido a Admin e Blocked de qualquer forma. Se fosse usado o mapeamento Object Oriented existiriam muitos atributos comuns. Com ER não há informação redundante:
 
 ```sql
 CREATE TABLE users (
@@ -187,7 +187,7 @@ Usados nalguns atributos para que as pesquisas/relações mais comuns no sistema
 - `GiST` (Generalized Search Tree), usado para atributos de texto dinâmicos;
 - `GIN` (Generalized Inverted Index), usado para atributos de texto estáticos ou que sofram updates com pouca frequência;
 
-É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas ou em transformações de dados. <br> 
+É errado propôr um index numa chave primária, é útil usá-las numa chave estrangeira que será muito usada no sistema para juntar tabelas (joins) ou em transformações de dados. <br> 
 No caso da OnlyFEUP, como é uma rede social, criou-se indexes para:
 
 - Dado um Post ou Comentário saber com eficiência o seu respectivo Owner, usando HASH:
@@ -296,7 +296,7 @@ CREATE INDEX search_idx ON posts USING GIN (search);
 CREATE INDEX search_idx ON posts USING GIST (search);
 ```
 
-A função GIN é usada para dados que mudam pouco, enquanto que GIST é para dados que são frequentemente updated. Em cada situação são mais rápidos.
+O index GIN é usado para dados que mudam pouco, enquanto que GIST é para dados que são frequentemente atualizadas.
 
 #### User-Defined Functions
 
@@ -328,8 +328,8 @@ Exemplo completo implementado na OnlyFEUP para `pesquisas de utilizadores`:
 - a pesquisa por nome tem mais impacto do que pesquisa por username;
 - sempre que há um update ou insert na tabela, então há o cálculo ou recálculo dos vectores;
 - os ts_vectors são acompanhados por um index do tipo GIN pois:
-    - têm relação com atributos de texto (nome e username do utilizador)
-    - espera-se que estes atributos tenham uma frequência baixa de updates
+    - têm relação com atributos de texto (nome e username do utilizador);
+    - espera-se que estes atributos tenham uma frequência baixa de updates;
 
 ```sql
 -- Add column to user to store computed ts_vectors.
@@ -377,9 +377,9 @@ Para o projecto, é necessário fazer pelo menos uma transação relacionada à 
 
 As transações são necessárias para:
 
-- garantir uma leitura e escrita paralela (em operações nos bancos, por exemplo);
+- garantir uma leitura e escrita paralela;
 - prevenir que uma falha no sistema fique registada na base de dados (falta de inserts, deletes);
-- garantir todas as propriedades ACID;
+- garantir todas as propriedades ACID mesmo em aplicações com concorrência;
 
 ##### ACID
 
