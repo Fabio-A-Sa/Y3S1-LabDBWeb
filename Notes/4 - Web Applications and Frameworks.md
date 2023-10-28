@@ -116,8 +116,9 @@ A ideia da especificação é servir de base para o desenvolvimento do mochup. C
 Uma forma simples de apresentar a API de um servidor:
 
 - UIs;
-- Redirects com POST e GET;
-- JSON or HTML returns from webserver;
+- Redirects;
+- Ações como POST, GET, DELETE, PUT;
+- Retornos JSON ou HTML;
 
 ```api
 openapi: 3.0.0
@@ -147,23 +148,64 @@ application/json:
 No documento `.yaml` deve existir uma parte dedicada aos metadados, à documentação externa (no nosso caso, um link de retorno à wiki), aos servidores ligados à API, a definição de tags para melhor representar os dados redundantes, paths da API. <br>
 Exemplo da página de login:
 
-```api
-/login:
- get:
- operationId: R101
- summary: 'R101: Login Form'
- description: 'Provide login form. Access: PUB'
- tags:
- - 'M01: Authentication and Individual Profile'
- responses:
-'200':
- description: 'Ok. Show log-in UI'
+```yaml
+/api/context:
+
+    get:
+      operationId: R803
+      summary: 'R803 : Notification context'
+      description: 'Get notification context. Access: USR, ADM'
+      tags:
+        - 'M08: API'
+
+      parameters:
+        - in: query
+          name: id
+          description: 'Notification id'
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        '200':
+          description: 'Success. Returns some HTML text containing notification context (post, comment, subcomment) information'
+        '403':
+          description: 'Forbiden action. You need to be logged in first'
+
+/admin/user/unblock:
+
+    post:
+      operationId: R503
+      summary: 'R503: Unblocking a user from logging in action'
+      description: 'Unblock a user. Access: ADM'
+      tags:
+        - 'M05: Administration'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+              required:
+                - user_id
+
+      responses:
+        '200':
+          description: 'Ok. User unblocked.'
+        '401':
+          description: 'Unauthorized. You cannot unblock this user.'
 ```
 
-O exemplo completo da OnlyFEUP está disponível [aqui](../Project/docs/a9_openapi.yaml). No gitlab a visualização do documento é mais simpática. Note-se que além do tópico A7 também contém código referente ao A9, que nada mais é que o update final da documentação.
+Para trabalhar com estes ficheiros existe uma opção online: o [Swagger Editor](https://editor.swagger.io). No gitlab a visualização do documento é mais simpática.
+
+O exemplo completo da OnlyFEUP está disponível [aqui](../Project/docs/a9_openapi.yaml). Note-se que além do tópico A7 também contém código referente ao A9, que nada mais é que o update final da documentação.
 
 ---
 
 @ Fábio Sá <br>
 @ Novembro de 2022 <br>
-@ Revisão em Julho de 2023
+@ Revisão em Outubro de 2023
