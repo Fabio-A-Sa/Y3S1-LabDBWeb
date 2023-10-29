@@ -154,8 +154,16 @@ Um HTML simples que possa gerar uma página semelhante é este:
 </div>
 ```
 
-Ao mesmo tempo quisemos que a implementação fosse a mais leve possível do lado do cliente.
+A API usada:
 
+```php
+Route::get('api/user', [UserController::class, 'search']);
+Route::get('api/post', [PostController::class, 'search']);
+Route::get('api/group', [GroupController::class, 'search']);
+Route::get('api/comment', [CommentController::class, 'search']);
+```
+
+Implementação interna de `UserController@search`:
 
 ```php
 public function search(Request $request) {
@@ -173,7 +181,17 @@ public function search(Request $request) {
 }
 ```
 
-E agora só falta o javascript que sempre que o utilizador faz input de algo na search bar, faz trigger à função `search` que invoca as funções da API e injecta o HTML retornado pelo servidor em cada secção:
+Ao mesmo tempo quisemos que a implementação fosse a **mais leve possível do lado do cliente**. De uma forma geral, uma API retorna os dados em ficheiro JSON mas neste caso isso seria ineficiente porque o frontend seria responsável por estruturar e gerar o HTML.
+
+Por isso o HTML de cada secção teve de ser gerado pelo servidor e retornado pela própria API, usando views específicas:
+
+`partials.searchUser`:
+
+```html
+
+```
+
+E agora só falta o javascript. Queríamos que que sempre que o utilizador fizesse input de algo na search bar, a função `search` fosse ativada e que invocasse as funções da API. No final é só injectar o HTML usado cada secção:
 
 ```js
 async function getAPIResult(type, search) {
@@ -188,6 +206,17 @@ async function search(input) {
     document.querySelector('#results-groups').innerHTML = await getAPIResult('group', input)
     document.querySelector('#results-comments').innerHTML = await getAPIResult('comment', input)
 }
+
+function init() {
+    const search_bar = document.querySelector("#search")
+    if (search_bar) {
+        search_bar.addEventListener('input', async function() {
+            search(this.value);
+        })
+    }
+}
+
+init()
 ```
 
 Os valores totais presentes no cabeçalho de cada secção também são atualizados seguindo este método. Por motivos de simplificação foram retirados do exemplo.
