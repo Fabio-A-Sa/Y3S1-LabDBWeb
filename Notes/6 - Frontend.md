@@ -127,7 +127,70 @@ No entanto esse não era o foco desta secção.
 
 ## Search
 
-// TODO
+Na OnlyFEUP há uma barra de pesquisa única. Os conteúdos nas quatro secções são alterados dinamicamente durante a escrita, permitindo uma fluidez na pesquisa e sem necessidade de clicar para pesquisar ou até de dar reload à página para buscar novos itens:
+
+![Search](../Images/Search.png)
+
+Um HTML simples que possa gerar uma página semelhante é este:
+
+```html
+<header id="search-header">
+    <h1>Search Page</h1><br>
+    <input type="search" id="search" placeholder="Search...">
+</header>
+
+<nav id="searchpage-nav">
+    <a id="postResults" href="#results-posts">0 Posts</a>
+    <a id="userResults" href="#results-users">0 Users</a>
+    <a id="commentResults" href="#results-comments">0 Comments</a>
+    <a id="groupResults" href="#results-groups">0 Groups</a>
+</nav>
+
+<div class="tab-content">
+    <section id="results-posts"></section>
+    <section id="results-users"></section>
+    <section id="results-comments"></section>
+    <section id="results-groups" ></section>
+</div>
+```
+
+Ao mesmo tempo quisemos que a implementação fosse a mais leve possível do lado do cliente.
+
+
+```php
+public function search(Request $request) {
+        
+    if (!Auth::check()) return null;
+    $input = $request->get('search') ? $request->get('search').':*' : "*";
+    $users = User::select('users.id', 'users.name', 'users.username', 'blocked.id AS blocked')
+                ->leftJoin('blocked', 'users.id', '=', 'blocked.id')
+                ->whereRaw("users.tsvectors @@ to_tsquery(?)", [$input])
+                ->where('users.name', '<>', 'deleted')
+                ->orderByRaw("ts_rank(users.tsvectors, to_tsquery(?)) ASC", [$input])
+                ->get();
+
+    return view('partials.searchUser', compact('users'))->render();
+}
+```
+
+E agora só falta o javascript que sempre que o utilizador faz input de algo na search bar, faz trigger à função `search` que invoca as funções da API e injecta o HTML retornado pelo servidor em cada secção:
+
+```js
+async function getAPIResult(type, search) {
+    const query = '../api/' + type + '?search=' + search
+    const response = await fetch(query)
+    return response.text()
+}
+
+async function search(input) {
+    document.querySelector('#results-posts').innerHTML = await getAPIResult('post', input);
+    document.querySelector('#results-users').innerHTML = await getAPIResult('user', input)
+    document.querySelector('#results-groups').innerHTML = await getAPIResult('group', input)
+    document.querySelector('#results-comments').innerHTML = await getAPIResult('comment', input)
+}
+```
+
+Os valores totais presentes no cabeçalho de cada secção também são atualizados seguindo este método. Por motivos de simplificação foram retirados do exemplo.
 
 ---
 
