@@ -120,31 +120,6 @@ Uma forma simples de apresentar a API de um servidor:
 - Ações como POST, GET, DELETE, PUT;
 - Retornos JSON ou HTML;
 
-```api
-openapi: 3.0.0
-info:
- title: Sample API
- description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
- version: 0.1.9
-servers:
- - url: http://api.example.com/v1
- description: Optional server description, e.g. Main (production) server
-paths:
-/users:
- get:
- summary: Returns a list of users.
- description: Optional extended description in CommonMark or HTML.
- responses:
-'200': # status code
- description: A JSON array of user names
- content:
-application/json:
- schema:
- type: array
- items:
- type: string
-```
-
 No documento `.yaml` deve existir uma parte dedicada aos metadados, à documentação externa (no nosso caso, um link de retorno à wiki), aos servidores ligados à API, a definição de tags para melhor representar os dados redundantes, paths da API. <br>
 Exemplo da página de login:
 
@@ -168,7 +143,7 @@ Exemplo da página de login:
 
       responses:
         '200':
-          description: 'Success. Returns some HTML text containing notification context (post, comment, subcomment) information'
+          description: 'Success. Returns some HTML text containing notification context'
         '403':
           description: 'Forbiden action. You need to be logged in first'
 

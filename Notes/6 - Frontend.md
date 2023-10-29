@@ -57,7 +57,7 @@ function encodeForAjax(data) {
     return Object.keys(data).map(function(k){
       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
-  }
+}
   
 function sendAjaxRequest(method, url, data) {
     let request = new XMLHttpRequest();
@@ -187,21 +187,21 @@ Por isso o HTML de cada secção teve de ser gerado pelo servidor e retornado pe
 
 ```html
 @forelse ($users as $user)
-    <article class="search-page-card" id="user{{$user->id}}">
-        <img class="user-profile-pic" src="{{$user->media()}}" alt="user profile picture">
-        <a href="../user/{{$user->id}}">{{ $user->name }}</a>
-        <h3 class="search-user-card-username">&#64;{{$user->username}}</h3>
+    <article class="search-page-card" id="user{{ $user->id }}">
+        <img class="user-profile-pic" src="{{ $user->media() }}">
+        <a href="../user/{{ $user->id }}">{{ $user->name }}</a>
+        <h3 class="search-user-card-username">&#64;{{ $user->username }}</h3>
     </article>
 @empty
-<h2 class="no_results">
-    No results found
-</h2>
+    <h2 class="no_results">
+        No results found
+    </h2>
 @endforelse
 ```
 
 Note-se que caso não existam objectos também há HTML retornado mas com uma mensagem. É sempre importante dar feedback ao utilizador.
 
-E agora só falta o javascript. Queríamos que que sempre que o utilizador fizesse input de algo na search bar, a função `search` fosse ativada e que invocasse as funções da API. No final é só injectar o HTML retornado pela API em cada secção:
+E agora só falta o JavaScript. Queríamos que que sempre que o utilizador fizesse input de algo na search bar, a função `search` fosse ativada e que invocasse as funções da API. No final é só injectar o HTML retornado pela API em cada secção:
 
 ```js
 async function getAPIResult(type, search) {

@@ -26,8 +26,8 @@ $ php artisan make:model <MODEL_NAME>
 Conteúdo de `app/Models/Post.php` após executar o comando com MODEL_NAME=Post:
 
 ```php
-class Post extends Model
-{
+class Post extends Model {
+
     public $timestamps  = false; // A
     protected $table = 'post';   // B
 
@@ -80,7 +80,7 @@ public function likes() {
 4. Um Post pode pertencer a um Grupo. O método seguinte retorna o grupo em questão ou NULL se o atributo `group_id` for nulo:
 
 ```php
-public function group(){
+public function group() {
     return $this->belongsTo(Group::class);
 }
 ```
@@ -121,7 +121,7 @@ Exemplos de estrutura:
 
 No exemplo apresentado, uma forma de estruturar os templates pode ser esta:
 
-```bash
+```note
 $ tree .
 .
 |____layouts
@@ -139,7 +139,7 @@ $ tree .
 
 `layouts/app.blade.php`:
 
-```php
+```html
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
   <head>
@@ -164,7 +164,7 @@ $ tree .
 
 `pages/home.blade.php`:
 
-```php
+```html
 @extends('layouts.app')                                 <!-- Estende o layout principal -->
 
 @section('content')                                     <!-- Define o que é o `content` da página -->
@@ -182,7 +182,7 @@ $ tree .
 
 `pages/profile.blade.php`:
 
-```php
+```html
 @extends('layouts.app')                                 <!-- Estende o layout principal -->
 
 @section('content')                                     <!-- Define o que é o `content` da página -->
@@ -201,7 +201,7 @@ $ tree .
 
 `partials/header.blade.php`:
 
-```php
+```html
 <header>
     <h1>LBAW Tutorial 02 - File Storage</h1>
 </header>
@@ -209,7 +209,7 @@ $ tree .
 
 `partials/footer.blade.php`:
 
-```php
+```html
 <footer>
     <p>LBAW @ 2023</p>
 </footer>
@@ -217,7 +217,7 @@ $ tree .
 
 `partials/profile.blade.php`:
 
-```php
+```html
 <a href="profiles/{{ $id }}"> <!-- Usa o ID injectado para criar o link dinamicamente... -->
     <article class="profile">
         <h3>Profile {{ $id }}</h3> <!-- ... e o próprio título -->
@@ -228,7 +228,7 @@ $ tree .
 
 `partials/feedback.blade.php`:
 
-```php
+```html
 <!-- Só escreve alguma coisa se ocorreu um erro ou um sucesso na ação anterior -->
 @if(session('error'))
     <h3 class="error">{{ session('error') }}</h3>
@@ -239,7 +239,7 @@ $ tree .
 
 `partials/form.blade.php`:
 
-```php
+```html
 <form method="POST" action="/file/upload" enctype="multipart/form-data">
 
     <!-- Nunca esquecer de enviar também o token CSRF em qualquer formulário -->
@@ -290,14 +290,14 @@ Route::controller(UserController::class)->group(function () {
 
 As rotas podem ser organizadas segundo cada controlador como está no exemplo. A definição das rotas segue uma sintaxe rígida:
 
-```
+```php
 Route::<TYPE>(<PATH>, <METHOD>);
 ```
 
 Onde:
 
 - **TYPE** pode ser do tipo get(), post(), delete(), put();
-- **PATH** é parte do URL do site que ativa o request, por exemplo "/post/create" mapeava "www.lbaw2255.fe.up.pt/post/create" na OnlyFEUP;
+- **PATH** é parte do URL do site que ativa o request, por exemplo "/post/create" mapeava www.lbaw2255.lbaw.fe.up.pt/post/create na OnlyFEUP;
 - **METHOD** o método implementado na classe do controlador que irá tratar do request;
 
 Para visualização de páginas, como as páginas estáticas ou o perfil do utilizador, o controlador correspondente recebe um pedido "GET" e retorna uma página HTML. Nas ações relacionadas com a manipulação da base de dados normalmente usamos pedidos "POST", "PUT" ou "DELETE". 
@@ -330,10 +330,10 @@ Route::controller(PostController::class)->group(function () {
 Tem o método create() implementado da seguinte forma no ficheiro `app/Http/Controllers/PostController.php`:
 
 ```php
-class PostController extends Controller
-{
-    public function create(Request $request)
-    {
+class PostController extends Controller {
+
+    public function create(Request $request) {
+
         // A
         $this->authorize('create', Post::class);
 
@@ -373,8 +373,8 @@ php artisan make:policy <MODEL_NAME>Policy --model=<MODEL_NAME>
 Se não for indicado o modelo da policy (--model=<MODEL>) é necessário associá-los manualmente. Para isso, dentro do ficheiro `app/Providers/AuthServiceProvider.php`:
 
 ```php
-class AuthServiceProvider extends ServiceProvider
-{
+class AuthServiceProvider extends ServiceProvider {
+
     protected $policies = [
       Post::class => PostPolicy::class,
       //...
@@ -385,8 +385,8 @@ class AuthServiceProvider extends ServiceProvider
 Os ficheiros das policies serão armazenados em `app/Policies`. Exemplo do conteúdo de `app/Policies/PostPolicy.php`:
 
 ```php
-class PostPolicy
-{
+class PostPolicy {
+
     use HandlesAuthorization;
     
     public function delete(User $user, Post $post) {
@@ -401,8 +401,8 @@ class PostPolicy
 Cada método pode ter vários argumentos. A Policy de exemplo pode ser invocada com esta chamada no controller de Post:
 
 ```php
-class PostController extends Controller
-{
+class PostController extends Controller {
+
     public function delete(Request $request) {
         $post = Post::find($request->id);     // encontra o post a ser eliminado
         $this->authorize('delete', $post);    // chama o método "delete" de PostPolicy 
@@ -443,7 +443,6 @@ $ php artisan view:make errors.<N>
 
 ```php
 public function delete(Request $request) {
-
     try {
         $post = Post::find($request->id);
         $this->authorize('delete', $post);
@@ -594,9 +593,10 @@ public function visiblePosts() {
         ->whereColumn('post.group_id','member.group_id');
 
     // Merge
-    return $own->union($noGroups)->union($fromGroups)
-        ->orderBy('date','desc');
-    }
+    return $own->union($noGroups)
+                ->union($fromGroups)
+                ->orderBy('date','desc');
+}
 ```
 
 ## Integrations
