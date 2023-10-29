@@ -10,7 +10,7 @@
     - [Validation](#validation)
     - [Queries](#queries)
 - [View](#view)
-- [Exemplos](#exemplos)
+- [Integrations](#integrations)
 - [Inspire :)](#inspire)
 
 ## Model
@@ -35,14 +35,18 @@ class Post extends Model
         'owner_id', 'group_id', 'content', 'date', 'is_public'  // C
     ];
 
+    protected $primaryKey = ['attribute1', 'attribute2']; // D
+
     // Methods ...
 }
 ```
 
 Depois do ficheiro base criado recomenda-se:
+
 - `A`: desativar os timestamps. É uma funcionalidade de Laravel não explorada no contexto de LBAW;
 - `B`: garantir que o nome da tabela correspondente da base de dados é bem selecionado. Há casos onde o nome da tabela e o nome do modelo não podem ser iguais, por exemplo groups-Group, por "group" ser uma palavra reservada em SQL;
 - `C`: garantir que todos os atributos da tabela são conhecidos. O ID pode ser ignorado;
+- `D`: se a *primary key* da tabela for diferente de `id`, então convém indicar o atributo ou atributos pertencentes à chave. Se for singular basta uma string, se for composta é um array de strings;
 
 ### Relações
 
@@ -52,7 +56,7 @@ As relações entre entidades da Base de Dados também têm de estar nos modelos
 
 ```php
 public function owner() {
-    return $this->belongsTo('App\Models\User');
+    return $this->belongsTo(User::class);
 }
 ```
 
@@ -60,7 +64,7 @@ public function owner() {
 
 ```php
 public function comments() {
-    return $this->hasMany('App\Models\Comment')
+    return $this->hasMany(Comment::class)
                 ->where('previous', null)->get();
 }
 ```
@@ -69,7 +73,7 @@ public function comments() {
 
 ```php
 public function likes() {
-    return count($this->hasMany('App\Models\PostLike')->get());
+    return count($this->hasMany(PostLike::class)->get());
 }
 ```
 
@@ -77,7 +81,7 @@ public function likes() {
 
 ```php
 public function group(){
-    return $this->belongsTo('App\Models\Group');
+    return $this->belongsTo(Group::class);
 }
 ```
 
@@ -85,11 +89,11 @@ public function group(){
 
 ```php
 public function isAdmin() {
-    return count($this->hasOne('App\Models\Admin', 'id')->get());
+    return count($this->hasOne(Admin::class, 'id')->get());
 }
 
 public function isBlocked() {
-    return count($this->hasOne('App\Models\Blocked', 'id')->get());
+    return count($this->hasOne(Blocked::class, 'id')->get());
 }
 ```
 
@@ -104,7 +108,159 @@ public function getFollowers() {
 
 ## View
 
-//TODO
+O Laravel tem o mecanismo de templating `Blade`, que permite de criação de páginas e sucessivos componentes de visualização que podem ser reutilizados. Esses templates/views estão presentes no diretório `resources/views` e por norma podem ser de três tipos:
+
+- `Layout`: garante a coesão em todo o projecto. Normalmente instancia todos os imports de CSS e JS, assim como os metadados das páginas;
+- `Page`: estende as propriedades do layout e é constituída por uma gama de partials;
+- `Partial`: um formulário, o header, o footer, tudo isto podem ser considerados partials;
+
+Exemplos de estrutura:
+
+![Part 1](../Images/views_I.png)
+![Part 2](../Images/views_II.png)
+
+No exemplo apresentado, uma forma de estruturar os templates pode ser esta:
+
+```bash
+$ tree .
+.
+|____layouts
+  |____app.blade.php
+|____pages
+  |____home.blade.php
+  |____profile.blade.php
+|____partials
+  |____header.blade.php
+  |____footer.blade.php
+  |____feedback.blade.php
+  |____form.blade.php
+  |____profile.blade.php
+```
+
+`layouts/app.blade.php`:
+
+```php
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+  <head>
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+  </head>
+  <body>
+    @section('content') <!-- Definir a zona do conteúdo principal da página que usará o layout -->
+    @show               <!-- Importante para renderizar o conteúdo -->
+  </body>
+</html>
+```
+
+`pages/home.blade.php`:
+
+```php
+@extends('layouts.app')                                 <!-- Estende o layout principal -->
+
+@section('content')                                     <!-- Define o que é o `content` da página -->
+    @include('partials.header')                         <!-- Renderiza o header -->
+    <main>                                              <!-- A secção principal tem os profiles -->
+        <section class="profiles"> 
+        @for ($i = 1; $i <= 4; $i++)
+            @include('partials.profile', ['id' => $i])  <!-- Renderiza cada profile -->
+        @endfor
+        </section>
+    </main>
+    @include('partials.footer')                         <!-- Renderiza o footer -->
+@endsection
+```
+
+`pages/profile.blade.php`:
+
+```php
+@extends('layouts.app')                                 <!-- Estende o layout principal -->
+
+@section('content')                                     <!-- Define o que é o `content` da página -->
+    @include('partials.header')                         <!-- Renderiza o header -->
+    <main>
+        @include('partials.feedback')                   <!-- Renderiza o feedback -->
+        <div class="content">                           <!-- A secção principal tem as características do profile -->
+            <h3>Profile {{ $id }}</h3>
+            <img src="{{ FileController::get('profile', $id) }}">
+            @include('partials.form', ['id' => $id])   <!-- Renderiza o form, injecta o ID do profile -->
+        </div>
+    </main>
+    @include('partials.footer')                         <!-- Renderiza o footer -->
+@endsection
+```
+
+`partials/header.blade.php`:
+
+```php
+<header>
+    <h1>LBAW Tutorial 02 - File Storage</h1>
+</header>
+```
+
+`partials/footer.blade.php`:
+
+```php
+<footer>
+    <p>LBAW @ 2023</p>
+</footer>
+```
+
+`partials/profile.blade.php`:
+
+```php
+<a href="profiles/{{ $id }}"> <!-- Usa o ID injectado para criar o link dinamicamente... -->
+    <article class="profile">
+        <h3>Profile {{ $id }}</h3> <!-- ... e o próprio título -->
+        <img src="{{ FileController::get('profile', $id) }}">
+    </article>
+</a>
+```
+
+`partials/feedback.blade.php`:
+
+```php
+<!-- Só escreve alguma coisa se ocorreu um erro ou um sucesso na ação anterior -->
+@if(session('error'))
+    <h3 class="error">{{ session('error') }}</h3>
+@elseif(session('success'))
+    <h3 class="success">{{ session('success') }}</h3>
+@endif 
+```
+
+`partials/form.blade.php`:
+
+```php
+<form method="POST" action="/file/upload" enctype="multipart/form-data">
+
+    <!-- Nunca esquecer de enviar também o token CSRF em qualquer formulário -->
+    @csrf 
+    <input name="file" type="file" required>
+
+    <!-- Usa o ID injectado para injectar valores importantes para o controller -->
+    <input name="id" type="number" value="{{ $id }}" hidden>
+    <input name="type" type="text" value="profile" hidden>
+    <button type="submit">Submit</button>
+</form>
+```
+
+As vistas retornadas por controllers são na maioria das vezes páginas completas:
+
+```php
+return view('pages.profile', ['id' => $id]);    // route: /profile/{id}
+return view('pages.home')                       // route: /home
+```
+
+Como visto nos templates anteriores, tudo que é incluído entre {{ }} é interpretado como PHP. Isto evita ataques do tipo `XSS` pois todas as strings que advêm do servidor são renderizadas como texto.
 
 ## Controller
 
@@ -139,6 +295,7 @@ Route::<TYPE>(<PATH>, <METHOD>);
 ```
 
 Onde:
+
 - **TYPE** pode ser do tipo get(), post(), delete(), put();
 - **PATH** é parte do URL do site que ativa o request, por exemplo "/post/create" mapeava "www.lbaw2255.fe.up.pt/post/create" na OnlyFEUP;
 - **METHOD** o método implementado na classe do controlador que irá tratar do request;
@@ -151,11 +308,12 @@ Por vezes os browsers não detectam logo a criação ou alteração das rotas. S
 
 ```bash
 $ php artisan route:clear
+$ php artisan route:cache
 ```
 
 ### Controller Methods
 
-Os controladores recebem os HTTP requests do servidor e são armazenados no diretório `app/Http/Controllers/`. Para cada Modelo criado existe um Controller. Para criá-los também podemos usar o Artisan:
+Os controladores recebem os HTTP requests do servidor e são armazenados no diretório `app/Http/Controllers`. Para cada Modelo criado existe um Controller. Para criá-los também podemos usar o Artisan:
 
 ```bash
 $ php artisan make:controller <MODEL_NAME>Controller
@@ -189,7 +347,7 @@ class PostController extends Controller
         $post->save();
 
         // C
-        return view('partials.post', ['post' => $post]);
+        return view('pages.post', ['post' => $post]);
     }
 
     // ...
@@ -197,9 +355,10 @@ class PostController extends Controller
 ```
 
 Cada método pode ter três partes:
-- A: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
-- B: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
-- C: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML. Ver [View](#view);
+
+- `A`: Verifica se o utilizador tem permissões para realizar a ação. Ver [Policies](#policies); 
+- `B`: Manipulação da base de dados. Neste caso cria um novo Post de acordo com os dados enviados através do Request, como por exemplo "group_id", "content" ou "public";
+- `C`: Retorna uma View, colocando no segundo argumento o array que contém todos os elementos necessários à criação do HTML, neste caso à página de um Post. Ver [View](#view);
 
 Repare-se que o objecto Request contém todos os parâmetros do POST request. O método save() disponível no novo objecto guarda implicitamente os novos valores na base de dados.
 
@@ -223,7 +382,7 @@ class AuthServiceProvider extends ServiceProvider
 }
 ```
 
-Os ficheiros das policies serão armazenados em `app/Policies/PostPolicy.php`. Exemplo do conteúdo:
+Os ficheiros das policies serão armazenados em `app/Policies`. Exemplo do conteúdo de `app/Policies/PostPolicy.php`:
 
 ```php
 class PostPolicy
@@ -255,10 +414,11 @@ class PostController extends Controller
 ```
 
 Repare-se que o utilizador (User $user) é um argumento que por default existe nas Policies. Depois podem existir outros objectos passados nos argumentos. Neste caso precisavamos do Post a eliminar pois só podemos eliminá-lo se:
-- I: o utilizador que realiza a ação é o que está com login AND
-- II: o utilizador que elimina o post é o dono do post OR
-- III: o utilizador que elimina o post é um administrador OR
-- IV: o utilizador que elimina o post é o dono do grupo onde o post está inserido
+
+- `I`: o utilizador que realiza a ação é o que está com login AND
+- `II`: o utilizador que elimina o post é o dono do post OR
+- `III`: o utilizador que elimina o post é um administrador OR
+- `IV`: o utilizador que elimina o post é o dono do grupo onde o post está inserido
 
 Se a Policy retornar True, então o controlador avançará para a ação de eliminação do Post pois o utilizador registado tem permissões para isso. Caso contrário o controlador irá lançar uma excepção (normalmente 403 - Forbidden). Há pelo menos duas formas de lidar com a situação:
 
@@ -295,7 +455,7 @@ public function delete(Request $request) {
 }
 ```
 
-A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador. Pode ser mostrada caso exista da seguinte forma:
+A indicação de "success" ou "error" fica implicitamente guardada nos dados de sessão do utilizador e é volátil pois só sobrevive durante uma chamada ao servidor. Ou seja, se for mostrada e dermos reload à página as variáveis desaparecerão. Pode ser mostrada caso exista da seguinte forma:
 
 ```html
 @if (Session::has('success'))
@@ -317,19 +477,135 @@ Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feed
 
 ### Validation
 
-Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo, 
+Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo na OnlyFEUP o conteúdo de UserController para a edição de perfil, numa versão mais simplificada, era este:
 
-Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. Por esse motivo os dados são guardados entre redirects() para poupar tempo.
+```php
+public function edit(Request $request) {
 
+    // Verifica se pode
+    $this->authorize('edit', User::class);
+    $user = Auth::user();
 
+    // Validação dos dados da request
+    $request->validate([
+        'name' => 'max:255',
+        'username' => 'unique:users,username,'.$user->id.'|max:255',
+        'email' => 'email|unique:users,email,'.$user->id.'|max:255',
+        'description' => 'max:255'
+    ]);
+
+    // Guarda tudo na base de dados
+    $user->name = $request->input('name');
+    $user->username = $request->input('username');
+    $user->email = $request->input('email');
+    $user->description = $request->input('description');
+    $user->save();
+
+    // Retorna a mesma página, agora com os dados atualizados
+    return redirect('user/'.$user->id);
+}
+```
+
+Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. 
+
+Por isso utilizamos o validador automático do Laravel que permite bastante coisa automática. Caso algum parâmetro falhe, há sempre redirecionamento para a página anterior. De modo a não perder os valores de input, a variável `old` guarda os anteriores inputs do utilizador para poderem ser colocado em value. De forma semelhante, a variável `errors` contém as mensagens de erro para cada field. Assim, para cada parte do formulário, o HTML a gerar será do tipo:
+
+```html
+<!-- Field. Se houver valor anterior coloca-o para evitar escrever tudo de novo -->
+<input type="text" name="name" value="{{ old('name') }}">
+
+<!-- Mensagem de erro. Caso exista algum erro no request anterior, será aqui mostrado -->
+@if ($errors->has('name'))
+    <h5 class="error">
+        {{ $errors->first('name') }}
+    </h5>
+@endif
+```
+
+Já há mensagens de erro pré-definidas para cada parâmetro ou falha. Podem ser encontradas em `/resources/lang/en/validation.php`. Há sempre a possibilidade de inserir mais.
 
 ### Queries
 
-// TODO
+O Eloquent de Laravel já possui muitas funções que ajudam a fazer as pesquisas. Alguns exemplos da OnlyFEUP:
 
-## Exemplos
+`Group.php` - Determinar se o grupo atual é um dos favoritos de $user
 
-// TODO
+```php
+public function isFavorite(User $user) {
+    return Member::where([  'user_id' => $user->id,
+                            'group_id' => $this->id,
+                            'is_favorite' => true ])->exists(); // Existe a entrada na tabela Member
+}
+```
+
+`Post.php` - Determinar os posts públicos para poderem ser mostrados na timeline mesmo que não haja login (posts que Visitors podem ver):
+
+```php
+public static function publicPosts() {
+    return Post::select('post.*')                   // seleciona todos os atributos
+                ->join('users', 'users.id', '=', 'post.owner_id')
+                ->where('users.is_public', true)    // se o dono do post tiver conta pública
+                ->where('post.is_public', true)     // se o post também for público
+                ->orderBy('date', 'desc');          // queremos os posts mais recentes primeiro
+}
+```
+
+`User.php` - Sempre que um utilizador vai para a página de mensagens e abre um chat com outro, tem de acontecer duas coisas:
+- Retornar todas as mensagens por ordem ascendente;
+- Update do estado de todas as mensagens para visualizada = true;
+
+```php
+public function messagesWith(User $user) {
+
+    $messages =  Message::where(['receiver_id' => $user->id, 'emitter_id' => $this->id])
+                    ->orWhere(
+                        function($q) use($user){
+                            $q->where([ 'emitter_id' => $user->id, 
+                                        'receiver_id' => $this->id]);
+                });
+        
+    Message::where(['emitter_id' => $user->id, 
+                    'receiver_id' => $this->id])
+            ->update(['viewed' => true]);
+        
+    return $messages->orderBy('date', 'asc')->get();
+}
+```
+
+`User.php` - Retornar todos os posts que o utilizador atual pode ver:
+
+```php
+public function visiblePosts() {
+    
+    // Todos os seus posts
+    $own = Post::select('*')->where('post.owner_id', '=', $this->id);
+
+    // Todos os posts públicos && todos os posts de pessoas privadas mas que segue
+    $noGroups = Post::select('post.*')
+        ->fromRaw('post,follows')
+        ->where('follows.follower_id', '=', $this->id)
+        ->whereColumn('follows.followed_id', '=', 'post.owner_id')
+        ->where('post.group_id', null);
+
+    // Todos os posts dos grupos a que pertence
+    $fromGroups = Post::select('post.*')
+        ->fromRaw('post,member')
+        ->where('member.user_id', $this->id)
+        ->whereColumn('post.group_id','member.group_id');
+
+    // Merge
+    return $own->union($noGroups)->union($fromGroups)
+        ->orderBy('date','desc');
+    }
+```
+
+## Integrations
+
+O Laravel proporciona possibilidade de integrar a aplicação com serviços externos (email, google, pusher) e internos (file system). Para esses exemplos existe um repositório oficial de LBAW:
+
+- [Laravel Integrations](https://git.fe.up.pt/lbaw/laravel-integrations)
+
+Note-se que tocam apenas em user stories de média e baixa prioridade. Por isso devem ser só explorados no módulo PA: A9 e A10.
 
 ## Inspire
 
@@ -343,4 +619,4 @@ $ php artisan inspire
 
 @ Fábio Sá <br>
 @ Novembro de 2022 <br>
-@ Revisão em Julho de 2023
+@ Revisão em Outubro de 2023
