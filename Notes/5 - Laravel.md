@@ -477,7 +477,7 @@ Foi esta a opção usada várias vezes na OnlyFEUP. É sempre boa ideia dar feed
 
 ### Validation
 
-Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo na OnlyFEUP o conteúdo de UserController para a edição de perfil era este:
+Após verificar que a ação é permitida, há casos onde é preciso validar os dados antes de usá-los para manipular a base de dados. Por exemplo na OnlyFEUP o conteúdo de UserController para a edição de perfil, numa versão mais simplificada, era este:
 
 ```php
 public function edit(Request $request) {
@@ -506,11 +506,23 @@ public function edit(Request $request) {
 }
 ```
 
-O Laravel já tem um validador automático. Caso algum e o 
+Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. 
 
-Na OnlyFEUP houve uma preocupação constante com os utilizadores. Não seria simpático depois do preenchimento de um longo formulário que edita o perfil e só por causa de um pequeno erro ter de voltar a escrever tudo. Por esse motivo os dados são guardados entre redirects() para poupar tempo.
+Por isso utilizamos o validador automático do Laravel que permite bastante coisa automática. Caso algum parâmetro falhe, há sempre redirecionamento para a página anterior. De modo a não perder os valores de input, a variável `old` guarda os anteriores inputs do utilizador para poderem ser colocado em value. De forma semelhante, a variável `errors` contém as mensagens de erro para cada field. Assim, para cada parte do formulário, o HTML a gerar será do tipo:
 
+```html
+<!-- Field. Se houver valor anterior coloca-o para evitar escrever tudo de novo -->
+<input type="text" name="name" value="{{ old('name') }}">
 
+<!-- Mensagem de erro. Caso exista algum erro no request anterior, será aqui mostrado -->
+@if ($errors->has('name'))
+    <h5 class="error">
+        {{ $errors->first('name') }}
+    </h5>
+@endif
+```
+
+Já há mensagens de erro pré-definidas para cada parâmetro ou falha. Podem ser encontradas em `/resources/lang/en/validation.php`. Há sempre a possibilidade de inserir mais.
 
 ### Queries
 
