@@ -154,7 +154,7 @@ Um HTML simples que possa gerar uma página semelhante é este:
 </div>
 ```
 
-A API usada:
+Usamos a seguinte API:
 
 ```php
 Route::get('api/user', [UserController::class, 'search']);
@@ -183,15 +183,25 @@ public function search(Request $request) {
 
 Ao mesmo tempo quisemos que a implementação fosse a **mais leve possível do lado do cliente**. De uma forma geral, uma API retorna os dados em ficheiro JSON mas neste caso isso seria ineficiente porque o frontend seria responsável por estruturar e gerar o HTML.
 
-Por isso o HTML de cada secção teve de ser gerado pelo servidor e retornado pela própria API, usando views específicas:
-
-`partials.searchUser`:
+Por isso o HTML de cada secção teve de ser gerado pelo servidor e retornado pela própria API, usando views específicas. Exemplo de `partials.searchUser`:
 
 ```html
-
+@forelse ($users as $user)
+    <article class="search-page-card" id="user{{$user->id}}">
+        <img class="user-profile-pic" src="{{$user->media()}}" alt="user profile picture">
+        <a href="../user/{{$user->id}}">{{ $user->name }}</a>
+        <h3 class="search-user-card-username">&#64;{{$user->username}}</h3>
+    </article>
+@empty
+<h2 class="no_results">
+    No results found
+</h2>
+@endforelse
 ```
 
-E agora só falta o javascript. Queríamos que que sempre que o utilizador fizesse input de algo na search bar, a função `search` fosse ativada e que invocasse as funções da API. No final é só injectar o HTML usado cada secção:
+Note-se que caso não existam objectos também há HTML retornado mas com uma mensagem. É sempre importante dar feedback ao utilizador.
+
+E agora só falta o javascript. Queríamos que que sempre que o utilizador fizesse input de algo na search bar, a função `search` fosse ativada e que invocasse as funções da API. No final é só injectar o HTML retornado pela API em cada secção:
 
 ```js
 async function getAPIResult(type, search) {
