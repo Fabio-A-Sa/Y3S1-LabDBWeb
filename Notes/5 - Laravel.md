@@ -526,7 +526,78 @@ Já há mensagens de erro pré-definidas para cada parâmetro ou falha. Podem se
 
 ### Queries
 
-O Eloquent de Laravel já possui muitas funções que ajudam a fazer as pesquisas. Alguns exemplos:
+O Eloquent de Laravel já possui muitas funções que ajudam a fazer as pesquisas. Alguns exemplos da OnlyFEUP:
+
+`Group.php` - Determinar se o grupo atual é um dos favoritos de $user
+
+```php
+public function isFavorite(User $user) {
+    return Member::where([  'user_id' => $user->id,
+                            'group_id' => $this->id,
+                            'is_favorite' => true ])->exists(); // Existe a entrada na tabela Member
+}
+```
+
+`Post.php` - Determinar os posts públicos para poderem ser mostrados na timeline mesmo que não haja login (posts que Visitors podem ver):
+
+```php
+public static function publicPosts() {
+    return Post::select('post.*')                   // seleciona todos os atributos
+                ->join('users', 'users.id', '=', 'post.owner_id')
+                ->where('users.is_public', true)    // se o dono do post tiver conta pública
+                ->where('post.is_public', true)     // se o post também for público
+                ->orderBy('date', 'desc');          // queremos os posts mais recentes primeiro
+}
+```
+
+`User.php` - Sempre que um utilizador vai para a página de mensagens e abre um chat com outro, tem de acontecer duas coisas:
+- Retornar todas as mensagens por ordem ascendente;
+- Update do estado de todas as mensagens para visualizada = true;
+
+```php
+public function messagesWith(User $user) {
+
+    $messages =  Message::where(['receiver_id' => $user->id, 'emitter_id' => $this->id])
+                    ->orWhere(
+                        function($q) use($user){
+                            $q->where([ 'emitter_id' => $user->id, 
+                                        'receiver_id' => $this->id]);
+                });
+        
+    Message::where(['emitter_id' => $user->id, 
+                    'receiver_id' => $this->id])
+            ->update(['viewed' => true]);
+        
+    return $messages->orderBy('date', 'asc')->get();
+}
+```
+
+`User.php` - Retornar todos os posts que o utilizador atual pode ver:
+
+```php
+public function visiblePosts() {
+    
+    // Todos os seus posts
+    $own = Post::select('*')->where('post.owner_id', '=', $this->id);
+
+    // Todos os posts públicos && todos os posts de pessoas privadas mas que segue
+    $noGroups = Post::select('post.*')
+        ->fromRaw('post,follows')
+        ->where('follows.follower_id', '=', $this->id)
+        ->whereColumn('follows.followed_id', '=', 'post.owner_id')
+        ->where('post.group_id', null);
+
+    // Todos os posts dos grupos a que pertence
+    $fromGroups = Post::select('post.*')
+        ->fromRaw('post,member')
+        ->where('member.user_id', $this->id)
+        ->whereColumn('post.group_id','member.group_id');
+
+    // Merge
+    return $own->union($noGroups)->union($fromGroups)
+        ->orderBy('date','desc');
+    }
+```
 
 ## Integrations
 
