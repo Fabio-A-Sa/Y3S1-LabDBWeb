@@ -530,7 +530,11 @@ O Eloquent de Laravel já possui muitas funções que ajudam a fazer as pesquisa
 
 ## Integrations
 
-// TODO
+O Laravel proporciona possibilidade de integrar a aplicação com serviços externos (email, google, pusher) e internos (file system). Para esses exemplos existe um repositório oficial de LBAW:
+
+- [Laravel Integrations](https://git.fe.up.pt/lbaw/laravel-integrations)
+
+Note-se que tocam apenas em user stories de média e baixa prioridade. Por isso devem ser só explorados no módulo PA: A9 e A10.
 
 ## Inspire
 
