@@ -1,1 +1,378 @@
-a,main>header h1{margin:0}#content,body{background-color:#252525}body{display:flex;flex-direction:row;height:100vh}.nav-pills .nav-link.active,.nav-pills .show>.nav-link,a.button,button{background-color:#00aff0}main>header{display:grid;grid-template-columns:1fr auto auto;align-items:center;background-color:#1a1d1e;padding:1em;margin:1em}main>header a.button,main>header span{margin:1em;justify-self:center}h1,h2,h3,h4,h6{margin:0;color:#fff}a{color:#00aff0}#content{padding:1% 2.5% 2.5%;flex-grow:1;overflow:auto}#content label{font-weight:400}#content>form,.search-text-field>form{margin:0 auto;padding:1em;max-width:20em;border:1px solid #96640e}#content>form .error,.search-text-field>form .error{font-weight:700;color:#f33}#content>form input,.search-text-field>form input{background-color:#fff}@media (max-width:70em){main>header{display:grid;grid-template-columns:1fr auto}main>header h1{grid-row-end:span 2}}@media (max-width:25em){body,main>header span{margin:0}main>header{margin:0;padding:.5em}#content form{margin:0;max-width:25em}article.card{margin:0;border-bottom:1px solid rgba(96,108,118,.4)}}a.button,button,input[type=email]:focus,input[type=password]:focus,input[type=text]:focus{border-color:#96640e}a.button.button-outline{color:#00aff0}.myDropdown .dropdown-item,.search-text-field>form textarea,input{color:#fff}.myNav{gap:1px;width:100%}#configuration_popup,#notification_popup{margin:2em;padding:2em;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);border:1px solid #000;border-radius:10px;background-color:#353535;width:40%;max-width:80%}button.fa-cog{padding:0;border:0}.toggle{cursor:pointer;display:inline-block}.toggle-switch{display:inline-block;background:#ccc;border-radius:16px;width:58px;height:32px;position:relative;vertical-align:middle;transition:background .25s}.feed-posts,.row-notif{display:flex}.toggle-switch:after,.toggle-switch:before{content:""}.toggle-switch:before{display:block;background:linear-gradient(to bottom,#fff 0,#eee 100%);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.25);width:24px;height:24px;position:absolute;top:4px;left:4px;transition:left .25s}.toggle:hover .toggle-switch:before{background:linear-gradient(to bottom,#fff 0,#fff 100%);box-shadow:0 0 0 1px rgba(0,0,0,.5)}.toggle-checkbox:checked+.toggle-switch{background:#00aff0}.toggle-checkbox:checked+.toggle-switch:before{left:30px}.toggle-checkbox{position:absolute;visibility:hidden}.toggle-label{margin-left:5px;position:relative;top:2px;font-size:larger;color:#f0f8ff}#configurationForm{padding:1em;display:flex;flex-direction:column;flex-wrap:wrap;column-count:2;column-gap:40px}.column-notif{width:50%}.left-nav-button{border-top-left-radius:10px!important;border-bottom-left-radius:10px!important}.right-nav-button{border-top-right-radius:10px!important;border-bottom-right-radius:10px!important}.feed-posts{flex-direction:column;gap:5px}.myDropdown{background-color:#353535;width:12em;height:auto;font-size:medium}.myDropdown .dropdown-item:hover{color:#1a1d1e}.button-confirmation-no,.button-confirmation-no:focus,.button-confirmation-yes,.button-confirmation-yes:focus,.button-post-comment,.button-post-comment:focus,.profile-follow-card-button,.profile-follow-card-button:focus{background-color:transparent;border-color:transparent;border-radius:10px;color:#fff}.button-confirmation-no:hover,.button-post-comment:hover,.profile-follow-card-button:hover{border-color:transparent;background-color:#4d4d4d;border-radius:10px}@media only screen and (max-width:750px){.button-post-comment,.button-post-comment:focus,.button-post-comment:hover,.profile-follow-card-button,.profile-follow-card-button:focus,.profile-follow-card-button:hover{max-width:20%;text-align:left}}.confirmation-text{padding:1%}.button-confirmation-yes:hover{border-color:transparent;background-color:#ff7676;border-radius:10px}@media only screen and (max-width:600px){h1{font-size:1.5em}h2{font-size:1.17em}h3,h4{font-size:.83em}h5{font-size:.7em}h6{font-size:.5em}button{font-size:.75em;padding-left:.7em;padding-right:.7em}a{font-size:1.03em}.group-interaction-button,.profile-follow-card-button{min-width:4em;overflow-x:hidden}input{overflow-x:hidden}}@media only screen and (min-width:600px) and (max-width:819px){h1{font-size:1.7em}a,h2{font-size:1.27em}h3{font-size:1.1em}h4{font-size:.98em}h5{font-size:.88em}h6{font-size:.75em}button{font-size:.95em;padding-left:.7em;padding-right:.7em}.group-interaction-button,.profile-follow-card-button{min-width:7em;overflow-x:hidden}input{overflow-x:hidden}}@media only screen and (min-width:820px) and (max-width:992px){h1{font-size:2em}h2{font-size:1.5em}h3{font-size:1.17em}h4{font-size:1.13em}h5{font-size:.83em}button,h6{font-size:.75em}h7{font-size:.5em}}.no_results{margin-top:3%;text-align:center}
+body {
+    display: flex;
+    flex-direction: row;
+    background-color: #252525;
+    height: 100vh;
+  }
+  
+  main > header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    background-color: #1a1d1e;
+    padding: 1em;
+    margin: 1em;
+  }
+  main > header h1 {
+    margin: 0;
+  }
+  main > header a.button {
+    margin: 1em;
+    justify-self: center;
+  }
+  main > header span {
+    margin: 1em;
+    justify-self: center;
+  }
+  
+  h1, h2, h3, h4, h6{
+    margin: 0;
+    color: white;  
+  }
+  
+  a {
+    margin: 0;
+    color: #00aff0;  
+  }
+  
+  #content {
+    background-color: #252525;
+    padding: 2.5%;
+    padding-top: 1%;
+    flex-grow: 1;
+    overflow: auto;
+  }
+  
+  #content label {
+    font-weight: normal;
+  }
+  #content > form {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 20em;
+    border: 1px solid #96640e;
+  }
+  #content > form .error {
+    font-weight: bold;
+    color: #ff3333;
+  }
+  #content > form input {
+    background-color: white;
+  }
+  @media (max-width: 70em) {
+    /*
+    #posts {
+      grid-template-columns: repeat(2, 1fr);
+    }*/
+    main > header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+    main > header h1 {
+      grid-row-end: span 2;
+    }
+  }
+  @media (max-width: 40em) {
+    /*#posts {
+      grid-template-columns: 1fr;
+    }
+    */
+  }
+  @media (max-width: 25em) {
+    body {
+      margin: 0;
+    }
+    main > header {
+      margin: 0;
+      padding: 0.5em;
+    }
+    main > header span {
+      margin: 0;
+    }
+    #content form {
+      margin: 0;
+      max-width: 25em;
+    }
+    article.card {
+      margin: 0;
+      border-bottom: 1px solid rgba(96, 108, 118, 0.4);
+    }
+  }
+  /**
+   * Overide milligram colors
+   * Some styles might be missing
+   **/
+  button {
+    background-color: #00aff0;
+    border-color: #96640e;
+  }
+  a.button {
+    background-color: #00aff0;
+    border-color: #96640e;
+  }
+  a.button.button-outline {
+    color: #00aff0;
+  }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus {
+    border-color: #96640e;
+  }
+  
+  .search-text-field > form {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 20em;
+    border: 1px solid #96640e;
+  }
+  
+  .search-text-field > form textarea {
+    color: white;
+  }
+  
+  .search-text-field > form .error {
+    font-weight: bold;
+    color: #ff3333;
+  }
+  
+  .search-text-field > form input {
+    background-color: white;
+  }
+  
+  .myNav{
+    gap:1px;
+    width: 100%;
+  }
+  
+  input{
+    color: white;
+  }
+  
+  #notification_popup, #configuration_popup {
+    margin:2em;
+    padding:2em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #353535;
+    width: 40%;
+    max-width: 80%;
+  }
+  
+  button.fa-cog {
+    padding:0em;
+    border:0em;
+  }
+  
+  .toggle {
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .toggle-switch {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 16px;
+    width: 58px;
+    height: 32px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+  }
+  .toggle-switch:before, .toggle-switch:after {
+    content: "";
+  }
+  .toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: left 0.25s;
+  }
+  .toggle:hover .toggle-switch:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  }
+  .toggle-checkbox:checked + .toggle-switch {
+    background: #00aff0;
+  }
+  .toggle-checkbox:checked + .toggle-switch:before {
+    left: 30px;
+  }
+  
+  .toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+  }
+  
+  .toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+    font-size: larger;
+    color: aliceblue;
+  }
+  
+  #configurationForm {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-count: 2;
+    column-gap: 40px;
+  }
+  
+  .column-notif {
+    width: 50%;
+  }
+  
+  .row-notif {
+    display: flex;
+  }
+  
+  .left-nav-button {
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important; 
+  }
+  
+  .right-nav-button {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important; 
+  }
+  
+  .feed-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .myDropdown{
+    background-color: #353535;
+    width: 12em;
+    height: auto;
+    font-size: medium;
+  }
+  
+  .myDropdown .dropdown-item{
+    color: white;
+  }
+  
+  .myDropdown .dropdown-item:hover{
+    color:#1a1d1e;
+  }
+  
+  /*# like button */
+  .button-post-comment, .button-post-comment:focus, .profile-follow-card-button, .profile-follow-card-button:focus {
+    background-color:transparent;
+    border-color: transparent;
+    border-radius: 10px;
+    color:#ffffff
+  }
+  
+  .button-post-comment:hover, .profile-follow-card-button:hover {
+    border-color: transparent;
+    background-color: rgb(77, 77, 77);
+    border-radius: 10px;
+  }
+  
+  @media only screen and (max-width: 750px) {
+    .button-post-comment, .button-post-comment:focus, .profile-follow-card-button, .profile-follow-card-button:focus {
+        max-width: 20%;
+        text-align: left;
+    }
+    
+    .button-post-comment:hover, .profile-follow-card-button:hover {
+       max-width: 20%;
+       text-align: left;
+    }
+  }
+  
+  
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #00aff0;
+  }
+  
+  /* confirmation modal */
+  
+  .confirmation-text {
+    padding: 1%;
+  }
+  
+  .button-confirmation-no, .button-confirmation-no:focus, .button-confirmation-yes, .button-confirmation-yes:focus {
+    background-color:transparent;
+    border-color: transparent;
+    border-radius: 10px;
+    color:#ffffff
+  }
+  
+  .button-confirmation-no:hover {
+    border-color: transparent;
+    background-color: rgb(77, 77, 77);
+    border-radius: 10px;
+  }
+  
+  .button-confirmation-yes:hover {
+    border-color: transparent;
+    background-color: #ff7676;
+    border-radius: 10px;
+  }
+  
+  /* changing font size */
+  
+  
+   /* small devices */
+   @media only screen and (max-width: 600px) {
+    h1              { font-size: 1.5em;}
+    h2              { font-size: 1.17em;}
+    h3              { font-size: 0.83em;}
+    h4              { font-size: 0.83em;}
+    h5              { font-size: 0.70em;}
+    h6              { font-size: .5em;}
+    button          { font-size: .75em; padding-left: 0.7em; padding-right: 0.7em;}
+    a               {font-size: 1.03em;}
+    .profile-follow-card-button, .group-interaction-button {min-width: 4em; overflow-x: hidden;}
+    input {
+      overflow-x: hidden;
+    }
+   }
+  
+   /* Medium devices */
+   @media only screen and (min-width: 600px) and (max-width: 819px) {
+    h1              { font-size: 1.7em;}
+    h2              { font-size: 1.27em;}
+    h3              { font-size: 1.10em;}
+    h4              { font-size: 0.98em;}
+    h5              { font-size: 0.88em;}
+    h6              { font-size: 0.75em;}
+    button          { font-size: 0.95em; padding-left: 0.7em; padding-right: 0.7em;}
+    a               {font-size: 1.27em;}
+    .profile-follow-card-button, .group-interaction-button {min-width: 7em; overflow-x: hidden;}
+    input {
+      overflow-x: hidden;
+    }
+   }
+   
+   /* Medium-large devices */
+   @media only screen and (min-width: 820px) and (max-width: 992px) {
+    h1              { font-size: 2em;}
+    h2              { font-size: 1.5em;}
+    h3              { font-size: 1.17em;}
+    h4              { font-size: 1.13em;}
+    h5              { font-size: .83em;}
+    h6              { font-size: .75em;}
+    h7              {font-size: 0.5em;}
+    button          { font-size: .75em;}
+   }
+   
+  .no_results {
+    margin-top: 3%;
+    text-align: center;
+  }  

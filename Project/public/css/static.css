@@ -1,1 +1,94 @@
-.aboutus-admin-list,.aboutus-content,.aboutus-title,.help-card,.help-contacts,.main-features-content,.main-features-title{background-color:#353535;padding:3%;border-radius:10px;margin-bottom:3%}.aboutus-content h2,.help-card h1{margin-bottom:2%}.aboutus-content p,.main-features-content li{color:#fff}.aboutus-admin-list{margin-bottom:0;display:flex;flex-direction:column;gap:1em}.aboutus-admin-card,.help-admin-contact{background-color:#707070;border-radius:10px;padding:1.5em;display:flex;justify-content:flex-start;gap:1.5em;align-items:center}.help-contacts{margin-bottom:0}.aboutus-profile-pic{width:10em;height:fit-content;border-radius:50%}.faq-questions{display:flex;flex-direction:column;gap:1em}.question{padding:1%;border:2px solid #7a7979;border-radius:10px}.question p{color:#fff;font-size:1.25em;margin:1em 0 0}.aboutus-admin-info,.question{display:block}.aboutus-username,.help-admin-info{color:#00aff0}.aboutus-username:hover,.help-admin-info:hover{color:#00569c}.help-contacts li{font-size:.65em}#contacts-title{margin-bottom:.5em}.feature-card{background-color:#4e4e4e;padding:3%;border-radius:10px;margin-bottom:3%}
+.aboutus-title, .aboutus-content, .aboutus-admin-list, .help-card, .help-contacts, .main-features-title, .main-features-content {
+    background-color: #353535;
+    padding: 3%;
+    border-radius: 10px;
+    margin-bottom: 3%;
+}
+
+.aboutus-content h2 {
+    margin-bottom: 2%;
+}
+
+.aboutus-content p {
+    color: #ffffff;
+}
+
+.help-card h1{
+    margin-bottom: 2%;
+}
+
+.aboutus-admin-list{
+    margin-bottom: 0%;
+    display: flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.aboutus-admin-card, .help-admin-contact{
+    background-color: #707070;
+    border-radius: 10px;
+    padding: 1.5em;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5em;
+    align-items: center;
+}
+
+.help-contacts{
+    margin-bottom: 0;
+}
+
+.aboutus-profile-pic{
+    width: 10em;
+    height: fit-content;
+    border-radius:50%;
+}
+
+.faq-questions{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.question{
+    padding: 1%;
+    border: 2px solid #7a7979;
+    border-radius: 10px;
+}
+
+.question p {
+    color: white;
+    font-size: 1.25em;
+    margin: 1em 0 0 0;
+}
+
+.aboutus-admin-info, .question{
+    display: block;
+}
+
+.aboutus-username, .help-admin-info{
+    color: #00aff0;
+}
+
+.aboutus-username:hover, .help-admin-info:hover{
+    color:#00569c;
+}
+
+.help-contacts li{
+    font-size: 0.65em;
+}
+
+#contacts-title{
+    margin-bottom: 0.5em;
+}
+
+.main-features-content li{
+    color: white;
+}
+
+.feature-card {
+    background-color: #4e4e4e;
+    padding: 3%;
+    border-radius: 10px;
+    margin-bottom: 3%;
+}

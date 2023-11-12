@@ -1,1 +1,11 @@
-.comment,.subcomment{margin:1em 1em 1em 3em}.comment{background-color:#626161}.subcomment{background-color:#424040}
+.comment {
+    margin: 1em;
+    margin-left: 3em;
+    background-color: rgb(98, 97, 97);
+}
+
+.subcomment {
+    margin: 1em;
+    margin-left: 3em;
+    background-color: rgb(66, 64, 64);
+}
